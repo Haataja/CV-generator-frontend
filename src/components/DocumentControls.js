@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-class UserData extends Component {
+export class DocumentControls extends Component {
   render() {
     return null;
   }
 }
-
-export default UserData;
