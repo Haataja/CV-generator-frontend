@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 
-import Container from 'react-bootstrap/Container';
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Ribbon from "./Ribbon";
+import { Container, Col, Row } from 'react-bootstrap';
+
+import Ribbon from './Ribbon';
 
 import './App.css';
-
 
 class App extends Component {
   render() {
