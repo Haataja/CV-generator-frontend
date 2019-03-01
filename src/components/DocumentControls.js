@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
+import './DocumentControls.css';
+
 export default class DocumentControls extends Component {
   render() {
     return (
