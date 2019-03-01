@@ -18,7 +18,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Document/>
+            <Document />
           </Col>
         </Row>
       </Container>
