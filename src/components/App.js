@@ -12,7 +12,7 @@ class App extends Component {
       <Container fluid={true}>
         <Row>
           <Col xs={12}>
-            <Ribbon/>
+            <Ribbon />
           </Col>
         </Row>
       </Container>
