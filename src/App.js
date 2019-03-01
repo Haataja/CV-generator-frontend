@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 import './App.css';
 
 class App extends Component {
