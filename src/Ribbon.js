@@ -7,8 +7,6 @@ import './Ribbon.css'
 class Ribbon extends Component {
     constructor(props) {
         super(props);
-
-        this.data = this.props.data;
     }
 
     render() {
@@ -16,7 +14,7 @@ class Ribbon extends Component {
 
         <div>
             <ButtonToolbar/>
-                <Button variant="primary">Document</Button>
+                <Button variant="primary" className="menu_button">Document</Button>
             <ButtonToolbar/>
         </div>
 
