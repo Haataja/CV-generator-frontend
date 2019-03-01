@@ -7,7 +7,11 @@ class DocumentControls extends Component {
     this.document = props.document;
   }
   render() {
-    return "testi";
+    return (
+      <div id="controls">
+        
+      </div>
+    );
   }
 }
 
