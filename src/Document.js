@@ -16,7 +16,21 @@ class Document extends Component {
     return <Container fluid={true}>
       <Row>
         <Col xs={9} id="page">
-          
+          <Container>
+            <div id="header">
+              <Row>
+                <Col xs={6}>
+                  Header
+                </Col>
+              </Row>
+            </div>
+            <div id="content">
+
+            </div>
+            <div id="footer">
+
+            </div>
+          </Container>
         </Col>
         <Col xs={3}>
           <DocumentControls document={this} />
