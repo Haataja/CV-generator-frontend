@@ -5,6 +5,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import DocumentControls from "./DocumentControls";
 
+import './Document.css';
+
 export class Document extends Component {
   render() {
     return (
