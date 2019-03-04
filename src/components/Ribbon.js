@@ -9,6 +9,8 @@ import british_flag from './images/british_placeholder.png'
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 
+import './Ribbon.css'
+
 export class Ribbon extends Component {
   constructor(props) {
     super(props);
