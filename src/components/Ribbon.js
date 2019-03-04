@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from "react-bootstrap/Nav";
+import NavBar from 'react-bootstrap/Navbar';
 import NavDropdown from "react-bootstrap/NavDropdown";
+import NavbarBrand from "react-bootstrap/NavbarBrand";
+import finnish_flag from './images/finnish_placeholder.png'
+import british_flag from './images/british_placeholder.png'
+import NavbarCollapse from "react-bootstrap/NavbarCollapse";
+import NavbarToggle from "react-bootstrap/NavbarToggle";
 
 export class Ribbon extends Component {
   constructor(props) {
@@ -17,15 +23,39 @@ export class Ribbon extends Component {
   render() {
     return (
       <div id="ribbon">
-        <Nav variant='pills' onSelect={this.handleSelect}>
-          <NavDropdown title='Document'>
-            <NavDropdown.Item eventKey='1'>Edit CV</NavDropdown.Item>
-            <NavDropdown.Item eventKey='2'>Print CV</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Item>
-            <Nav.Link eventKey='3'>Timeline</Nav.Link>
-          </Nav.Item>
-        </Nav>
+        <NavBar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <NavbarBrand>CV-generator</NavbarBrand>
+          <NavbarToggle aria-controls="responsive-navbar-nav"/>
+          <NavbarCollapse>
+            <Nav className="mr-auto" onSelect={this.handleSelect}>
+              <NavDropdown title='Document'>
+                <NavDropdown.Item eventKey='1'>Edit CV</NavDropdown.Item>
+                <NavDropdown.Item eventKey='2'>Print CV</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
+                <Nav.Link eventKey='3'>Timeline</Nav.Link>
+              </Nav.Item>
+            </Nav>
+
+            <Nav>
+
+              <Nav.Item>
+                <Nav.Link eventKey='4'>
+                  <img src={british_flag} width={50} height={30} alt="Logo English" />
+                  English
+                </Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link eventKey='5'>
+                  <img src={finnish_flag} width={50} height={30} alt="Logo Finnish" />
+                  Finnish
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+
+          </NavbarCollapse>
+        </NavBar>
       </div>
     );
   }
