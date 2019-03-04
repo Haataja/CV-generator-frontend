@@ -10,6 +10,7 @@ import './Document.css';
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/es/FormControl";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 export class Document extends Component {
   render() {
@@ -74,6 +75,13 @@ export class Document extends Component {
                   <Col xs={11}>
                     <Button variant="primary" block>Add Biography...</Button>
                   </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
+                  </Col>
                 </Row>
                 <Row>
                   <Col xs={5} className="align-self-center title">
@@ -81,6 +89,13 @@ export class Document extends Component {
                   </Col>
                   <Col xs={6}>
                     <Button variant="primary" block>Add Abilities or Hobbies...</Button>
+                  </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
                   </Col>
                 </Row>
                 <Row>
@@ -90,6 +105,13 @@ export class Document extends Component {
                   <Col xs={6}>
                     <Button variant="primary" block>Add Experiences...</Button>
                   </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
+                  </Col>
                 </Row>
                 <Row>
                   <Col xs={5} className="align-self-center title">
@@ -97,6 +119,13 @@ export class Document extends Component {
                   </Col>
                   <Col xs={6}>
                     <Button variant="primary" block>Add Courses or Educations...</Button>
+                  </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
                   </Col>
                 </Row>
                 <Row>
@@ -106,6 +135,13 @@ export class Document extends Component {
                   <Col xs={6}>
                     <Button variant="primary" block>Add Achievements or Projects...</Button>
                   </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
+                  </Col>
                 </Row>
                 <Row>
                   <Col xs={5} className="align-self-center title">
@@ -113,6 +149,13 @@ export class Document extends Component {
                   </Col>
                   <Col xs={6}>
                     <Button variant="primary" block>Add Titles or Degrees...</Button>
+                  </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
                   </Col>
                 </Row>
                 <Row>
@@ -122,6 +165,13 @@ export class Document extends Component {
                   <Col xs={6}>
                     <Button variant="primary" block>Add Licence...</Button>
                   </Col>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
+                  </Col>
                 </Row>
                 <Row>
                   <Col xs={5} className="align-self-center title">
@@ -130,8 +180,12 @@ export class Document extends Component {
                   <Col xs={6}>
                     <Button variant="primary" block>Add References...</Button>
                   </Col>
-                  <Col xs={1}>
-                    <span class="fa-times"></span>
+                  <Col xs={1} className="align-self-center item-controls">
+                    <ButtonGroup size="sm" aria-label="Item controls">
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                    </ButtonGroup>
                   </Col>
                 </Row>
               </div>
