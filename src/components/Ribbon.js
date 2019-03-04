@@ -57,7 +57,7 @@ export class Ribbon extends Component {
               </Nav.Item>
             </Nav>
 
-            <Nav>
+            <Nav onSelect={this.handleSelect}>
 
               <Nav.Item>
                 <Nav.Link eventKey='4'>
