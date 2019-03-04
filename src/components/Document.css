@@ -1,8 +1,34 @@
-#document {
+#editor {
     background-color: aliceblue;
 }
 
 #page {
+    border-radius: 3pt;
     background-color: white;
+    box-shadow: 1px 1px 10px 2px grey;
+    border: 1px solid grey;
     margin-top: 2em;
+    padding: 2em;
+}
+
+#header {
+    height: 15%;
+    margin-bottom: 4em;
+}
+
+#content {
+    height: 70%;
+}
+
+#content .row {
+    margin-bottom: 1.5em;
+}
+
+#footer {
+    overflow: hidden;
+    height: 10%;
+}
+
+.title {
+    font-weight: bold;
 }
