@@ -19,6 +19,24 @@ export class Ribbon extends Component {
   }
 
   handleSelect(eventKey) {
+    switch (eventKey) {
+      case '1':
+        console.log('Edit CV');
+        break;
+      case '2':
+        console.log('Print CV');
+        break;
+      case '3':
+        console.log('Timeline');
+        break;
+      case '4':
+        console.log('Language to English');
+        break;
+      case '5':
+        console.log('Language to Finnish');
+        break;
+
+    }
     console.log(eventKey);
   }
 
