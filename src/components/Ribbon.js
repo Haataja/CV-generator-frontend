@@ -43,7 +43,7 @@ export class Ribbon extends Component {
   render() {
     return (
       <div id="ribbon">
-        <NavBar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <NavBar collapseOnSelect expand="md" bg="dark" variant="dark">
           <NavbarBrand className="brand-cv-generator">CV-generator</NavbarBrand>
           <NavbarToggle aria-controls="responsive-navbar-nav"/>
           <NavbarCollapse>
