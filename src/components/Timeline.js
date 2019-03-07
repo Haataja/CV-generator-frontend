@@ -29,11 +29,11 @@ export class Timeline extends Component {
           <Col>
             <Button onClick={this.buttonClick}>Show work</Button>
           </Col>
-          <Col onClick={this.buttonClick} className="button-col">
-            <Button>Show education</Button>
+          <Col className="button-col">
+            <Button onClick={this.buttonClick}>Show education</Button>
           </Col>
-          <Col onClick={this.buttonClick} className="button-col">
-            <Button>Show projects</Button>
+          <Col className="button-col">
+            <Button onClick={this.buttonClick}>Show projects</Button>
           </Col>
         </Container>
       </div>
