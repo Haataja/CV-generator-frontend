@@ -5,6 +5,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import Ribbon from './Ribbon';
 
 import './App.css';
+import {Timeline} from "./Timeline";
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
       <Container fluid={true}>
         <Row>
           <Col xs={12}>
-            <Ribbon />
+            <Timeline/>
           </Col>
         </Row>
       </Container>
