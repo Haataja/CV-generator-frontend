@@ -2,6 +2,9 @@ const DEFAULT_STATE = {
   // Default component state
 };
 
-export default function reducer(state = DEFAULT_STATE, action) {
+export default (state = DEFAULT_STATE, action) => {
+  switch (action.type) {
+    // Actions
+  }
   return state;
 }
