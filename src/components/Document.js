@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-export class Document extends Component {
+import * as actions from "../actions/DocumentActions";
+
+class Document extends Component {
   render() {
     return null;
   }

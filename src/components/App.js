@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import { Container, Col, Row } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Container, Col, Row} from 'react-bootstrap';
 
 import Ribbon from './Ribbon';
 
@@ -14,6 +13,11 @@ class App extends Component {
         <Row>
           <Col xs={12}>
             <Timeline/>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <!-- Document or timeline view -->
           </Col>
         </Row>
       </Container>
