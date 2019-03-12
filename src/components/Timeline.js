@@ -10,7 +10,7 @@ export class Timeline extends Component {
   constructor(props) {
     super(props);
 
-    this.buttonClick.bind(this);
+    this.buttonClick = this.buttonClick.bind(this);
   }
   buttonClick(event) {
     let textContent = event.target.textContent;
