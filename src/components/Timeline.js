@@ -26,15 +26,15 @@ export class Timeline extends Component {
     return (
       <div id="background">
         <Container id="page">
-          <Col>
+          <Row xs={12}>
             <Button onClick={this.buttonClick}>Show work</Button>
-          </Col>
-          <Col className="button-col">
+          </Row>
+          <Row xs={12} className="button-col">
             <Button onClick={this.buttonClick}>Show education</Button>
-          </Col>
-          <Col className="button-col">
+          </Row>
+          <Row xs={12} className="button-col">
             <Button onClick={this.buttonClick}>Show projects</Button>
-          </Col>
+          </Row>
         </Container>
       </div>
     );
