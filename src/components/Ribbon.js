@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-export class Ribbon extends Component {
+class Ribbon extends Component {
   render() {
     return null;
   }
