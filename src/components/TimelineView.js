@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 
 import * as actions from "../actions/TimelineActions";
 
-class Timeline extends Component {
+class TimelineView extends Component {
   render() {
     return null;
   }
 }
 
-export default connect(data => data.Timeline)(Timeline);
+export default connect(data => data.Timeline)(TimelineView);
