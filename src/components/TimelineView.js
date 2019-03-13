@@ -69,12 +69,12 @@ export class TimelineView extends Component {
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showEducation" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show education</Button>
+              <Button id="showEducation" variant={this.props.SHOW_EDUCATION?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_EDUCATION?"Show education":"Hide education"}</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showProjects" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show projects</Button>
+              <Button id="showProjects" variant={this.props.SHOW_PROJECTS?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_PROJECTS?"Show projects":"Hide projects"}</Button>
             </Col>
           </Row>
           <Row>
