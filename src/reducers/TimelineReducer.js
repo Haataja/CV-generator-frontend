@@ -1,5 +1,7 @@
 const DEFAULT_STATE = {
-  SHOW_WORK: true
+  SHOW_WORK: true,
+  SHOW_EDUCATION: true,
+  SHOW_PROJECTS: true
 };
 
 export default function reducer(state = DEFAULT_STATE, action) {
