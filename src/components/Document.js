@@ -77,9 +77,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -92,9 +92,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -107,9 +107,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -122,9 +122,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -137,9 +137,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -152,9 +152,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -167,9 +167,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -182,9 +182,9 @@ export class Document extends Component {
                   </Col>
                   <Col xs={1} className="align-self-center item-controls">
                     <ButtonGroup size="sm" aria-label="Item controls">
-                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"></Button>
-                      <Button className="fa fa-times" variant="secondary" disabled size="sm"></Button>
+                      <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
+                      <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
                     </ButtonGroup>
                   </Col>
                 </Row>
