@@ -64,7 +64,7 @@ export class TimelineView extends Component {
         <Container id="page">
           <Row>
             <Col xs={12}>
-              <Button id="showWork" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show work</Button>
+              <Button id="showWork" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_WORK?"Show work": "Hide work"}</Button>
             </Col>
           </Row>
           <Row>
