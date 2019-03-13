@@ -15,6 +15,7 @@ export class TimelineView extends Component {
 
     this.updateView = this.updateView.bind(this);
     this.getTimelineItems = this.getTimelineItems.bind(this);
+    this.getTimelineOptions = this.getTimelineOptions.bind(this);
   }
   updateView(value) {
     return event => this.props.dispatch(actions[event.target.id](!value));
@@ -24,24 +25,24 @@ export class TimelineView extends Component {
       {
         start: new Date(2010, 7, 15),
         end: new Date(2016, 8, 2),  // end is optional
-        content: 'Trajectory A',
+        content: 'Trajectory A'
       },
       {
         start: new Date(2010, 4, 11),
         end: new Date(2012, 3, 2),  // end is optional
-        content: 'Trajectory B',
+        content: 'Trajectory B'
       },
       {
         start: new Date(2009, 7, 15),
         end: new Date(2010, 8, 2),  // end is optional
-        content: 'Trajectory C',
+        content: 'Trajectory C'
       }
     ];
   }
   getTimelineOptions() {
     return {
       width: '100%',
-      height: '350px',
+      height: '300pt',
       stack: false,
       showMajorLabels: true,
       showCurrentTime: true,
@@ -49,8 +50,7 @@ export class TimelineView extends Component {
       type: 'background',
       format: {
         minorLabels: {
-          minute: 'h:mma',
-          hour: 'ha'
+          hour: false
         }
       }
     };
