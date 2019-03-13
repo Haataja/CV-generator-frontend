@@ -19,7 +19,6 @@ export class TimelineView extends Component {
   buttonClick(event) {
     switch (event.target.id) {
       case "showWork": {
-
         break;
       }
       case "showEducation": {
@@ -31,7 +30,6 @@ export class TimelineView extends Component {
         break;
       }
     }
-
   }
   getTimelineItems() {
     return [
@@ -65,17 +63,17 @@ export class TimelineView extends Component {
         <Container id="page">
           <Row>
             <Col xs={12}>
-              <Button id="showWork" onClick={this.buttonClick}>Show work</Button>
+              <Button id="showWork" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show work</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showEducation" onClick={this.buttonClick}>Show education</Button>
+              <Button id="showEducation" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show education</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showProjects" onClick={this.buttonClick}>Show projects</Button>
+              <Button id="showProjects" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>Show projects</Button>
             </Col>
           </Row>
           <Row>
