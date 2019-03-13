@@ -35,16 +35,20 @@ export class TimelineView extends Component {
   getTimelineItems() {
     return [
       {
+        id:1,
         start: new Date(2010, 7, 15),
         end: new Date(2016, 8, 2),  // end is optional
         content: 'Trajectory A',
       },
       {
+        id: 2,
         start: new Date(2010, 4, 11),
         end: new Date(2012, 3, 2),  // end is optional
         content: 'Trajectory B',
+        className: "timeline-group-work",
       },
       {
+        id: 3,
         start: new Date(2009, 7, 15),
         end: new Date(2010, 8, 2),  // end is optional
         content: 'Trajectory C',
@@ -75,8 +79,7 @@ export class TimelineView extends Component {
           <Row>
             <Col xs={12}>
               <Button id="showWork" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_WORK?"Show work": "Hide work"}</Button>
-            </Col>
-          </Row>
+            </Col></Row>
           <Row>
             <Col xs={12} className="button-col">
               <Button id="showEducation" variant={this.props.SHOW_EDUCATION?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_EDUCATION?"Show education":"Hide education"}</Button>

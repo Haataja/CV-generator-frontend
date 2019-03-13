@@ -16,4 +16,8 @@
 .button-col {
     margin-top: 2em;
 }
+#timeline .timeline-group-work {
+    background-color: rgba(0,255,0, 0.1);
+}
+
 
