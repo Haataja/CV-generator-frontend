@@ -1,6 +1,6 @@
-export function actionExample(value) {
+export function setLanguage(value) {
   return {
-    type: 'EXAMPLE_ACTION',
+    type: 'LANGUAGE',
     payload: value
   };
 }
