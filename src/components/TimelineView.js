@@ -36,8 +36,18 @@ export class TimelineView extends Component {
     return [
       {
         start: new Date(2010, 7, 15),
-        end: new Date(2010, 8, 2),  // end is optional
+        end: new Date(2016, 8, 2),  // end is optional
         content: 'Trajectory A',
+      },
+      {
+        start: new Date(2010, 4, 11),
+        end: new Date(2012, 3, 2),  // end is optional
+        content: 'Trajectory B',
+      },
+      {
+        start: new Date(2009, 7, 15),
+        end: new Date(2010, 8, 2),  // end is optional
+        content: 'Trajectory C',
       }
     ];
   }
