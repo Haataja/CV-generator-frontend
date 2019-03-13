@@ -17,13 +17,21 @@ export class TimelineView extends Component {
     this.getTimelineItems = this.getTimelineItems.bind(this);
   }
   buttonClick(event) {
-    let textContent = event.target.textContent;
+    switch (event.target.id) {
+      case "showWork": {
 
-    if(textContent.search("Show") === 0) {
-      event.target.textContent = event.target.textContent.replace('Show', 'Hide');
-    } else {
-      event.target.textContent = event.target.textContent = event.target.textContent.replace('Hide','Show');
+        break;
+      }
+      case "showEducation": {
+
+        break;
+      }
+      case "showProjects": {
+
+        break;
+      }
     }
+
   }
   getTimelineItems() {
     return [
@@ -57,17 +65,17 @@ export class TimelineView extends Component {
         <Container id="page">
           <Row>
             <Col xs={12}>
-              <Button onClick={this.buttonClick}>Show work</Button>
+              <Button id="showWork" onClick={this.buttonClick}>Show work</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button onClick={this.buttonClick}>Show education</Button>
+              <Button id="showEducation" onClick={this.buttonClick}>Show education</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button onClick={this.buttonClick}>Show projects</Button>
+              <Button id="showProjects" onClick={this.buttonClick}>Show projects</Button>
             </Col>
           </Row>
           <Row>
