@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-export class Timeline extends Component {
+import * as actions from "../actions/TimelineActions";
+
+class Timeline extends Component {
   render() {
     return null;
   }
