@@ -8,6 +8,7 @@ import finnish_flag from './images/finnish_placeholder.png'
 import british_flag from './images/british_placeholder.png'
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
+import * as actions from '../actions/RibbonActions'
 
 import './Ribbon.css'
 
@@ -31,9 +32,11 @@ export class Ribbon extends Component {
         break;
       case '4':
         console.log('Language to English');
+        this.props.dispatch(actions.setLanguage('english'));
         break;
       case '5':
         console.log('Language to Finnish');
+        this.props.dispatch(actions.setLanguage('finnish'));
         break;
 
     }
