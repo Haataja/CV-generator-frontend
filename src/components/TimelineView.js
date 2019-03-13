@@ -23,10 +23,11 @@ export class TimelineView extends Component {
         break;
       }
       case "showEducation": {
+        this.props.dispatch(actions.showEducation(!this.props.SHOW_EDUCATION));
         break;
       }
       case "showProjects": {
-
+        this.props.dispatch(actions.showProjects(!this.props.SHOW_PROJECTS));
         break;
       }
     }
