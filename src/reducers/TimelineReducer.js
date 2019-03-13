@@ -1,10 +1,12 @@
 const DEFAULT_STATE = {
-  // Default component state
+  SHOW_WORK: true
 };
 
-export default (state = DEFAULT_STATE, action) => {
+export default function reducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
-    // Actions
+    case 'SHOW_WORK':
+      state = {...state, SHOW_WORK: action.payload};
+      break;
   }
   return state;
 }

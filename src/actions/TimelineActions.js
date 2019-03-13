@@ -1,6 +1,6 @@
-export function timelineActionExample(value) {
+export function showWork(value) {
   return {
-    type: 'EXAMPLE_ACTION',
+    type: 'SHOW_WORK',
     payload: value
   };
 }
