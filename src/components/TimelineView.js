@@ -56,22 +56,37 @@ export class TimelineView extends Component {
     };
   }
   render() {
+    const propertyWork = {
+      text: this.props.SHOW_WORK ? "Show work" : "Hide work",
+      variant: this.props.SHOW_WORK ? "info" : "secondary"
+    };
+
+    const propertyEducation = {
+      text: this.props.SHOW_EDUCATION ? "Show education" : "Hide education",
+      variant: this.props.SHOW_EDUCATION ? "info" : "secondary"
+    };
+
+    const propertyProjects = {
+      text: this.props.SHOW_PROJECTS ? "Show projects" : "Hide projects",
+      variant: this.props.SHOW_PROJECTS ? "info" : "secondary"
+    };
+
     return (
       <div id="background">
         <Container id="page">
           <Row>
             <Col xs={12}>
-              <Button id="showWork" variant={this.props.SHOW_WORK?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_WORK?"Show work": "Hide work"}</Button>
+              <Button id="showWork" variant={propertyWork.variant} onClick={this.updateView(this.props.SHOW_WORK)}>{propertyWork.text}</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showEducation" variant={this.props.SHOW_EDUCATION?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_EDUCATION?"Show education":"Hide education"}</Button>
+              <Button id="showEducation" variant={propertyEducation.variant} onClick={this.updateView(this.props.SHOW_EDUCATION)}>{propertyEducation.text}</Button>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="button-col">
-              <Button id="showProjects" variant={this.props.SHOW_PROJECTS?"info":"secondary"} onClick={this.buttonClick}>{this.props.SHOW_PROJECTS?"Show projects":"Hide projects"}</Button>
+              <Button id="showProjects" variant={propertyProjects.variant} onClick={this.updateView(this.props.SHOW_PROJECTS)}>{propertyProjects.text}</Button>
             </Col>
           </Row>
           <Row>
