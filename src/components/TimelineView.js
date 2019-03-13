@@ -13,24 +13,11 @@ export class TimelineView extends Component {
   constructor(props) {
     super(props);
 
-    this.buttonClick = this.buttonClick.bind(this);
+    this.updateView = this.updateView.bind(this);
     this.getTimelineItems = this.getTimelineItems.bind(this);
   }
-  buttonClick(event) {
-    switch (event.target.id) {
-      case "showWork": {
-        this.props.dispatch(actions.showWork(!this.props.SHOW_WORK));
-        break;
-      }
-      case "showEducation": {
-        this.props.dispatch(actions.showEducation(!this.props.SHOW_EDUCATION));
-        break;
-      }
-      case "showProjects": {
-        this.props.dispatch(actions.showProjects(!this.props.SHOW_PROJECTS));
-        break;
-      }
-    }
+  updateView(value) {
+    return event => this.props.dispatch(actions[event.target.id](!value));
   }
   getTimelineItems() {
     return [
