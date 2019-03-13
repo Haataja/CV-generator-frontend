@@ -19,11 +19,10 @@ export class TimelineView extends Component {
   buttonClick(event) {
     switch (event.target.id) {
       case "showWork": {
-        this.props.dispatch(actions.showWork(true));
+        this.props.dispatch(actions.showWork(!this.props.SHOW_WORK));
         break;
       }
       case "showEducation": {
-
         break;
       }
       case "showProjects": {
