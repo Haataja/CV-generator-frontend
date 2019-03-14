@@ -16,7 +16,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <!-- Document or timeline view -->
+
           </Col>
         </Row>
       </Container>

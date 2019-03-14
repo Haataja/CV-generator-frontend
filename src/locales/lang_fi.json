@@ -1,0 +1,14 @@
+{
+  "global_language_id": "fi",
+  "global_language": "Suomi",
+
+  "ribbon_item_editor": "Muokkausnäkymä",
+  "ribbon_item_timeline": "Aikajananäkynä",
+
+  "timeline_setting_show_work": "Näytä työtiedot",
+  "timeline_setting_hide_work": "Piilota työtiedot",
+  "timeline_setting_show_education": "Näytä koulutukset",
+  "timeline_setting_hide_education": "Piilota koulutukset",
+  "timeline_setting_show_projects": "Näytä projektit",
+  "timeline_setting_hide_projects": "Piilota projektit"
+}
