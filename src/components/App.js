@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import { Container, Col, Row } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Container, Col, Row} from 'react-bootstrap';
 
 import Ribbon from './Ribbon';
 
@@ -13,6 +12,11 @@ class App extends Component {
         <Row>
           <Col xs={12}>
             <Ribbon />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+
           </Col>
         </Row>
       </Container>

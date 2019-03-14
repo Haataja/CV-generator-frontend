@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-export class DocumentControls extends Component {
+export default class DocumentControls extends Component {
   render() {
     return null;
   }

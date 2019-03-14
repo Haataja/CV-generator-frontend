@@ -1,0 +1,14 @@
+{
+  "global_language_id": "en",
+  "global_language": "English",
+
+  "ribbon_item_editor": "Editor",
+  "ribbon_item_timeline": "Timeline",
+
+  "timeline_setting_show_work": "Show work",
+  "timeline_setting_hide_work": "Hide work",
+  "timeline_setting_show_education": "Show education",
+  "timeline_setting_hide_education": "Hide education",
+  "timeline_setting_show_projects": "Show projects",
+  "timeline_setting_hide_projects": "Hide projects"
+}

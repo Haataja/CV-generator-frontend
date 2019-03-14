@@ -1,4 +1,4 @@
-export function actionExample(value) {
+export function documentActionExample(value) {
   return {
     type: 'EXAMPLE_ACTION',
     payload: value
