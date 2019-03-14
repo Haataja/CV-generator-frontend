@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Nav from "react-bootstrap/Nav";
-import NavBar from 'react-bootstrap/Navbar';
-import NavDropdown from "react-bootstrap/NavDropdown";
-import NavbarBrand from "react-bootstrap/NavbarBrand";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import {Nav, NavBar, NavDropdown, NavbarBrand, NavbarCollapse, NavbarToggle} from "react-bootstrap";
+
 import finnish_flag from './images/finnish_placeholder.png'
 import british_flag from './images/british_placeholder.png'
-import NavbarCollapse from "react-bootstrap/NavbarCollapse";
-import NavbarToggle from "react-bootstrap/NavbarToggle";
+
 import * as actions from '../actions/RibbonActions'
 
 import './Ribbon.css'
@@ -15,8 +13,8 @@ import './Ribbon.css'
 export class Ribbon extends Component {
   constructor(props) {
     super(props);
-    this.handleSelect = this.handleSelect.bind(this);
 
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleSelect(eventKey) {
@@ -32,11 +30,11 @@ export class Ribbon extends Component {
         break;
       case '4':
         console.log('Language to English');
-        this.props.dispatch(actions.setLanguage('english'));
+        this.props.dispatch(actions.setLanguage('en'));
         break;
       case '5':
         console.log('Language to Finnish');
-        this.props.dispatch(actions.setLanguage('finnish'));
+        this.props.dispatch(actions.setLanguage('fi'));
         break;
 
     }

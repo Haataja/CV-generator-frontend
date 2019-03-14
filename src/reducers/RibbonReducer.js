@@ -1,12 +1,11 @@
 const DEFAULT_STATE = {
-  LANGUAGE: 'english'
+  LANGUAGE: 'en'
 };
 
-export default function reducer(state = DEFAULT_STATE, action) {
+export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case 'LANGUAGE': {
-      state = {...state, LANGUAGE: action.payload};
-      break;
+      return {...state, LANGUAGE: action.payload};
     }
   }
   return state;
