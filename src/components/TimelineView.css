@@ -1,3 +1,12 @@
+/* Bootstrap */
+
+.btn-toolbar .btn {
+    margin-right: 5pt;
+    margin-bottom: 5pt;
+}
+
+/* Component */
+
 #background {
     width: 100%;
     height: 100%;
@@ -17,3 +26,6 @@
     margin-top: 2em;
 }
 
+#timeline {
+    padding: 1%;
+}
