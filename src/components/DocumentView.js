@@ -7,7 +7,7 @@ import {Button, InputGroup, FormControl, ButtonGroup} from "react-bootstrap";
 import * as actions from "../actions/DocumentActions";
 import DocumentControls from "./DocumentControls";
 
-import './Document.css';
+import './DocumentView.css';
 
 export class DocumentView extends Component {
   render() {
