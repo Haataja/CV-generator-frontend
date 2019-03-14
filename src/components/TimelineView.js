@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import {Col, Container, Row} from "react-bootstrap";
-import {Button} from "react-bootstrap";
+import {Button, ButtonToolbar} from "react-bootstrap";
 
 import Timeline from "react-visjs-timeline";
 import * as actions from "../actions/TimelineActions";
@@ -46,13 +46,11 @@ export class TimelineView extends Component {
       stack: false,
       showMajorLabels: true,
       showCurrentTime: true,
-      zoomMin: 1000000,
-      type: 'background',
-      format: {
-        minorLabels: {
-          hour: false
-        }
-      }
+      min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
+      max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
+      zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
+      zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
+      type: 'background'
     };
   }
   render() {
@@ -76,17 +74,11 @@ export class TimelineView extends Component {
         <Container id="page">
           <Row>
             <Col xs={12}>
-              <Button id="showWork" variant={propertyWork.variant} onClick={this.updateView(this.props.SHOW_WORK)}>{propertyWork.text}</Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} className="button-col">
-              <Button id="showEducation" variant={propertyEducation.variant} onClick={this.updateView(this.props.SHOW_EDUCATION)}>{propertyEducation.text}</Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} className="button-col">
-              <Button id="showProjects" variant={propertyProjects.variant} onClick={this.updateView(this.props.SHOW_PROJECTS)}>{propertyProjects.text}</Button>
+              <ButtonToolbar>
+                <Button id="showWork" variant={propertyWork.variant} onClick={this.updateView(this.props.SHOW_WORK)}>{propertyWork.text}</Button>
+                <Button id="showEducation" variant={propertyEducation.variant} onClick={this.updateView(this.props.SHOW_EDUCATION)}>{propertyEducation.text}</Button>
+                <Button id="showProjects" variant={propertyProjects.variant} onClick={this.updateView(this.props.SHOW_PROJECTS)}>{propertyProjects.text}</Button>
+              </ButtonToolbar>
             </Col>
           </Row>
           <Row>
