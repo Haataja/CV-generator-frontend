@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Nav, NavBar, NavDropdown, NavbarBrand, NavbarCollapse, NavbarToggle} from "react-bootstrap";
+import {Nav, Navbar, NavDropdown, NavbarBrand} from "react-bootstrap";
+import NavbarCollapse from "react-bootstrap/NavbarCollapse";
+import NavbarToggle from "react-bootstrap/NavbarToggle";
 
 import finnish_flag from './images/finnish_placeholder.png'
 import british_flag from './images/british_placeholder.png'
@@ -44,7 +46,7 @@ export class Ribbon extends Component {
   render() {
     return (
       <div id="ribbon">
-        <NavBar collapseOnSelect expand="md" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
           <NavbarBrand className="brand-cv-generator">CV-generator</NavbarBrand>
           <NavbarToggle aria-controls="responsive-navbar-nav"/>
           <NavbarCollapse>
@@ -76,7 +78,7 @@ export class Ribbon extends Component {
             </Nav>
 
           </NavbarCollapse>
-        </NavBar>
+        </Navbar>
       </div>
     );
   }
