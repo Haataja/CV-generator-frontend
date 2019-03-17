@@ -1,5 +1,7 @@
 const DEFAULT_STATE = {
-  // Default component state
+  SHOW_WORK: true,
+  SHOW_EDUCATION: true,
+  SHOW_PROJECTS: true
 };
 
 export default (state = DEFAULT_STATE, action) => {
