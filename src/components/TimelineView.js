@@ -107,7 +107,7 @@ export class TimelineView extends Component {
           </Row>
           <Row>
             <Col xs={12} id="timeline">
-              <Timeline items={this.getTimelineItems()} options={this.getTimelineOptions()}/>
+              <Timeline items={this.getTimelineItems()} options={this.getTimelineOptions()} groups={this.getTimeLineGroups()}/>
             </Col>
           </Row>
         </Container>
