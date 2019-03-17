@@ -1,6 +1,13 @@
-export function documentActionExample(value) {
+export function updateDialog(type) {
   return {
-    type: 'EXAMPLE_ACTION',
-    payload: value
+    type: 'EDITOR_DIALOG',
+    payload: type
+  };
+}
+
+export function saveData(data) {
+  return {
+    type: 'SAVED_DATA',
+    payload: data
   };
 }
