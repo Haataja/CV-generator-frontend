@@ -9,17 +9,28 @@ import * as actions from "../actions/DocumentActions";
 import locale from '../locales';
 
 import './DocumentView.css';
+import Fade from "react-bootstrap/Fade";
+
+
+import DocumentControls from "./DocumentControls";
+
+import './DocumentControls.css';
 
 export class DocumentView extends Component {
   constructor(props) {
     super(props);
 
-    this.onShow = this.onShow.bind(this);
-    this.onHide = this.onHide.bind(this);
-    this.getTitle = this.getTitle.bind(this);
-    this.getContent = this.getContent.bind(this);
+    this.onDialogShow = this.onDialogShow.bind(this);
+    this.onDialogHide = this.onDialogHide.bind(this);
+    this.isDialogVisible = this.isDialogVisible.bind(this);
     this.onSaveChanges = this.onSaveChanges.bind(this);
-    this.isShowing = this.isShowing.bind(this);
+
+    this.onSidebarHide = this.onSidebarHide.bind(this);
+    this.onSidebarToggle = this.onSidebarToggle.bind(this);
+    this.isSidebarVisible = this.isSidebarVisible.bind(this);
+
+    this.getContent = this.getContent.bind(this);
+    this.getTitle = this.getTitle.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
@@ -31,7 +42,7 @@ export class DocumentView extends Component {
   }
 
   getTitle() {
-    if (this.isShowing()) {
+    if (this.isDialogVisible()) {
       return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_DIALOG_TITLE, this.props["EDITOR_DIALOG"]));
     }
 
@@ -39,8 +50,8 @@ export class DocumentView extends Component {
   }
 
   getContent() {
-    if (this.isShowing()) {
-      switch (this.props.EDITOR_DIALOG) {
+    if (this.isDialogVisible()) {
+      switch (this.props["EDITOR_DIALOG"]) {
         case "profile_pic": {
           return (
             <Container fluid={true}>
@@ -93,7 +104,7 @@ export class DocumentView extends Component {
     return <p>{this.getLocalizedString(locale.EDITOR_DIALOG_EMPTY)}</p>;
   }
 
-  onShow(type) {
+  onDialogShow(type) {
     // Load data based on type
     return () => this.props.dispatch(actions.updateDialog(type));
   }
@@ -101,15 +112,28 @@ export class DocumentView extends Component {
   onSaveChanges() {
     // Save changes
     this.props.dispatch(globalActions.setLanguage("fi"));
-    this.onHide();
+    this.onDialogHide();
   }
 
-  onHide() {
+  onDialogHide() {
     this.props.dispatch(actions.updateDialog(null));
   }
 
-  isShowing() {
+  isDialogVisible() {
     return typeof this.props["EDITOR_DIALOG"] === "string";
+  }
+
+  onSidebarToggle() {
+    this.props.dispatch(actions.toggleSidebar(!this.isSidebarVisible()));
+  }
+
+  onSidebarHide() {
+    this.props.dispatch(actions.toggleSidebar(null));
+  }
+
+  isSidebarVisible(setupCheck) {
+    const prop = this.props["EDITOR_SIDEBAR"];
+    return setupCheck ? prop === null || prop === undefined : prop;
   }
 
   render() {
@@ -117,7 +141,7 @@ export class DocumentView extends Component {
       <div>
         <Container fluid={true} id="editor">
           <Row>
-            <Col xs={12}>
+            <Col xs={this.isSidebarVisible(true) ? 12 : 9}>
               <Container id="page">
                 <div id="header">
                   <Row>
@@ -130,8 +154,8 @@ export class DocumentView extends Component {
                     <Col xs={4} className="title">
                       Resume
                     </Col>
-                    <Col xs={2}>
-                      Page number
+                    <Col xs={2} className="text-right">
+                      <Button variant="secondary" className="fa fa-cog" onClick={this.onSidebarToggle} />
                     </Col>
                   </Row>
                   <Row>
@@ -166,14 +190,14 @@ export class DocumentView extends Component {
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('profile_pic')}>Add Profile picture...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>Add Profile picture...</Button>
                     </Col>
                   </Row>
                 </div>
                 <div id="content">
                   <Row>
                     <Col xs={11}>
-                      <Button variant="primary" block onClick={this.onShow('bio')}>Add Biography...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('bio')}>Add Biography...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -188,7 +212,7 @@ export class DocumentView extends Component {
                       Abilities and Hobbies
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('ability')}>Add Abilities or Hobbies...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('ability')}>Add Abilities or Hobbies...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -203,7 +227,7 @@ export class DocumentView extends Component {
                       Experience
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('experience')}>Add Experiences...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>Add Experiences...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -218,7 +242,7 @@ export class DocumentView extends Component {
                       Courses and Education
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('education')}>Add Courses or Educations...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('education')}>Add Courses or Educations...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -233,7 +257,7 @@ export class DocumentView extends Component {
                       Achievements and Projects
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('achievement')}>Add Achievements or Projects...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('achievement')}>Add Achievements or Projects...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -248,7 +272,7 @@ export class DocumentView extends Component {
                       Titles and Degrees
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('titles')}>Add Titles or Degrees...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>Add Titles or Degrees...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -263,7 +287,7 @@ export class DocumentView extends Component {
                       Licences
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('licence')}>Add Licence...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('licence')}>Add Licence...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -278,7 +302,7 @@ export class DocumentView extends Component {
                       References
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onShow('references')}>Add References...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('references')}>Add References...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -298,9 +322,14 @@ export class DocumentView extends Component {
                 </div>
               </Container>
             </Col>
+            <Fade in={this.isSidebarVisible()} onExited={this.onSidebarHide}>
+              <Col xs={3} id="controls">
+                <DocumentControls props={this.props} />
+              </Col>
+            </Fade>
           </Row>
         </Container>
-        <Modal size="lg" show={this.isShowing()} centered onHide={this.onHide}>
+        <Modal size="lg" show={this.isDialogVisible()} centered onHide={this.onDialogHide}>
           <Modal.Header closeButton>
             <Modal.Title>{this.getTitle()}</Modal.Title>
           </Modal.Header>
@@ -310,7 +339,7 @@ export class DocumentView extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.onHide}>{this.getLocalizedString(locale.GLOBAL_CLOSE)}</Button>
+            <Button variant="secondary" onClick={this.onDialogHide}>{this.getLocalizedString(locale.GLOBAL_CLOSE)}</Button>
             <Button variant="primary" onClick={this.onSaveChanges}>{this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}</Button>
           </Modal.Footer>
         </Modal>
