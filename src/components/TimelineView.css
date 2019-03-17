@@ -25,10 +25,17 @@
 .button-col {
     margin-top: 2em;
 }
-#timeline .timeline-group-work {
+#timeline .timeline-item-work {
     background-color: rgba(0,255,0, 0.1);
 }
 
+#timeline .timeline-item-education {
+    background-color: rgba(0,0,255, 0.1);
+}
+
+#timeline .timeline-item-projects {
+    border-color: rgba(255,0,0, 0.5);
+}
 
 #timeline {
     padding: 1%;

@@ -40,7 +40,8 @@ export class TimelineView extends Component {
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
           content: prop.title,
-          group: GROUP_WORK
+          group: GROUP_WORK,
+          className: 'timeline-group-work'
         });
       }
     }
@@ -52,7 +53,9 @@ export class TimelineView extends Component {
           start: new Date(prop.completion_date * 1000),
           type: 'point',
           content: prop.title,
-          group: GROUP_PROJECTS
+          group: GROUP_PROJECTS,
+          className: 'timeline-group-projects'
+
         });
       }
     }
@@ -64,7 +67,8 @@ export class TimelineView extends Component {
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
           content: `${prop.type === 'education'? prop.field_name:prop.course_name}`,
-          group: GROUP_EDUCATION
+          group: GROUP_EDUCATION,
+          className: 'timeline-group-education'
         });
       }
     }
