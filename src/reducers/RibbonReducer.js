@@ -3,8 +3,6 @@ const DEFAULT_STATE = {
 };
 
 export default (state = DEFAULT_STATE, action) => {
-  switch (action.type) {
-    // Actions
-  }
-  return state;
+  // No switch case necessary
+  return {...state, [action.type]: action.payload};
 }
