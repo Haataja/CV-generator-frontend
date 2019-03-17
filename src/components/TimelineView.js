@@ -7,6 +7,8 @@ import {Button, ButtonToolbar} from "react-bootstrap";
 import Timeline from "react-visjs-timeline";
 import * as actions from "../actions/TimelineActions";
 
+import henkilo from '../testdata/henkilo'
+
 import './TimelineView.css';
 
 export class TimelineView extends Component {
@@ -17,9 +19,11 @@ export class TimelineView extends Component {
     this.getTimelineItems = this.getTimelineItems.bind(this);
     this.getTimelineOptions = this.getTimelineOptions.bind(this);
   }
+
   updateView(value) {
     return event => this.props.dispatch(actions[event.target.id](!value));
   }
+
   getTimelineItems() {
     return [
       {
@@ -53,6 +57,7 @@ export class TimelineView extends Component {
       type: 'background'
     };
   }
+
   render() {
     const propertyWork = {
       text: this.props.SHOW_WORK ? "Show work" : "Hide work",
