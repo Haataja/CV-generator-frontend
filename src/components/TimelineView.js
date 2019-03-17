@@ -40,6 +40,7 @@ export class TimelineView extends Component {
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
           content: prop.title,
+          title: `<h5>${prop.title}</h5><p>${prop.name}<br/>${prop.description}</p>`,
           group: GROUP_WORK,
           className: 'timeline-item-work'
         });
@@ -52,10 +53,10 @@ export class TimelineView extends Component {
         projects.push({
           start: new Date(prop.completion_date * 1000),
           type: 'box',
+          title: `<h5>${prop.name}</h5><p>${prop.description}</p>`,
           content: prop.name,
           group: GROUP_PROJECTS,
           className: 'timeline-item-projects'
-
         });
       }
     }
@@ -66,6 +67,7 @@ export class TimelineView extends Component {
         education.push({
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
+          title: `<h5>${prop.type === 'education'? prop.field_name:prop.course_name}</h5><p>${prop.type === 'education'?prop.school_name:prop.provider_name}</p>`,
           content: `${prop.type === 'education'? prop.field_name:prop.course_name}`,
           group: GROUP_EDUCATION,
           className: 'timeline-item-education'
