@@ -5,9 +5,16 @@ export function updateDialog(type) {
   };
 }
 
+export function toggleSidebar(value) {
+  return {
+    type: 'EDITOR_SIDEBAR',
+    payload: value
+  };
+}
+
 export function saveData(data) {
   return {
-    type: 'SAVED_DATA',
+    type: 'EDITOR_DATA',
     payload: data
   };
 }
