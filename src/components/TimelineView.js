@@ -25,24 +25,51 @@ export class TimelineView extends Component {
     return event => this.props.dispatch(actions[event.target.id](!value));
   }
 
-  getTimelineItems() {
-    return [
-      {
-        start: new Date(2010, 7, 15),
-        end: new Date(2016, 8, 2),  // end is optional
-        content: 'Trajectory A'
-      },
-      {
-        start: new Date(2010, 4, 11),
-        end: new Date(2012, 3, 2),  // end is optional
-        content: 'Trajectory B'
-      },
-      {
-        start: new Date(2009, 7, 15),
-        end: new Date(2010, 8, 2),  // end is optional
-        content: 'Trajectory C'
+  getTimelineItems(data) {
+    const GROUP_WORK = 1;
+    const GROUP_EDUCATION = 2;
+    const GROUP_PROJECTS = 3;
+    let work = [];
+    let projects = [];
+    let education = [];
+
+    for(let prop of data.experience.data) {
+      if(prop.visible) {
+        //console.log(prop)
+        work.push({
+          start: new Date(prop.startdate * 1000),
+          end: new Date(prop.enddate * 1000),
+          content: prop.title,
+          group: GROUP_WORK
+        });
       }
-    ];
+    }
+
+    for(let prop of data.achievements_and_projects.data) {
+      if(prop.visible) {
+        //console.log(prop)
+        projects.push({
+          start: new Date(prop.completion_date * 1000),
+          type: 'point',
+          content: prop.title,
+          group: GROUP_PROJECTS
+        });
+      }
+    }
+
+    for(let prop of data.courses_and_education.data) {
+      if(prop.visible) {
+        console.log(prop)
+        education.push({
+          start: new Date(prop.startdate * 1000),
+          end: new Date(prop.enddate * 1000),
+          content: `${prop.type === 'education'? prop.field_name:prop.course_name}`,
+          group: GROUP_EDUCATION
+        });
+      }
+    }
+
+    return work.concat(projects,education);
   }
 
   getTimeLineGroups() {
@@ -107,7 +134,7 @@ export class TimelineView extends Component {
           </Row>
           <Row>
             <Col xs={12} id="timeline">
-              <Timeline items={this.getTimelineItems()} options={this.getTimelineOptions()} groups={this.getTimeLineGroups()}/>
+              <Timeline items={this.getTimelineItems(henkilo)} options={this.getTimelineOptions()} groups={this.getTimeLineGroups()}/>
             </Col>
           </Row>
         </Container>
