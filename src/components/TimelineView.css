@@ -26,11 +26,14 @@
     margin-top: 2em;
 }
 #timeline .timeline-item-work {
-    background-color: rgba(0,255,0, 0.1);
+    background-color: rgba(0,255,0,0.1);
+    border-color:rgba(0,255,0,0.5)
 }
 
 #timeline .timeline-item-education {
-    background-color: rgba(0,0,255, 0.1);
+    background-color: rgba(0,0,255,0.1);
+    border-color: rgba(0,0,255,0.5);
+
 }
 
 #timeline .timeline-item-projects {
