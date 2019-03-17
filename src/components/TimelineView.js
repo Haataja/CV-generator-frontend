@@ -35,7 +35,6 @@ export class TimelineView extends Component {
 
     for(let prop of data.experience.data) {
       if(prop.visible) {
-        //console.log(prop)
         work.push({
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
@@ -49,7 +48,6 @@ export class TimelineView extends Component {
 
     for(let prop of data.achievements_and_projects.data) {
       if(prop.visible) {
-        console.log(prop)
         projects.push({
           start: new Date(prop.completion_date * 1000),
           type: 'box',
@@ -63,7 +61,6 @@ export class TimelineView extends Component {
 
     for(let prop of data.courses_and_education.data) {
       if(prop.visible) {
-        //console.log(prop)
         education.push({
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
