@@ -18,6 +18,7 @@ export class TimelineView extends Component {
     this.updateView = this.updateView.bind(this);
     this.getTimelineItems = this.getTimelineItems.bind(this);
     this.getTimelineOptions = this.getTimelineOptions.bind(this);
+    this.getTimeLineGroups = this.getTimeLineGroups.bind(this);
   }
 
   updateView(value) {
@@ -43,6 +44,24 @@ export class TimelineView extends Component {
       }
     ];
   }
+
+  getTimeLineGroups() {
+    return [
+      {
+        id: 1,
+        content: 'Work'
+      },
+      {
+        id: 2,
+        content: 'Education'
+      },
+      {
+        id: 3,
+        content: 'Projects'
+      }
+    ];
+  }
+
   getTimelineOptions() {
     return {
       width: '100%',
