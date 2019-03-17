@@ -5,10 +5,17 @@
   "ribbon_item_editor": "Muokkausnäkymä",
   "ribbon_item_timeline": "Aikajananäkynä",
 
+  "editor_dialog_bio_title": "Biografia",
+  "editor_dialog_experience_title": "Kokemukset",
+  "editor_dialog_content_empty": "Ei sisältöä",
+
   "timeline_setting_show_work": "Näytä työtiedot",
   "timeline_setting_hide_work": "Piilota työtiedot",
   "timeline_setting_show_education": "Näytä koulutukset",
   "timeline_setting_hide_education": "Piilota koulutukset",
   "timeline_setting_show_projects": "Näytä projektit",
-  "timeline_setting_hide_projects": "Piilota projektit"
+  "timeline_setting_hide_projects": "Piilota projektit",
+
+  "global_action_save_changes": "Tallenna muutokset",
+  "global_action_close": "Sulje"
 }
