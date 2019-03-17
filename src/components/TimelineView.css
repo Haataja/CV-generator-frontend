@@ -41,6 +41,13 @@
     border-color: rgba(255,0,0, 0.5);
 }
 
+#timeline .vis-tooltip {
+    word-wrap: break-word;
+    max-width: 100ch;
+    white-space: normal;
+    background-color: aliceblue;
+}
+
 #timeline {
     padding: 1%;
 }
