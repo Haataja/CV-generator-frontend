@@ -96,15 +96,13 @@ export class TimelineView extends Component {
   getTimelineOptions() {
     return {
       width: '100%',
-      height: '300pt',
-      stack: false,
+      stack: true,
       showMajorLabels: true,
       showCurrentTime: true,
       min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
       max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
       zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
       zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
-      type: 'background'
     };
   }
 
