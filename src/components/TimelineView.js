@@ -82,15 +82,18 @@ export class TimelineView extends Component {
     return [
       {
         id: 1,
-        content: 'Work'
+        content: 'Work',
+        visible: this.props.SHOW_WORK
       },
       {
         id: 2,
-        content: 'Education'
+        content: 'Education',
+        visible: this.props.SHOW_EDUCATION
       },
       {
         id: 3,
-        content: 'Projects'
+        content: 'Projects',
+        visible: this.props.SHOW_PROJECTS
       }
     ];
   }
