@@ -1,5 +1,5 @@
 const DEFAULT_STATE = {
-  // Default component state
+  EDITOR_SIDEBAR: null
 };
 
 export default (state = DEFAULT_STATE, action) => {
