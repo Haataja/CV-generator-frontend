@@ -138,7 +138,7 @@
                 "id": 1,
                 "name": "Java/json-parser",
                 "description": "I worked on a json-parser, which can read and write json data. I worked in a group of ten people. Project was a great success (as Borat would say it) and it reached top 10 most downloaded json-parsers month it was released.",
-                "completion_date": 1333238400,
+                "completion_date": 1107388800,
                 "visible": true
             },
             {
@@ -146,7 +146,7 @@
                 "id": 2,
                 "name": "Java/shpoping-list-applcation",
                 "description": "Shopping list application where user can save their data as a json file. User can also read their shopping list from said json file. User can also save their shopping list to Dropbox and database. Standalone project, worked for 8 hours for ten months. ",
-                "completion_date": 1333238400,
+                "completion_date": 1251158400,
                 "visible": true
             },
             {
@@ -154,7 +154,7 @@
                 "id": 3,
                 "name": "Kotlin/user-login-backend",
                 "description": "User login backend for Samu's pro codezz. Worked with two other people on this project. My field of work was mostly releted on validating user's login credentials.",
-                "completion_date": 1333238400,
+                "completion_date": 1139097600,
                 "visible": true
             },
             {
