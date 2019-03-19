@@ -111,17 +111,17 @@ export class TimelineView extends Component {
   render() {
     const propertyWork = {
       text: this.props.SHOW_WORK ? "Show work" : "Hide work",
-      variant: this.props.SHOW_WORK ? "info" : "secondary"
+      variant: this.props.SHOW_WORK ? "dark" : "secondary"
     };
 
     const propertyEducation = {
       text: this.props.SHOW_EDUCATION ? "Show education" : "Hide education",
-      variant: this.props.SHOW_EDUCATION ? "info" : "secondary"
+      variant: this.props.SHOW_EDUCATION ? "dark" : "secondary"
     };
 
     const propertyProjects = {
       text: this.props.SHOW_PROJECTS ? "Show projects" : "Hide projects",
-      variant: this.props.SHOW_PROJECTS ? "info" : "secondary"
+      variant: this.props.SHOW_PROJECTS ? "dark" : "secondary"
     };
 
     return (
