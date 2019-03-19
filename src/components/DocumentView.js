@@ -2,18 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {Container, Row, Col} from 'react-bootstrap';
-import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal} from "react-bootstrap";
+import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal, Fade} from 'react-bootstrap';
 
-import * as actions from "../actions/DocumentActions";
+import * as actions from '../actions/DocumentActions';
 import locale from '../locales';
 
-import './DocumentView.css';
-import Fade from "react-bootstrap/Fade";
-
-
-import DocumentControls from "./DocumentControls";
-
+import DocumentControls from './DocumentControls';
 import './DocumentControls.css';
+import './DocumentView.css';
 
 class DocumentView extends Component {
   constructor(props) {
@@ -34,15 +30,15 @@ class DocumentView extends Component {
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.GLOBAL_LANGUAGE !== prevProps.GLOBAL_LANGUAGE) {
-      this.getLocalizedString = locale.getLocalizedString.bind(this.props.GLOBAL_LANGUAGE);
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
+      this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
   }
 
   getTitle() {
     if (this.isDialogVisible()) {
-      return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_DIALOG_TITLE, this.props["EDITOR_DIALOG"]));
+      return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_DIALOG_TITLE, this.props['EDITOR_DIALOG']));
     }
 
     return null;
@@ -50,24 +46,24 @@ class DocumentView extends Component {
 
   getContent() {
     if (this.isDialogVisible()) {
-      switch (this.props["EDITOR_DIALOG"]) {
-        case "profile_pic": {
+      switch (this.props['EDITOR_DIALOG']) {
+        case 'profile_pic': {
           return <Form>
             <Form.Group controlId="bioGroup">
               <Form.Label>Allowed file image (*.bmp, *.jpg, *.png)</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file"/>
             </Form.Group>
           </Form>;
         }
-        case "bio": {
+        case 'bio': {
           return <Form>
             <Form.Group controlId="bioGroup">
               <Form.Label>Provide a short description of yourself</Form.Label>
-              <Form.Control as="textarea" rows="5" />
+              <Form.Control as="textarea" rows="5"/>
             </Form.Group>
           </Form>;
         }
-        case "experience": {
+        case 'experience': {
           return <Form>
             <Form.Row>
               <Col>
@@ -75,7 +71,7 @@ class DocumentView extends Component {
                   <Col xs={3}>
                     <Form.Group controlId="startDateGroup">
                       <Form.Label>Start date</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control type="date"/>
                     </Form.Group>
                   </Col>
                   <Col>
@@ -92,19 +88,19 @@ class DocumentView extends Component {
                   <Col xs={3}>
                     <Form.Group controlId="endDateGroup">
                       <Form.Label>End date</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control type="date"/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="employerGroup">
                       <Form.Label>Employer</Form.Label>
-                      <Form.Control />
+                      <Form.Control/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="titleGroup">
                       <Form.Label>Title</Form.Label>
-                      <Form.Control />
+                      <Form.Control/>
                     </Form.Group>
                   </Col>
                 </Form.Row>
@@ -115,7 +111,7 @@ class DocumentView extends Component {
             </Form.Row>
           </Form>;
         }
-        case "education": {
+        case 'education': {
           return <Form>
             <Form.Row>
               <Col>
@@ -123,7 +119,7 @@ class DocumentView extends Component {
                   <Col xs={3}>
                     <Form.Group controlId="startDateGroup">
                       <Form.Label>Start date</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control type="date"/>
                     </Form.Group>
                   </Col>
                   <Col>
@@ -140,19 +136,19 @@ class DocumentView extends Component {
                   <Col xs={3}>
                     <Form.Group controlId="endDateGroup">
                       <Form.Label>End date</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control type="date"/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="employerGroup">
                       <Form.Label>School</Form.Label>
-                      <Form.Control />
+                      <Form.Control/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="titleGroup">
                       <Form.Label>Field</Form.Label>
-                      <Form.Control />
+                      <Form.Control/>
                     </Form.Group>
                   </Col>
                 </Form.Row>
@@ -184,7 +180,7 @@ class DocumentView extends Component {
   }
 
   isDialogVisible() {
-    return typeof this.props["EDITOR_DIALOG"] === "string";
+    return typeof this.props['EDITOR_DIALOG'] === 'string';
   }
 
   onSidebarToggle() {
@@ -196,13 +192,13 @@ class DocumentView extends Component {
   }
 
   isSidebarVisible(setupCheck) {
-    const prop = this.props["EDITOR_SIDEBAR"];
+    const prop = this.props['EDITOR_SIDEBAR'];
     return setupCheck ? prop === null || prop === undefined : prop;
   }
 
   render() {
     return (
-      <div>
+      <>
         <Container fluid={true} id="editor">
           <Row>
             <Col xs={this.isSidebarVisible(true) ? 12 : 9}>
@@ -211,36 +207,42 @@ class DocumentView extends Component {
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_FIRST_NAME)} />
-                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_LAST_NAME)} />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_FIRST_NAME)}/>
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_LAST_NAME)}/>
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
                       Resume
                     </Col>
                     <Col xs={2} className="text-right">
-                      <Button variant="secondary" className="fa fa-cog" onClick={this.onSidebarToggle} />
+                      <Button variant="secondary" className="fa fa-cog" onClick={this.onSidebarToggle}/>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ADDRESS)} />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ADDRESS)}/>
                       </InputGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ZIP_CODE)} />
-                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_CITY)} />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ZIP_CODE)}/>
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_CITY)}/>
                       </InputGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_EMAIL)} />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_EMAIL)}/>
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
@@ -250,11 +252,13 @@ class DocumentView extends Component {
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_PHONE)} />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_PHONE)}/>
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>Add Profile picture...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>Add Profile
+                        picture...</Button>
                     </Col>
                   </Row>
                 </div>
@@ -276,7 +280,8 @@ class DocumentView extends Component {
                       Experience
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>Add Experiences...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>Add
+                        Experiences...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -291,7 +296,8 @@ class DocumentView extends Component {
                       Courses and Education
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('education')}>Add Courses or Educations...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('education')}>Add Courses or
+                        Educations...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -306,7 +312,8 @@ class DocumentView extends Component {
                       Achievements and Projects
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>Add Achievements or Projects...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>Add Achievements or
+                        Projects...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -321,7 +328,8 @@ class DocumentView extends Component {
                       Titles and Degrees
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>Add Titles or Degrees...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>Add Titles or
+                        Degrees...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -351,7 +359,8 @@ class DocumentView extends Component {
                       References
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('references')}>Add References...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('references')}>Add
+                        References...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -373,7 +382,7 @@ class DocumentView extends Component {
             </Col>
             <Fade in={this.isSidebarVisible()} onExited={this.onSidebarHide} mountOnEnter={true} unmountOnExit={true}>
               <Col xs={3} id="controls">
-                <DocumentControls props={this.props} />
+                <DocumentControls props={this.props} onHide={this.onSidebarToggle}/>
               </Col>
             </Fade>
           </Row>
@@ -388,11 +397,13 @@ class DocumentView extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.onDialogHide}>{this.getLocalizedString(locale.GLOBAL_CLOSE)}</Button>
-            <Button variant="primary" onClick={this.onSaveChanges}>{this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}</Button>
+            <Button variant="secondary"
+                    onClick={this.onDialogHide}>{this.getLocalizedString(locale.GLOBAL_CLOSE)}</Button>
+            <Button variant="primary"
+                    onClick={this.onSaveChanges}>{this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}</Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </>
     );
   }
 }
