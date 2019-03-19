@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Col, Row} from 'react-bootstrap';
 
-import Timeline from "./TimelineView";
+import TimelineView from "./TimelineView";
 import Ribbon from "./Ribbon";
 
 import './App.css';
@@ -18,7 +18,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <DocumentView/>
+            <TimelineView/>
           </Col>
         </Row>
       </Container>

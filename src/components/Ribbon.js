@@ -12,7 +12,7 @@ import * as actions from '../actions'
 
 import './Ribbon.css'
 
-export class Ribbon extends Component {
+class Ribbon extends Component {
   constructor(props) {
     super(props);
 

@@ -12,7 +12,7 @@ import henkilo from '../testdata/henkilo'
 
 import './TimelineView.css';
 
-export class TimelineView extends Component {
+class TimelineView extends Component {
   constructor(props) {
     super(props);
 
