@@ -8,7 +8,7 @@ import NavbarToggle from "react-bootstrap/NavbarToggle";
 import finnish_flag from './images/finnish_placeholder.png'
 import british_flag from './images/british_placeholder.png'
 
-import * as actions from '../actions/RibbonActions'
+import * as actions from '../actions'
 
 import './Ribbon.css'
 
