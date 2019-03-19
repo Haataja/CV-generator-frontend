@@ -1,20 +1,16 @@
+export const EDITOR_DIALOG = 'EDITOR_DIALOG';
+export const EDITOR_SIDEBAR = 'EDITOR_SIDEBAR';
+
 export function updateDialog(type) {
   return {
-    type: 'EDITOR_DIALOG',
+    type: EDITOR_DIALOG,
     payload: type
   };
 }
 
 export function toggleSidebar(value) {
   return {
-    type: 'EDITOR_SIDEBAR',
+    type: EDITOR_SIDEBAR,
     payload: value
-  };
-}
-
-export function saveData(data) {
-  return {
-    type: 'EDITOR_DATA',
-    payload: data
   };
 }
