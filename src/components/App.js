@@ -6,22 +6,26 @@ import Ribbon from "./Ribbon";
 
 import './App.css';
 import DocumentView from "./DocumentView";
+import {HashRouter, Route} from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
-      <Container fluid={true}>
-        <Row>
+      <HashRouter>
+        <Container fluid={true}>
+          <Row>
+              <Col xs={12}>
+                  <Ribbon/>
+              </Col>
+          </Row>
+          <Row>
             <Col xs={12}>
-                <Ribbon/>
+              <Route path="/timeline" component={TimelineView}/>
+              <Route path="/" component={DocumentView}/>
             </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <TimelineView/>
-          </Col>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      </HashRouter>
     );
   }
 }
