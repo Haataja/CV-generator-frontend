@@ -16,7 +16,7 @@ import DocumentControls from "./DocumentControls";
 
 import './DocumentControls.css';
 
-export class DocumentView extends Component {
+class DocumentView extends Component {
   constructor(props) {
     super(props);
 

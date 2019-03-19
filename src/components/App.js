@@ -5,6 +5,7 @@ import Timeline from "./TimelineView";
 import Ribbon from "./Ribbon";
 
 import './App.css';
+import DocumentView from "./DocumentView";
 
 class App extends Component {
   render() {
@@ -17,7 +18,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Timeline/>
+            <DocumentView/>
           </Col>
         </Row>
       </Container>
