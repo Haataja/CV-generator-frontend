@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Col, Container, Row} from "react-bootstrap";
-import {Button, ButtonToolbar} from "react-bootstrap";
+import {Col, Container, Row} from 'react-bootstrap';
+import {Button, ButtonToolbar} from 'react-bootstrap';
 
-import Timeline from "react-visjs-timeline";
-import * as actions from "../actions/TimelineActions";
+import Timeline from 'react-visjs-timeline';
+import * as actions from '../actions/TimelineActions';
 import locale from '../locales';
 
-import henkilo from '../testdata/henkilo'
+import henkilo from '../testdata/henkilo';
 
 import './TimelineView.css';
 
@@ -42,8 +42,8 @@ class TimelineView extends Component {
     let projects = [];
     let education = [];
 
-    for(let prop of data.experience.data) {
-      if(prop.visible) {
+    for (let prop of data.experience.data) {
+      if (prop.visible) {
         work.push({
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
@@ -55,8 +55,8 @@ class TimelineView extends Component {
       }
     }
 
-    for(let prop of data.achievements_and_projects.data) {
-      if(prop.visible) {
+    for (let prop of data.achievements_and_projects.data) {
+      if (prop.visible) {
         projects.push({
           start: new Date(prop.completion_date * 1000),
           type: 'box',
@@ -68,20 +68,20 @@ class TimelineView extends Component {
       }
     }
 
-    for(let prop of data.courses_and_education.data) {
-      if(prop.visible) {
+    for (let prop of data.courses_and_education.data) {
+      if (prop.visible) {
         education.push({
           start: new Date(prop.startdate * 1000),
           end: new Date(prop.enddate * 1000),
-          title: `<h5>${prop.type === 'education'? prop.field_name:prop.course_name}</h5><p>${prop.type === 'education'?prop.school_name:prop.provider_name}</p>`,
-          content: `${prop.type === 'education'? prop.field_name:prop.course_name}`,
+          title: `<h5>${prop.type === 'education' ? prop.field_name : prop.course_name}</h5><p>${prop.type === 'education' ? prop.school_name : prop.provider_name}</p>`,
+          content: `${prop.type === 'education' ? prop.field_name : prop.course_name}`,
           group: GROUP_EDUCATION,
           className: 'timeline-item-education'
         });
       }
     }
 
-    return work.concat(projects,education);
+    return work.concat(projects, education);
   }
 
   getTimeLineGroups() {
@@ -113,46 +113,47 @@ class TimelineView extends Component {
       min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
       max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
       zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
-      zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
+      zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
     };
   }
 
   render() {
     const propertyWork = {
-      text: this.getLocalizedString(this.props.SHOW_WORK ? locale.TIMELINE_SHOW_WORK : locale.TIMELINE_HIDE_WORK),
-      variant: this.props.SHOW_WORK ? "info" : "secondary"
+      text: this.getLocalizedString(this.props.SHOW_WORK ? locale.TIMELINE_HIDE_WORK : locale.TIMELINE_SHOW_WORK),
+      variant: this.props.SHOW_WORK ? 'info' : 'secondary'
     };
 
     const propertyEducation = {
-      text: this.getLocalizedString(this.props.SHOW_EDUCATION ? locale.TIMELINE_SHOW_EDUCATION : locale.TIMELINE_HIDE_EDUCATION),
-      variant: this.props.SHOW_EDUCATION ? "info" : "secondary"
+      text: this.getLocalizedString(this.props.SHOW_EDUCATION ? locale.TIMELINE_HIDE_EDUCATION : locale.TIMELINE_SHOW_EDUCATION),
+      variant: this.props.SHOW_EDUCATION ? 'info' : 'secondary'
     };
 
     const propertyProjects = {
-      text: this.getLocalizedString(this.props.SHOW_PROJECTS ? locale.TIMELINE_SHOW_PROJECTS : locale.TIMELINE_HIDE_PROJECTS),
-      variant: this.props.SHOW_PROJECTS ? "info" : "secondary"
+      text: this.getLocalizedString(this.props.SHOW_PROJECTS ? locale.TIMELINE_HIDE_PROJECTS : locale.TIMELINE_SHOW_PROJECTS),
+      variant: this.props.SHOW_PROJECTS ? 'info' : 'secondary'
     };
 
-
     return (
-      <div id="background">
-        <Container id="page">
-          <Row>
-            <Col xs={12}>
-              <ButtonToolbar>
-                <Button id="showWork" variant={propertyWork.variant} onClick={this.updateView(this.props.SHOW_WORK)}>{propertyWork.text}</Button>
-                <Button id="showEducation" variant={propertyEducation.variant} onClick={this.updateView(this.props.SHOW_EDUCATION)}>{propertyEducation.text}</Button>
-                <Button id="showProjects" variant={propertyProjects.variant} onClick={this.updateView(this.props.SHOW_PROJECTS)}>{propertyProjects.text}</Button>
-              </ButtonToolbar>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} id="timeline">
-              <Timeline items={this.getTimelineItems(henkilo)} options={this.getTimelineOptions()} groups={this.getTimeLineGroups()}/>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Container id="page">
+        <Row>
+          <Col xs={12}>
+            <ButtonToolbar>
+              <Button id="showWork" variant={propertyWork.variant}
+                      onClick={this.updateView(this.props.SHOW_WORK)}>{propertyWork.text}</Button>
+              <Button id="showEducation" variant={propertyEducation.variant}
+                      onClick={this.updateView(this.props.SHOW_EDUCATION)}>{propertyEducation.text}</Button>
+              <Button id="showProjects" variant={propertyProjects.variant}
+                      onClick={this.updateView(this.props.SHOW_PROJECTS)}>{propertyProjects.text}</Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} id="timeline">
+            <Timeline items={this.getTimelineItems(henkilo)} options={this.getTimelineOptions()}
+                      groups={this.getTimeLineGroups()}/>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
