@@ -5,12 +5,15 @@
     margin-bottom: 5pt;
 }
 
+Body {
+    background-color: rgba(52,58,64,0.5);
+}
+
 /* Component */
 
 #background {
     width: 100%;
     height: 100%;
-    background-color: aliceblue;
 }
 
 #page {
