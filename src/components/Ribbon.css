@@ -2,7 +2,9 @@
     margin-left: 5px;
     margin-right: 10px;
 }
-
+.bg-dark {
+    background-color: rgba(78,0,142,1) !important;
+}
 .brand-cv-generator {
     margin-left: 10px;
 }
