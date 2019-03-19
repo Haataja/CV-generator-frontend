@@ -48,8 +48,8 @@ export class Ribbon extends Component {
       <div id="ribbon">
         <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
           <NavbarBrand className="brand-cv-generator">CV-generator</NavbarBrand>
-          <NavbarToggle aria-controls="responsive-navbar-nav"/>
-          <NavbarCollapse>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+          <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto" onSelect={this.handleSelect}>
               <NavDropdown title='Document'>
                 <NavDropdown.Item eventKey='1'>Edit CV</NavDropdown.Item>
@@ -75,7 +75,7 @@ export class Ribbon extends Component {
               </Nav.Item>
             </Nav>
 
-          </NavbarCollapse>
+          </Navbar.Collapse>
         </Navbar>
       </div>
     );
