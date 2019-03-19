@@ -1,6 +1,20 @@
-export function documentActionExample(value) {
+export function updateDialog(type) {
   return {
-    type: 'EXAMPLE_ACTION',
+    type: 'EDITOR_DIALOG',
+    payload: type
+  };
+}
+
+export function toggleSidebar(value) {
+  return {
+    type: 'EDITOR_SIDEBAR',
     payload: value
+  };
+}
+
+export function saveData(data) {
+  return {
+    type: 'EDITOR_DATA',
+    payload: data
   };
 }
