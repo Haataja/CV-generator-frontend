@@ -3,6 +3,7 @@ import Finnish from './lang_fi';
 
 const locale = {
   GLOBAL_ID: "global_language_id",
+  GLOBAL_LANGUAGE_ISO: "global_language_iso",
   GLOBAL_LANGUAGE: "global_language",
 
   RIBBON_MENU_EDITOR: "ribbon_menu_editor",
@@ -10,16 +11,8 @@ const locale = {
   RIBBON_PUBLISH_DOCUMENT: "ribbon_menu_item_publish",
   RIBBON_MENU_TIMELINE: "ribbon_menu_timeline",
 
-  EDITOR_DIALOG_TITLE: "editor_dialog_{0}_title",
-  EDITOR_DIALOG_EMPTY: "editor_dialog_empty_content",
-
-  EDITOR_FIELD_FIRST_NAME: "editor_field_first_name_text",
-  EDITOR_FIELD_LAST_NAME: "editor_field_last_name_text",
-  EDITOR_FIELD_ADDRESS: "editor_field_address_text",
-  EDITOR_FIELD_ZIP_CODE: "editor_field_zip_code_text",
-  EDITOR_FIELD_CITY: "editor_field_city_text",
-  EDITOR_FIELD_EMAIL: "editor_field_email_text",
-  EDITOR_FIELD_PHONE: "editor_field_phone_text",
+  EDITOR_GENERIC_TEXT: "editor_generic_{0}_text",
+  EDITOR_FIELD_TEXT: "editor_field_{0}_text",
 
   TIMELINE_SHOW_WORK: "timeline_setting_show_work",
   TIMELINE_HIDE_WORK: "timeline_setting_hide_work",
@@ -48,6 +41,10 @@ const locale = {
 };
 
 function getStringIfExists(value, defaultValue) {
+  /*if (defaultValue !== locale.GLOBAL_LANGUAGE_ISO) {
+    return defaultValue;
+  }*/
+
   return typeof value === "string" ? value : defaultValue;
 }
 

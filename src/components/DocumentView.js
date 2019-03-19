@@ -25,7 +25,6 @@ class DocumentView extends Component {
     this.isSidebarVisible = this.isSidebarVisible.bind(this);
 
     this.getContent = this.getContent.bind(this);
-    this.getTitle = this.getTitle.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
@@ -34,14 +33,6 @@ class DocumentView extends Component {
     if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
       this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
-  }
-
-  getTitle() {
-    if (this.isDialogVisible()) {
-      return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_DIALOG_TITLE, this.props['EDITOR_DIALOG']));
-    }
-
-    return null;
   }
 
   getContent() {
@@ -162,16 +153,14 @@ class DocumentView extends Component {
       }
     }
 
-    return <p>{this.getLocalizedString(locale.EDITOR_DIALOG_EMPTY)}</p>;
+    return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
   }
 
   onDialogShow(type) {
-    // Load data based on type
     return () => this.props.dispatch(actions.updateDialog(type));
   }
 
   onSaveChanges() {
-    // Save changes
     this.onDialogHide();
   }
 
@@ -197,6 +186,16 @@ class DocumentView extends Component {
   }
 
   render() {
+    const date = new Date();
+
+    const getFieldText = identifier => (
+      this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier))
+    );
+
+    const getTitle = identifier => (
+      this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, identifier))
+    );
+
     return (
       <>
         <Container fluid={true} id="editor">
@@ -208,9 +207,9 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_FIRST_NAME)}/>
+                                     placeholder={getFieldText("first_name")}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_LAST_NAME)}/>
+                                     placeholder={getFieldText("last_name")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
@@ -224,7 +223,7 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ADDRESS)}/>
+                                     placeholder={getFieldText("address")}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -232,9 +231,9 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ZIP_CODE)}/>
+                                     placeholder={getFieldText("zip_code")}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_CITY)}/>
+                                     placeholder={getFieldText("city")}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -242,30 +241,33 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_EMAIL)}/>
+                                     placeholder={getFieldText("email")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
-                      DD/MM/YYYY
+                      {date.toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={this.getLocalizedString(locale.EDITOR_FIELD_PHONE)}/>
+                                     placeholder={getFieldText("phone")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>Add Profile
-                        picture...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>
+                        {getFieldText("profile_pic")}
+                      </Button>
                     </Col>
                   </Row>
                 </div>
                 <div id="content">
                   <Row>
                     <Col xs={11}>
-                      <Button variant="primary" block onClick={this.onDialogShow('bio')}>Add Biography...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('bio')}>
+                        {getFieldText("bio")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -277,11 +279,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      Experience
+                      {getTitle("experience")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>Add
-                        Experiences...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>
+                        {getFieldText("experience")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -293,11 +296,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      Courses and Education
+                      {getTitle("education")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('education')}>Add Courses or
-                        Educations...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('education')}>
+                        {getFieldText("education")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -309,11 +313,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      Achievements and Projects
+                      {getTitle("achievements")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>Add Achievements or
-                        Projects...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>
+                        {getFieldText("achievements")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -325,11 +330,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      Titles and Degrees
+                      {getTitle("titles")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>Add Titles or
-                        Degrees...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>
+                        {getFieldText("titles")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -341,10 +347,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      Licences
+                      {getTitle("misc")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('misc')}>Add Licence...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('misc')}>
+                        {getFieldText("misc")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -356,11 +364,12 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={5} className="align-self-center title">
-                      References
+                      {getTitle("references")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('references')}>Add
-                        References...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('references')}>
+                        {getFieldText("references")}
+                      </Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -389,7 +398,7 @@ class DocumentView extends Component {
         </Container>
         <Modal size="lg" show={this.isDialogVisible()} centered onHide={this.onDialogHide}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.getTitle()}</Modal.Title>
+            <Modal.Title>{getTitle(this.props["EDITOR_DIALOG"])}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
