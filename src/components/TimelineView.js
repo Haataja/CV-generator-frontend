@@ -24,9 +24,9 @@ export class TimelineView extends Component {
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.GLOBAL_LANGUAGE !== prevProps.GLOBAL_LANGUAGE) {
-      this.getLocalizedString = locale.getLocalizedString.bind(this.props.GLOBAL_LANGUAGE);
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
+      this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
   }
 
