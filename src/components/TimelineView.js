@@ -6,6 +6,7 @@ import {Button, ButtonToolbar} from "react-bootstrap";
 
 import Timeline from "react-visjs-timeline";
 import * as actions from "../actions/TimelineActions";
+import locale from '../locales';
 
 import henkilo from '../testdata/henkilo'
 
@@ -19,6 +20,14 @@ export class TimelineView extends Component {
     this.getTimelineItems = this.getTimelineItems.bind(this);
     this.getTimelineOptions = this.getTimelineOptions.bind(this);
     this.getTimeLineGroups = this.getTimeLineGroups.bind(this);
+
+    this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.GLOBAL_LANGUAGE !== prevProps.GLOBAL_LANGUAGE) {
+      this.getLocalizedString = locale.getLocalizedString.bind(this.props.GLOBAL_LANGUAGE);
+    }
   }
 
   updateView(value) {
@@ -110,17 +119,17 @@ export class TimelineView extends Component {
 
   render() {
     const propertyWork = {
-      text: this.props.SHOW_WORK ? "Show work" : "Hide work",
+      text: this.getLocalizedString(this.props.SHOW_WORK ? locale.TIMELINE_SHOW_WORK : locale.TIMELINE_HIDE_WORK),
       variant: this.props.SHOW_WORK ? "info" : "secondary"
     };
 
     const propertyEducation = {
-      text: this.props.SHOW_EDUCATION ? "Show education" : "Hide education",
+      text: this.getLocalizedString(this.props.SHOW_EDUCATION ? locale.TIMELINE_SHOW_EDUCATION : locale.TIMELINE_HIDE_EDUCATION),
       variant: this.props.SHOW_EDUCATION ? "info" : "secondary"
     };
 
     const propertyProjects = {
-      text: this.props.SHOW_PROJECTS ? "Show projects" : "Hide projects",
+      text: this.getLocalizedString(this.props.SHOW_PROJECTS ? locale.TIMELINE_SHOW_PROJECTS : locale.TIMELINE_HIDE_PROJECTS),
       variant: this.props.SHOW_PROJECTS ? "info" : "secondary"
     };
 
