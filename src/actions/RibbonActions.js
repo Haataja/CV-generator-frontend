@@ -1,4 +1,4 @@
-export function actionExample(value) {
+export function ribbonActionExample(value) {
   return {
     type: 'EXAMPLE_ACTION',
     payload: value

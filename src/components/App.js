@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Container, Col, Row} from 'react-bootstrap';
 
-import { Container, Col, Row } from 'react-bootstrap';
-
-import Ribbon from './Ribbon';
+import Timeline from "./TimelineView";
 
 import './App.css';
-import {Timeline} from "./Timeline";
 
 class App extends Component {
   render() {

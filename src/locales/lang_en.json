@@ -1,0 +1,28 @@
+{
+  "global_language_id": "en",
+  "global_language": "English",
+
+  "ribbon_item_editor": "Editor",
+  "ribbon_item_timeline": "Timeline",
+
+  "editor_dialog_bio_title": "Biography",
+  "editor_dialog_experience_title": "Experience",
+  "editor_dialog_education_title": "Courses and Education",
+  "editor_dialog_ability_title": "Abilities and Hobbies",
+  "editor_dialog_titles_title": "Titles and Degrees",
+  "editor_dialog_achievement_title": "Achievements and Projects",
+  "editor_dialog_references_title": "References and Recommendations",
+  "editor_dialog_licence_title": "Licences",
+  "editor_dialog_profile_pic_title": "Profile picture",
+  "editor_dialog_empty_content": "No content available",
+
+  "timeline_setting_show_work": "Show work",
+  "timeline_setting_hide_work": "Hide work",
+  "timeline_setting_show_education": "Show education",
+  "timeline_setting_hide_education": "Hide education",
+  "timeline_setting_show_projects": "Show projects",
+  "timeline_setting_hide_projects": "Hide projects",
+
+  "global_action_save_changes": "Save changes",
+  "global_action_close": "Close"
+}
