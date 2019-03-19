@@ -1,6 +1,6 @@
-export function ribbonActionExample(value) {
+export function setLanguage(value) {
   return {
-    type: 'EXAMPLE_ACTION',
+    type: 'LANGUAGE',
     payload: value
   };
 }

@@ -1,8 +1,12 @@
 const DEFAULT_STATE = {
-  // Default component state
+  LANGUAGE: 'en'
 };
 
 export default (state = DEFAULT_STATE, action) => {
-  // No switch case necessary
-  return {...state, [action.type]: action.payload};
+  switch (action.type) {
+    case 'LANGUAGE': {
+      return {...state, LANGUAGE: action.payload};
+    }
+  }
+  return state;
 }
