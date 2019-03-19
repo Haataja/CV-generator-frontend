@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
 import Ribbon from './RibbonReducer';
 import Document from './DocumentReducer';
