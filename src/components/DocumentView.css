@@ -1,5 +1,16 @@
 #editor {
-    background-color: aliceblue;
+    background-color: rgba(78,0,142,0.02);
+
+}
+
+.btn-primary {
+    background-color: rgba(78,0,142,1);
+    border-color: rgba(78,0,142,1);
+}
+
+.btn-primary:hover {
+    background-color: rgba(78,0,142,0.3);
+    border-color: rgba(78,0,142,0.3);
 }
 
 #page {
