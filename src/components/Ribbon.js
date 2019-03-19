@@ -64,14 +64,12 @@ export class Ribbon extends Component {
 
               <Nav.Item>
                 <Nav.Link eventKey='4'>
-                  <img className="flag" src={british_flag} width={50} height={30} alt="Logo English" />
                   English
                 </Nav.Link>
               </Nav.Item>
 
               <Nav.Item>
                 <Nav.Link eventKey='5'>
-                  <img className="flag"  src={finnish_flag} width={50} height={30} alt="Logo Finnish" />
                   Finnish
                 </Nav.Link>
               </Nav.Item>
