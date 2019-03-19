@@ -10,11 +10,11 @@ class App extends Component {
   render() {
     return (
       <Container fluid={true}>
-          <Row>
-              <Col xs={12}>
-                  <Ribbon/>
-              </Col>
-          </Row>
+        <Row>
+            <Col xs={12}>
+                <Ribbon/>
+            </Col>
+        </Row>
         <Row>
           <Col xs={12}>
             <Timeline/>
