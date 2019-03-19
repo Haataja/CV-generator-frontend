@@ -21,24 +21,15 @@ class Ribbon extends Component {
 
   handleSelect(eventKey) {
     switch (eventKey) {
-      case '1':
-        console.log('Edit CV');
+      case 'en':
+      case 'fi': {
+        this.props.dispatch(actions.setLanguage(eventKey));
         break;
-      case '2':
-        console.log('Print CV');
+      }
+      default: {
+        window.location = `#/${eventKey}`;
         break;
-      case '3':
-        console.log('Timeline');
-        break;
-      case '4':
-        console.log('Language to English');
-        this.props.dispatch(actions.setLanguage('en'));
-        break;
-      case '5':
-        console.log('Language to Finnish');
-        this.props.dispatch(actions.setLanguage('fi'));
-        break;
-
+      }
     }
     console.log(eventKey);
   }
@@ -52,24 +43,26 @@ class Ribbon extends Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto" onSelect={this.handleSelect}>
               <NavDropdown title='Document'>
-                <NavDropdown.Item eventKey='1'>Edit CV</NavDropdown.Item>
-                <NavDropdown.Item eventKey='2'>Print CV</NavDropdown.Item>
+                <NavDropdown.Item eventKey='editor'>
+                  Edit CV
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey='publish'>Print CV</NavDropdown.Item>
               </NavDropdown>
               <Nav.Item>
-                <Nav.Link eventKey='3'>Timeline</Nav.Link>
+                <Nav.Link eventKey='timeline'>Timeline</Nav.Link>
               </Nav.Item>
             </Nav>
 
             <Nav onSelect={this.handleSelect}>
 
               <Nav.Item>
-                <Nav.Link eventKey='4'>
+                <Nav.Link eventKey='en'>
                   English
                 </Nav.Link>
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link eventKey='5'>
+                <Nav.Link eventKey='fi'>
                   Finnish
                 </Nav.Link>
               </Nav.Item>
