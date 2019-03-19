@@ -1,5 +1,32 @@
-/* Bootstrap styles */
+/* Bootstrap overrides */
 
-.container-fluid {
-    padding: 0;
+.btn-primary {
+    background-color: #4e008e !important;
+    border-color: #4e008e !important;
+    box-shadow: none;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+}
+
+.btn-info {
+    background-color: #4e008e !important;
+    border-color: #4e008e !important;
+    box-shadow: none;
+}
+
+.btn-info:focus {
+    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+}
+
+.form-control:focus {
+    border-color: #4e008e !important;
+    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+}
+
+/* Misc. overrides */
+
+body {
+    background-color: rgba(78,0,142,.02);
 }

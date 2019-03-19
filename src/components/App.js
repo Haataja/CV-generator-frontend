@@ -1,27 +1,29 @@
 import React, {Component} from 'react';
 import {Container, Col, Row} from 'react-bootstrap';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
-import TimelineView from "./TimelineView";
-import Ribbon from "./Ribbon";
+import DocumentView from './DocumentView';
+import TimelineView from './TimelineView';
+import Ribbon from './Ribbon';
 
 import './App.css';
-import DocumentView from "./DocumentView";
-import {HashRouter, Route} from "react-router-dom";
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <HashRouter>
         <Container fluid={true}>
           <Row>
-              <Col xs={12}>
-                  <Ribbon/>
-              </Col>
+            <Col xs={12}>
+              <Ribbon/>
+            </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <Route path="/timeline" component={TimelineView}/>
-              <Route path="/" component={DocumentView}/>
+              <Switch>
+                <Route path="/timeline" component={TimelineView}/>
+                <Route path="/" component={DocumentView}/>
+              </Switch>
             </Col>
           </Row>
         </Container>
@@ -29,5 +31,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
