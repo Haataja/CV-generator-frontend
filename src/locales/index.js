@@ -5,8 +5,10 @@ const locale = {
   GLOBAL_ID: "global_language_id",
   GLOBAL_LANGUAGE: "global_language",
 
-  RIBBON_EDITOR: "ribbon_item_editor",
-  RIBBON_TIMELINE: "ribbon_item_timeline",
+  RIBBON_MENU_EDITOR: "ribbon_menu_editor",
+  RIBBON_EDIT_DOCUMENT: "ribbon_menu_item_editor",
+  RIBBON_PUBLISH_DOCUMENT: "ribbon_menu_item_publish",
+  RIBBON_MENU_TIMELINE: "ribbon_menu_timeline",
 
   EDITOR_DIALOG_TITLE: "editor_dialog_{0}_title",
   EDITOR_DIALOG_EMPTY: "editor_dialog_empty_content",
@@ -26,7 +28,7 @@ const locale = {
   TIMELINE_SHOW_PROJECTS: "timeline_setting_show_projects",
   TIMELINE_HIDE_PROJECTS: "timeline_setting_hide_projects",
 
-  GLOBAL_LANGUAGE_TEXT: "global_action_language_text",
+  GLOBAL_TOGGLE_LANGUAGE: "global_action_toggle_language",
   GLOBAL_SAVE_CHANGES: "global_action_save_changes",
   GLOBAL_CLOSE: "global_action_close",
 
@@ -41,32 +43,44 @@ const locale = {
   // Function exports
 
   getLocalizedString: getLocalizedString,
-  switchLanguage: switchLanguage,
+  getNeighbourLanguage: getNeighbourLanguage,
   getKeyFormat: getKeyFormat
 };
 
-function getStringIfExists(value) {
-  return typeof value === "string" ? value : "?";
+function getStringIfExists(value, defaultValue) {
+  return typeof value === "string" ? value : defaultValue;
 }
 
 function getLocalizedString(id) {
   for (let language of locale.LANGUAGES) {
     if (this === language[locale.GLOBAL_ID]) {
-      return getStringIfExists(language[id]);
+      return getStringIfExists(language[id], id);
     }
   }
 
-  return getStringIfExists(locale.DEFAULT_LANGUAGE[id]);
+  return getStringIfExists(locale.DEFAULT_LANGUAGE[id], id);
 }
 
-function switchLanguage(language) {
-  for(let current of locale.LANGUAGES) {
-    if(current[locale.GLOBAL_ID] !== language) {
-      return current[locale.GLOBAL_ID];
+function getLanguageIndex(language_id) {
+  for (let i = 0; i < locale.LANGUAGES.length; i++) {
+    if (locale.LANGUAGES[i][locale.GLOBAL_ID] === language_id) {
+      return i;
     }
   }
 
-  return locale.DEFAULT_LANGUAGE[locale.GLOBAL_ID];
+  return -1;
+}
+
+function getNeighbourLanguage(language, identifier) {
+  let index = getLanguageIndex(language);
+
+  if (index !== -1) {
+    index = (index + 1) % locale.LANGUAGES.length;
+
+    return locale.LANGUAGES[index][identifier];
+  }
+
+  return getNeighbourLanguage(locale.DEFAULT_LANGUAGE[locale.GLOBAL_ID], identifier);
 }
 
 function getKeyFormat(id, ...args) {

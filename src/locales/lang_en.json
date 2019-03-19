@@ -3,8 +3,10 @@
   "global_language_iso": "en-EN",
   "global_language": "English",
 
-  "ribbon_item_editor": "Editor",
-  "ribbon_item_timeline": "Timeline",
+  "ribbon_menu_editor": "Editor",
+  "ribbon_menu_item_editor": "Edit document",
+  "ribbon_menu_item_publish": "Convert to PDF",
+  "ribbon_menu_timeline": "Timeline",
 
   "editor_field_first_name_text": "First name",
   "editor_field_last_name_text": "Last name",
@@ -31,7 +33,7 @@
   "timeline_setting_show_projects": "Show projects",
   "timeline_setting_hide_projects": "Hide projects",
 
-  "global_action_language_text": "In English",
+  "global_action_toggle_language": "In English",
   "global_action_save_changes": "Save changes",
   "global_action_close": "Close"
 }

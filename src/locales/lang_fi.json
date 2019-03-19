@@ -3,8 +3,10 @@
   "global_language_iso": "fi-FI",
   "global_language": "Suomi",
 
-  "ribbon_item_editor": "Muokkausnäkymä",
-  "ribbon_item_timeline": "Aikajananäkynä",
+  "ribbon_menu_editor": "Muokkausnäkymä",
+  "ribbon_menu_item_editor": "Muokkaa dokumenttia",
+  "ribbon_menu_item_publish": "Muunna PDF muotoon",
+  "ribbon_menu_timeline": "Aikajananäkynä",
 
   "editor_field_first_name_text": "Etunimi",
   "editor_field_last_name_text": "Sukunimi",
@@ -31,7 +33,7 @@
   "timeline_setting_show_projects": "Näytä projektit",
   "timeline_setting_hide_projects": "Piilota projektit",
 
-  "global_action_language_text": "Suomeksi",
+  "global_action_toggle_language": "Suomeksi",
   "global_action_save_changes": "Tallenna muutokset",
   "global_action_close": "Sulje"
 }
