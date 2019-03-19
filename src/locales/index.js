@@ -11,6 +11,14 @@ const locale = {
   EDITOR_DIALOG_TITLE: "editor_dialog_{0}_title",
   EDITOR_DIALOG_EMPTY: "editor_dialog_empty_content",
 
+  EDITOR_FIELD_FIRST_NAME: "editor_field_first_name_text",
+  EDITOR_FIELD_LAST_NAME: "editor_field_last_name_text",
+  EDITOR_FIELD_ADDRESS: "editor_field_address_text",
+  EDITOR_FIELD_ZIP_CODE: "editor_field_zip_code_text",
+  EDITOR_FIELD_CITY: "editor_field_city_text",
+  EDITOR_FIELD_EMAIL: "editor_field_email_text",
+  EDITOR_FIELD_PHONE: "editor_field_phone_text",
+
   TIMELINE_SHOW_WORK: "timeline_setting_show_work",
   TIMELINE_HIDE_WORK: "timeline_setting_hide_work",
   TIMELINE_SHOW_EDUCATION: "timeline_setting_show_education",

@@ -1,13 +1,28 @@
 {
   "global_language_id": "fi",
+  "global_language_iso": "fi-FI",
   "global_language": "Suomi",
 
   "ribbon_item_editor": "Muokkausnäkymä",
   "ribbon_item_timeline": "Aikajananäkynä",
 
+  "editor_field_first_name_text": "Etunimi",
+  "editor_field_last_name_text": "Sukunimi",
+  "editor_field_address_text": "Katuosoite",
+  "editor_field_zip_code_text": "Postinumero",
+  "editor_field_city_text": "Kaupunki",
+  "editor_field_email_text": "Sähköpostiosoite",
+  "editor_field_phone_text": "Puhelinnumero",
+
   "editor_dialog_bio_title": "Biografia",
   "editor_dialog_experience_title": "Kokemukset",
-  "editor_dialog_content_empty": "Ei sisältöä",
+  "editor_dialog_education_title": "Koulutukset ja kurssit",
+  "editor_dialog_achievements_title": "Saavutukset ja projektit",
+  "editor_dialog_references_title": "Suositteljat",
+  "editor_dialog_titles_title": "Tittelit ja tutkinnot",
+  "editor_dialog_misc_title": "Muut",
+  "editor_dialog_profile_pic_title": "Profiilikuva",
+  "editor_dialog_empty_content": "Ei sisältöä",
 
   "timeline_setting_show_work": "Näytä työtiedot",
   "timeline_setting_hide_work": "Piilota työtiedot",
