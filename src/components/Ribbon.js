@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {Nav, Navbar, NavDropdown, NavbarBrand} from "react-bootstrap";
+import locale from '../locales';
+
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 
@@ -16,7 +18,14 @@ class Ribbon extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSelect = this.handleSelect.bind(this);
+    this.handleSelect = this.handleSelect.bind(this)
+    this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
+      this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
+    }
   }
 
   handleSelect(eventKey) {
@@ -54,16 +63,9 @@ class Ribbon extends Component {
             </Nav>
 
             <Nav onSelect={this.handleSelect}>
-
               <Nav.Item>
-                <Nav.Link eventKey='en'>
-                  English
-                </Nav.Link>
-              </Nav.Item>
-
-              <Nav.Item>
-                <Nav.Link eventKey='fi'>
-                  Finnish
+                <Nav.Link eventKey={locale.switchLanguage(this.props.GLOBAL_LANGUAGE)}>
+                  {this.getLocalizedString(locale.GLOBAL_LANGUAGE_TEXT)}
                 </Nav.Link>
               </Nav.Item>
             </Nav>

@@ -18,6 +18,7 @@ const locale = {
   TIMELINE_SHOW_PROJECTS: "timeline_setting_show_projects",
   TIMELINE_HIDE_PROJECTS: "timeline_setting_hide_projects",
 
+  GLOBAL_LANGUAGE_TEXT: "global_action_language_text",
   GLOBAL_SAVE_CHANGES: "global_action_save_changes",
   GLOBAL_CLOSE: "global_action_close",
 
@@ -32,6 +33,7 @@ const locale = {
   // Function exports
 
   getLocalizedString: getLocalizedString,
+  switchLanguage: switchLanguage,
   getKeyFormat: getKeyFormat
 };
 
@@ -47,6 +49,16 @@ function getLocalizedString(id) {
   }
 
   return getStringIfExists(locale.DEFAULT_LANGUAGE[id]);
+}
+
+function switchLanguage(language) {
+  for(let current of locale.LANGUAGES) {
+    if(current[locale.GLOBAL_ID] !== language) {
+      return current[locale.GLOBAL_ID];
+    }
+  }
+
+  return locale.DEFAULT_LANGUAGE[locale.GLOBAL_ID];
 }
 
 function getKeyFormat(id, ...args) {
