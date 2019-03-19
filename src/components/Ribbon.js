@@ -1,24 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Nav, Navbar, NavDropdown, NavbarBrand} from "react-bootstrap";
+import {Nav, Navbar, NavDropdown, NavbarBrand} from 'react-bootstrap';
+
+import * as actions from '../actions';
 import locale from '../locales';
 
-import NavbarCollapse from "react-bootstrap/NavbarCollapse";
-import NavbarToggle from "react-bootstrap/NavbarToggle";
-
-import finnish_flag from './images/finnish_placeholder.png'
-import british_flag from './images/british_placeholder.png'
-
-import * as actions from '../actions'
-
-import './Ribbon.css'
+import './Ribbon.css';
 
 class Ribbon extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSelect = this.handleSelect.bind(this)
+    this.switchLanguage = this.switchLanguage.bind(this);
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
@@ -28,19 +22,14 @@ class Ribbon extends Component {
     }
   }
 
-  handleSelect(eventKey) {
-    switch (eventKey) {
-      case 'en':
-      case 'fi': {
-        this.props.dispatch(actions.setLanguage(eventKey));
-        break;
-      }
-      default: {
-        window.location = `#/${eventKey}`;
-        break;
-      }
-    }
-    console.log(eventKey);
+  switchLanguage() {
+    const language = locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_ID);
+
+    this.props.dispatch(actions.setLanguage(language));
+  }
+
+  static handleSelect(eventKey) {
+    window.location = `/#/${eventKey}`;
   }
 
   render() {
@@ -50,26 +39,29 @@ class Ribbon extends Component {
           <NavbarBrand className="brand-cv-generator">CV-generator</NavbarBrand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto" onSelect={this.handleSelect}>
-              <NavDropdown title='Document'>
-                <NavDropdown.Item eventKey='editor'>
-                  Edit CV
+            <Nav className="mr-auto" onSelect={Ribbon.handleSelect}>
+              <NavDropdown title={this.getLocalizedString(locale.RIBBON_MENU_EDITOR)}>
+                <NavDropdown.Item eventKey="editor">
+                  {this.getLocalizedString(locale.RIBBON_EDIT_DOCUMENT)}
                 </NavDropdown.Item>
-                <NavDropdown.Item eventKey='publish'>Print CV</NavDropdown.Item>
+                <NavDropdown.Item eventKey="publish" disabled>
+                  {this.getLocalizedString(locale.RIBBON_PUBLISH_DOCUMENT)}
+                </NavDropdown.Item>
               </NavDropdown>
               <Nav.Item>
-                <Nav.Link eventKey='timeline'>Timeline</Nav.Link>
-              </Nav.Item>
-            </Nav>
-
-            <Nav onSelect={this.handleSelect}>
-              <Nav.Item>
-                <Nav.Link eventKey={locale.switchLanguage(this.props.GLOBAL_LANGUAGE)}>
-                  {this.getLocalizedString(locale.GLOBAL_LANGUAGE_TEXT)}
+                <Nav.Link eventKey="timeline">
+                  {this.getLocalizedString(locale.RIBBON_MENU_TIMELINE)}
                 </Nav.Link>
               </Nav.Item>
             </Nav>
 
+            <Nav onSelect={this.switchLanguage}>
+              <Nav.Item>
+                <Nav.Link eventKey="language" active>
+                  {locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_TOGGLE_LANGUAGE)}
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       </div>
