@@ -119,7 +119,6 @@ export class TimelineView extends Component {
 
   render() {
     const propertyWork = {
-<<<<<<< HEAD
       text: this.getLocalizedString(this.props.SHOW_WORK ? locale.TIMELINE_SHOW_WORK : locale.TIMELINE_HIDE_WORK),
       variant: this.props.SHOW_WORK ? "info" : "secondary"
     };
@@ -132,21 +131,8 @@ export class TimelineView extends Component {
     const propertyProjects = {
       text: this.getLocalizedString(this.props.SHOW_PROJECTS ? locale.TIMELINE_SHOW_PROJECTS : locale.TIMELINE_HIDE_PROJECTS),
       variant: this.props.SHOW_PROJECTS ? "info" : "secondary"
-=======
-      text: this.props.SHOW_WORK ? "Show work" : "Hide work",
-      variant: this.props.SHOW_WORK ? "dark" : "secondary"
     };
 
-    const propertyEducation = {
-      text: this.props.SHOW_EDUCATION ? "Show education" : "Hide education",
-      variant: this.props.SHOW_EDUCATION ? "dark" : "secondary"
-    };
-
-    const propertyProjects = {
-      text: this.props.SHOW_PROJECTS ? "Show projects" : "Hide projects",
-      variant: this.props.SHOW_PROJECTS ? "dark" : "secondary"
->>>>>>> 025193dc371cfda980e6020e80b856bdb7992327
-    };
 
     return (
       <div id="background">
