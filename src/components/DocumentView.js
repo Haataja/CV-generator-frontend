@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal} from "react-bootstrap";
 
-import * as globalActions from "../actions";
 import * as actions from "../actions/DocumentActions";
 import locale from '../locales';
 
@@ -53,49 +52,115 @@ export class DocumentView extends Component {
     if (this.isDialogVisible()) {
       switch (this.props["EDITOR_DIALOG"]) {
         case "profile_pic": {
-          return (
-            <Container fluid={true}>
-              <Row>
-                <Col xs={12}>
-                  <input type="file" />
-                </Col>
-              </Row>
-            </Container>
-          );
+          return <Form>
+            <Form.Group controlId="bioGroup">
+              <Form.Label>Allowed file image (*.bmp, *.jpg, *.png)</Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
+          </Form>;
         }
         case "bio": {
-          return <Form.Control as="textarea" rows="5" />;
+          return <Form>
+            <Form.Group controlId="bioGroup">
+              <Form.Label>Provide a short description of yourself</Form.Label>
+              <Form.Control as="textarea" rows="5" />
+            </Form.Group>
+          </Form>;
         }
         case "experience": {
           return <Form>
-            <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="name@example.com" />
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Example select</Form.Label>
-              <Form.Control as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect2">
-              <Form.Label>Example multiple select</Form.Label>
-              <Form.Control as="select" multiple>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows="3" />
-            </Form.Group>
+            <Form.Row>
+              <Col>
+                <Form.Row>
+                  <Col xs={3}>
+                    <Form.Group controlId="startDateGroup">
+                      <Form.Label>Start date</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="typeGroup">
+                      <Form.Label>Experience type</Form.Label>
+                      <Form.Control as="select">
+                        <option>Work experience</option>
+                        <option>Other experience</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Form.Row>
+                <Form.Row>
+                  <Col xs={3}>
+                    <Form.Group controlId="endDateGroup">
+                      <Form.Label>End date</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="employerGroup">
+                      <Form.Label>Employer</Form.Label>
+                      <Form.Control />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="titleGroup">
+                      <Form.Label>Title</Form.Label>
+                      <Form.Control />
+                    </Form.Group>
+                  </Col>
+                </Form.Row>
+              </Col>
+              <Col xs={1} className="align-self-center">
+                <Button variant="primary">Add</Button>
+              </Col>
+            </Form.Row>
+          </Form>;
+        }
+        case "education": {
+          return <Form>
+            <Form.Row>
+              <Col>
+                <Form.Row>
+                  <Col xs={3}>
+                    <Form.Group controlId="startDateGroup">
+                      <Form.Label>Start date</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="typeGroup">
+                      <Form.Label>Experience type</Form.Label>
+                      <Form.Control as="select">
+                        <option>Course</option>
+                        <option>Degree</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Form.Row>
+                <Form.Row>
+                  <Col xs={3}>
+                    <Form.Group controlId="endDateGroup">
+                      <Form.Label>End date</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="employerGroup">
+                      <Form.Label>School</Form.Label>
+                      <Form.Control />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="titleGroup">
+                      <Form.Label>Field</Form.Label>
+                      <Form.Control />
+                    </Form.Group>
+                  </Col>
+                </Form.Row>
+              </Col>
+              <Col xs={1} className="align-self-center">
+                <Button variant="primary">Add</Button>
+              </Col>
+            </Form.Row>
           </Form>;
         }
       }
@@ -111,7 +176,6 @@ export class DocumentView extends Component {
 
   onSaveChanges() {
     // Save changes
-    this.props.dispatch(globalActions.setLanguage("fi"));
     this.onDialogHide();
   }
 
@@ -147,8 +211,8 @@ export class DocumentView extends Component {
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="First name" />
-                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder="Last name" />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_FIRST_NAME)} />
+                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_LAST_NAME)} />
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
@@ -161,22 +225,22 @@ export class DocumentView extends Component {
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Address" />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ADDRESS)} />
                       </InputGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Zipcode" />
-                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder="City" />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_ZIP_CODE)} />
+                        <FormControl aria-label="Small"aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_CITY)} />
                       </InputGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Email" />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_EMAIL)} />
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
@@ -186,7 +250,7 @@ export class DocumentView extends Component {
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
-                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Phone" />
+                        <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={this.getLocalizedString(locale.EDITOR_FIELD_PHONE)} />
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
@@ -198,21 +262,6 @@ export class DocumentView extends Component {
                   <Row>
                     <Col xs={11}>
                       <Button variant="primary" block onClick={this.onDialogShow('bio')}>Add Biography...</Button>
-                    </Col>
-                    <Col xs={1} className="align-self-center item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="align-self-center title">
-                      Abilities and Hobbies
-                    </Col>
-                    <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('ability')}>Add Abilities or Hobbies...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -257,7 +306,7 @@ export class DocumentView extends Component {
                       Achievements and Projects
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('achievement')}>Add Achievements or Projects...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>Add Achievements or Projects...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -287,7 +336,7 @@ export class DocumentView extends Component {
                       Licences
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('licence')}>Add Licence...</Button>
+                      <Button variant="primary" block onClick={this.onDialogShow('misc')}>Add Licence...</Button>
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
@@ -322,7 +371,7 @@ export class DocumentView extends Component {
                 </div>
               </Container>
             </Col>
-            <Fade in={this.isSidebarVisible()} onExited={this.onSidebarHide}>
+            <Fade in={this.isSidebarVisible()} onExited={this.onSidebarHide} mountOnEnter={true} unmountOnExit={true}>
               <Col xs={3} id="controls">
                 <DocumentControls props={this.props} />
               </Col>
