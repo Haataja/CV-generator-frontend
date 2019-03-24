@@ -9,8 +9,9 @@ import Ribbon from './Ribbon';
 import * as actions from '../actions';
 
 import './App.css';
+import {connect} from "react-redux";
 
-export default class App extends Component {
+export class App extends Component {
   render() {
     return (
       <HashRouter>
@@ -33,3 +34,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(data => data)(App);
