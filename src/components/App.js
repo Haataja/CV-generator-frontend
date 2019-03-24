@@ -33,6 +33,11 @@ export class App extends Component {
       </HashRouter>
     );
   }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/demo").then(response => response.json()).then(data => this.props.dispatch(actions.saveData(data)))
+      .catch(error => console.log(error));
+  }
 }
 
 export default connect(data => data)(App);
