@@ -6,6 +6,8 @@ import DocumentView from './DocumentView';
 import TimelineView from './TimelineView';
 import Ribbon from './Ribbon';
 
+import * as actions from '../actions';
+
 import './App.css';
 
 export default class App extends Component {
