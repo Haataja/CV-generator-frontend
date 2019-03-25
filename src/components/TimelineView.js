@@ -8,8 +8,6 @@ import Timeline from 'react-visjs-timeline';
 import * as actions from '../actions/TimelineActions';
 import locale from '../locales';
 
-import henkilo from '../testdata/henkilo';
-
 import './TimelineView.css';
 
 class TimelineView extends Component {
@@ -42,42 +40,50 @@ class TimelineView extends Component {
     let projects = [];
     let education = [];
 
-    for (let prop of data.experience.data) {
-      if (prop.visible) {
-        work.push({
-          start: new Date(prop.startdate * 1000),
-          end: new Date(prop.enddate * 1000),
-          content: prop.title,
-          title: `<h5>${prop.title}</h5><p>${prop.name}<br/>${prop.description}</p>`,
-          group: GROUP_WORK,
-          className: 'timeline-item-work'
-        });
+    if(data) {
+      if (data.experience) {
+        for (let prop of data.experience.data) {
+          if (prop.visible) {
+            work.push({
+              start: new Date(prop.startdate * 1000),
+              end: new Date(prop.enddate * 1000),
+              content: prop.title,
+              title: `<h5>${prop.title}</h5><p>${prop.name}<br/>${prop.description}</p>`,
+              group: GROUP_WORK,
+              className: 'timeline-item-tuni'
+            });
+          }
+        }
       }
-    }
 
-    for (let prop of data.achievements_and_projects.data) {
-      if (prop.visible) {
-        projects.push({
-          start: new Date(prop.completion_date * 1000),
-          type: 'box',
-          title: `<h5>${prop.name}</h5><p>${prop.description}</p>`,
-          content: prop.name,
-          group: GROUP_PROJECTS,
-          className: 'timeline-item-projects'
-        });
+      if (data.achievements_and_projects) {
+        for (let prop of data.achievements_and_projects.data) {
+          if (prop.visible) {
+            projects.push({
+              start: new Date(prop.completion_date * 1000),
+              type: 'box',
+              title: `<h5>${prop.name}</h5><p>${prop.description}</p>`,
+              content: prop.name,
+              group: GROUP_PROJECTS,
+              className: 'timeline-item-tuni'
+            });
+          }
+        }
       }
-    }
 
-    for (let prop of data.courses_and_education.data) {
-      if (prop.visible) {
-        education.push({
-          start: new Date(prop.startdate * 1000),
-          end: new Date(prop.enddate * 1000),
-          title: `<h5>${prop.type === 'education' ? prop.field_name : prop.course_name}</h5><p>${prop.type === 'education' ? prop.school_name : prop.provider_name}</p>`,
-          content: `${prop.type === 'education' ? prop.field_name : prop.course_name}`,
-          group: GROUP_EDUCATION,
-          className: 'timeline-item-education'
-        });
+      if (data.courses_and_education) {
+        for (let prop of data.courses_and_education.data) {
+          if (prop.visible) {
+            education.push({
+              start: new Date(prop.startdate * 1000),
+              end: new Date(prop.enddate * 1000),
+              title: `<h5>${prop.type === 'education' ? prop.field_name : prop.course_name}</h5><p>${prop.type === 'education' ? prop.school_name : prop.provider_name}</p>`,
+              content: `${prop.type === 'education' ? prop.field_name : prop.course_name}`,
+              group: GROUP_EDUCATION,
+              className: 'timeline-item-tuni'
+            });
+          }
+        }
       }
     }
 
@@ -115,7 +121,7 @@ class TimelineView extends Component {
       zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
       zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
     };
-  }
+}
 
   render() {
     const propertyWork = {
@@ -149,7 +155,7 @@ class TimelineView extends Component {
         </Row>
         <Row>
           <Col xs={12} id="timeline">
-            <Timeline items={this.getTimelineItems(henkilo)} options={this.getTimelineOptions()}
+            <Timeline items={this.getTimelineItems(this.props.GLOBAL_DATA)} options={this.getTimelineOptions()}
                       groups={this.getTimeLineGroups()}/>
           </Col>
         </Row>
