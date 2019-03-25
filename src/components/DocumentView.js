@@ -24,6 +24,7 @@ class DocumentView extends Component {
     this.onSidebarToggle = this.onSidebarToggle.bind(this);
     this.isSidebarVisible = this.isSidebarVisible.bind(this);
 
+    this.prepareData = this.prepareData.bind(this);
     this.getContent = this.getContent.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
@@ -35,7 +36,7 @@ class DocumentView extends Component {
     }
   }
 
-  getContent() {
+  getContent(data) {
     if (this.isDialogVisible()) {
       switch (this.props['EDITOR_DIALOG']) {
         case 'profile_pic': {
@@ -50,7 +51,7 @@ class DocumentView extends Component {
           return <Form>
             <Form.Group controlId="bioGroup">
               <Form.Label>Provide a short description of yourself</Form.Label>
-              <Form.Control as="textarea" rows="5"/>
+              <Form.Control as="textarea" rows="5" defaultValue={data.bio.value}/>
             </Form.Group>
           </Form>;
         }
@@ -185,8 +186,25 @@ class DocumentView extends Component {
     return setupCheck ? prop === null || prop === undefined : prop;
   }
 
+  prepareData(key, category = null) {
+    let data = this.props["GLOBAL_DATA"];
+
+    if (data) {
+      if (category !== null && data[category] !== undefined) {
+        data = data[category];
+      }
+
+      if (key !== null && data[key] !== undefined) {
+        return data[key];
+      }
+    }
+
+    return "";
+  }
+
   render() {
     const date = new Date();
+    const data = this.props["GLOBAL_DATA"];
 
     const getFieldText = identifier => (
       this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier))
@@ -207,9 +225,11 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("first_name")}/>
+                                     placeholder={getFieldText("first_name")}
+                                     defaultValue={this.prepareData("firstname")}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("last_name")}/>
+                                     placeholder={getFieldText("last_name")}
+                                     defaultValue={this.prepareData("lastname")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
@@ -223,7 +243,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("address")}/>
+                                     placeholder={getFieldText("address")}
+                                     defaultValue={this.prepareData("street_address", "address")}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -231,9 +252,11 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("zip_code")}/>
+                                     placeholder={getFieldText("zip_code")}
+                                     defaultValue={this.prepareData("zipcode", "address")}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("city")}/>
+                                     placeholder={getFieldText("city")}
+                                     defaultValue={this.prepareData("city", "address")}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -383,7 +406,7 @@ class DocumentView extends Component {
                 <div id="footer">
                   <Row className="text-center">
                     <Col xs={12}>
-                      Footer content
+                      {this.prepareData("footer_value", "document_settings")}
                     </Col>
                   </Row>
                 </div>
@@ -402,7 +425,7 @@ class DocumentView extends Component {
           </Modal.Header>
 
           <Modal.Body>
-            {this.getContent()}
+            {this.getContent(data)}
           </Modal.Body>
 
           <Modal.Footer>
