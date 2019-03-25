@@ -111,17 +111,17 @@ class TimelineView extends Component {
   }
 
   getTimelineOptions() {
-    return {
-      width: '100%',
-      stack: true,
-      showMajorLabels: true,
-      showCurrentTime: true,
-      min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
-      max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
-      zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
-      zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
-    };
-}
+      return {
+        width: '100%',
+        stack: true,
+        showMajorLabels: true,
+        showCurrentTime: true,
+        min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
+        max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
+        zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
+        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
+      };
+  }
 
   render() {
     const propertyWork = {
@@ -139,6 +139,9 @@ class TimelineView extends Component {
       variant: this.props.SHOW_PROJECTS ? 'info' : 'secondary'
     };
 
+    const data = this.props.GLOBAL_DATA;
+    console.log(data)
+
     return (
       <Container id="page">
         <Row>
@@ -155,7 +158,7 @@ class TimelineView extends Component {
         </Row>
         <Row>
           <Col xs={12} id="timeline">
-            <Timeline items={this.getTimelineItems(this.props.GLOBAL_DATA)} options={this.getTimelineOptions()}
+            <Timeline items={this.getTimelineItems(data)} options={this.getTimelineOptions()}
                       groups={this.getTimeLineGroups()}/>
           </Col>
         </Row>
