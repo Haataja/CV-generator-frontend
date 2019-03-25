@@ -20,6 +20,12 @@
     margin-top: 2em;
 }
 
+#timeline .timeline-item-tuni {
+    background-color: rgba(78, 0, 142, 0.15)!important;
+    border-color: #4e008e !important;
+    box-shadow: none;
+}
+
 #timeline .timeline-item-work {
     background-color: rgba(0,255,0,0.1);
     border-color:rgba(0,255,0,0.5)
