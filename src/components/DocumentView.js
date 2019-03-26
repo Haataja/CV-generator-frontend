@@ -278,6 +278,9 @@ class DocumentView extends Component {
           }
 
         case 'profile_image': {
+          return (
+            <img alt="profile_image" src={data[key].source} />
+          )
           break;
         }
         case 'bio': {
@@ -342,15 +345,17 @@ class DocumentView extends Component {
 
   createDocumentData(data, key, dialogType, fieldText) {
     if(data && data[key]) {
-      if(key === "bio") {
+      if (key === "bio") {
         return this.getProfileData(key, data);
+      } else if(key === "profile_image") {
+        return this.getProfileData(key,data);
       } else {
-        return (
-          <ul>
-            {this.getProfileData(key, data)}
-          </ul>
-        );
-      }
+          return (
+            <ul>
+              {this.getProfileData(key, data)}
+            </ul>
+          );
+        }
     } else {
 
       return(
@@ -435,9 +440,7 @@ class DocumentView extends Component {
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>
-                        {getFieldText("profile_pic")}
-                      </Button>
+                      {this.createDocumentData(data,"profile_image", "profile_pic", getFieldText("profile_pic"))}
                     </Col>
                   </Row>
                 </div>
