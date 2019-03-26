@@ -25,6 +25,7 @@ class DocumentView extends Component {
 
     this.getProfileData = this.getProfileData.bind(this);
     this.createDocumentData = this.createDocumentData.bind(this);
+    this.createRowData = this.createRowData.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
@@ -462,6 +463,32 @@ class DocumentView extends Component {
     }
   }
 
+  createRowData(data, key, title_func, text_func) {
+    let noData = true;
+
+    if (typeof data === "object" && data[key]) {
+      noData = !data[key].data;
+    }
+
+    return (
+      <Row>
+        <Col xs={5} className="title">
+          {title_func(key)}
+        </Col>
+        <Col xs={6}>
+          {this.createDocumentData(data, key, key, text_func(key))}
+        </Col>
+        <Col xs={1} className="item-controls">
+          <ButtonGroup size="sm" aria-label="Item controls">
+            <Button className="fa fa-cog" variant="secondary" onClick={this.onDialogShow(key)} disabled={noData} size="sm"/>
+            <Button className="fa fa-eye-slash" variant="secondary" disabled={noData} size="sm"/>
+            <Button className="fa fa-times" variant="secondary" disabled={noData} size="sm"/>
+          </ButtonGroup>
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
     const date = new Date();
     const data = this.props["GLOBAL_DATA"];
@@ -557,96 +584,12 @@ class DocumentView extends Component {
                       </ButtonGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("experience")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data,"experience","experience", getFieldText("experience"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("education")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data, "education", "education", getFieldText("education"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("achievements")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data,"projects", "projects", getFieldText("achievements"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("titles")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data,"titles", "titles", getFieldText("titles"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("misc")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data,"misc", "misc", getFieldText("misc"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={5} className="title">
-                      {getTitle("references")}
-                    </Col>
-                    <Col xs={6}>
-                      {this.createDocumentData(data,"references", "references", getFieldText("references"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
+                  {this.createRowData(data, "experience", getTitle, getFieldText)}
+                  {this.createRowData(data, "education", getTitle, getFieldText)}
+                  {this.createRowData(data, "projects", getTitle, getFieldText)}
+                  {this.createRowData(data, "titles", getTitle, getFieldText)}
+                  {this.createRowData(data, "misc", getTitle, getFieldText)}
+                  {this.createRowData(data, "references", getTitle, getFieldText)}
                 </div>
                 <div id="footer">
                   <Row className="text-center">
