@@ -452,7 +452,7 @@ class DocumentView extends Component {
                     <Col xs={11}>
                       {this.createDocumentData(data, "bio", "bio", getFieldText("bio"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -467,7 +467,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data,"experience","experience", getFieldText("experience"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -482,7 +482,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data, "education", "education", getFieldText("education"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -497,7 +497,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data,"projects", "projects", getFieldText("achievements"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -512,7 +512,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data,"titles", "titles", getFieldText("titles"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -527,7 +527,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data,"misc", "misc", getFieldText("misc"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -542,7 +542,7 @@ class DocumentView extends Component {
                     <Col xs={6}>
                       {this.createDocumentData(data,"references", "references", getFieldText("references"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
