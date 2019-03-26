@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal, Fade} from 'react-bootstrap';
 
+import * as globalActions from '../actions';
 import * as actions from '../actions/DocumentActions';
 import locale from '../locales';
 
@@ -162,6 +163,10 @@ class DocumentView extends Component {
   }
 
   onSaveChanges() {
+    const key = this.props["EDITOR_DIALOG"];
+    this.props.GLOBAL_DATA[key] = {...this.props.GLOBAL_DATA[key], ...this.temporaryData};
+
+    this.props.dispatch(globalActions.saveData(this.props.GLOBAL_DATA));
     this.onDialogHide();
   }
 
