@@ -221,9 +221,10 @@ class DocumentView extends Component {
 
   getProfileData(key, data) {
     if(data && data[key]) {
+      let array = [];
+
       switch (key) {
         case 'education': {
-            let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
               let type = temp.type === 'education';
@@ -243,7 +244,6 @@ class DocumentView extends Component {
 
 
         case 'experience': {
-            let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
               // TODO CHANGE TIMESTAMP TO SECONDS
@@ -264,7 +264,6 @@ class DocumentView extends Component {
 
 
         case 'projects': {
-            let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
               // TODO CHANGE TIMESTAMP TO SECONDS
@@ -290,8 +289,6 @@ class DocumentView extends Component {
           break;
         }
         case 'titles': {
-          let array= [];
-
           for(let i = 0; i < data[key].data.length; i++) {
             const temp = data[key].data[i];
 
