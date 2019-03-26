@@ -45,8 +45,8 @@ class TimelineView extends Component {
         for (let prop of data.experience.data) {
           if (prop.visible) {
             work.push({
-              start: new Date(prop.startdate * 1000),
-              end: new Date(prop.enddate * 1000),
+              start: new Date(prop.startdate),
+              end: new Date(prop.enddate),
               content: prop.title,
               title: `<h5>${prop.title}</h5><p>${prop.name}<br/>${prop.description}</p>`,
               group: GROUP_WORK,
@@ -56,11 +56,11 @@ class TimelineView extends Component {
         }
       }
 
-      if (data.achievements_and_projects) {
-        for (let prop of data.achievements_and_projects.data) {
+      if (data.projects) {
+        for (let prop of data.projects.data) {
           if (prop.visible) {
             projects.push({
-              start: new Date(prop.completion_date * 1000),
+              start: new Date(prop.completion_date),
               type: 'box',
               title: `<h5>${prop.name}</h5><p>${prop.description}</p>`,
               content: prop.name,
@@ -71,12 +71,12 @@ class TimelineView extends Component {
         }
       }
 
-      if (data.courses_and_education) {
-        for (let prop of data.courses_and_education.data) {
+      if (data.education) {
+        for (let prop of data.education.data) {
           if (prop.visible) {
             education.push({
-              start: new Date(prop.startdate * 1000),
-              end: new Date(prop.enddate * 1000),
+              start: new Date(prop.startdate),
+              end: new Date(prop.enddate),
               title: `<h5>${prop.type === 'education' ? prop.field_name : prop.course_name}</h5><p>${prop.type === 'education' ? prop.school_name : prop.provider_name}</p>`,
               content: `${prop.type === 'education' ? prop.field_name : prop.course_name}`,
               group: GROUP_EDUCATION,
