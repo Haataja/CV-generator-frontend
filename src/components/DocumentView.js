@@ -23,6 +23,7 @@ class DocumentView extends Component {
     this.getContent = this.getContent.bind(this);
 
     this.getProfileData = this.getProfileData.bind(this);
+    this.createDocumentData = this.createDocumentData.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
@@ -322,6 +323,19 @@ class DocumentView extends Component {
     }
   }
 
+  createDocumentData(data, key, dialogType, fieldText) {
+    if(data && data[key]) {
+      return(<ul>
+        {this.getProfileData(key, data)}
+      </ul>);
+    } else {
+      return(
+      <Button variant="primary" block onClick={this.onDialogShow(dialogType)}>
+        {fieldText}
+      </Button>);
+    }
+  }
+
   render() {
     const date = new Date();
     const data = this.props["GLOBAL_DATA"];
@@ -462,9 +476,7 @@ class DocumentView extends Component {
                       {getTitle("achievements")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('projects')}>
-                        {getFieldText("achievements")}
-                      </Button>
+                      {this.createDocumentData(data,"projects", "projects", getFieldText("achievements"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
