@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {Container, Row, Col} from 'react-bootstrap';
-import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal, Alert} from 'react-bootstrap';
+import {Button, InputGroup, Form, FormControl, ButtonGroup} from 'react-bootstrap';
+import {Modal, Table, Tabs, Tab} from 'react-bootstrap';
 
 import * as globalActions from '../actions';
 import * as actions from '../actions/DocumentActions';
