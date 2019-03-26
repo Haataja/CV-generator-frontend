@@ -281,7 +281,6 @@ class DocumentView extends Component {
           return (
             <img alt="profile_image" src={data[key].source} />
           )
-          break;
         }
         case 'bio': {
           return (
@@ -293,7 +292,7 @@ class DocumentView extends Component {
             const temp = data[key].data[i];
 
             array.push(
-              <li>
+              <li key={i}>
                 <div><b>{temp.name}</b></div>
                 <div>{temp.value}</div>
               </li>
@@ -307,8 +306,8 @@ class DocumentView extends Component {
             const temp = data[key].data[i];
 
             array.push(
-              <li>
-                <di><b>{temp.title}</b></di>
+              <li key={i}>
+                <div><b>{temp.title}</b></div>
                 <div>Awarded: {new Date(temp.awarded * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
               </li>
             );
@@ -321,7 +320,7 @@ class DocumentView extends Component {
             const temp = data[key].data[i];
 
             array.push(
-              <li>
+              <li key={i}>
                 <div><b>{temp.name}</b></div>
                 <div>{temp.type}</div>
                 <div>Email: {temp.contact_email}</div>
