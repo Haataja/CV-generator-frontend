@@ -27,6 +27,8 @@ class DocumentView extends Component {
     this.prepareData = this.prepareData.bind(this);
     this.getContent = this.getContent.bind(this);
 
+    this.getProfileData = this.getProfileData.bind(this);
+
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
@@ -202,6 +204,36 @@ class DocumentView extends Component {
     return "";
   }
 
+  getProfileData(key, data) {
+    if(data) {
+      switch (key) {
+        case 'courses_and_education': {
+          if (data[key]) {
+            let array = [];
+            for(let i = 0; i < data[key].data.length; i++) {
+              const temp = data[key].data[i];
+              let type = temp.type === 'education';
+              console.log(temp)
+              // TODO CHANGE TIMESTAMP TO SECONDS
+              let list = <li key={i}>
+                <div><b>{type?temp.field_name:temp.course_name}</b></div>
+                <div>{type?temp.school_name:temp.provider_name}</div>
+                <div>Start: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>End: {new Date(temp.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{temp.grade?type?"Average grade: " + temp.grade:"Grade: " + temp.grade:""}</div>
+              </li>
+              array.push(list)
+            }
+
+            return array;
+          }
+        }
+      }
+    }
+
+    return <div>empty</div>
+  }
+
   render() {
     const date = new Date();
     const data = this.props["GLOBAL_DATA"];
@@ -318,10 +350,13 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("education")}
                     </Col>
                     <Col xs={6}>
+                      <ul>
+                        {this.getProfileData("courses_and_education", data)}
+                      </ul>
                       <Button variant="primary" block onClick={this.onDialogShow('education')}>
                         {getFieldText("education")}
                       </Button>
