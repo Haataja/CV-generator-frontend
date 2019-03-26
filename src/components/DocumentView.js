@@ -39,7 +39,17 @@ class DocumentView extends Component {
 
   getContent(data) {
     if (this.isDialogVisible()) {
-      switch (this.props['EDITOR_DIALOG']) {
+      const currentDialog = this.props['EDITOR_DIALOG'];
+      this.temporaryData = {...data[currentDialog]};
+
+      const mapData = identifier => {
+        return {
+          defaultValue: this.temporaryData[identifier] ? this.temporaryData[identifier] : "",
+          onChange: event => this.temporaryData[identifier] = event.target.value
+        };
+      };
+
+      switch (currentDialog) {
         case 'profile_pic': {
           return <Form>
             <Form.Group controlId="bioGroup">
@@ -52,7 +62,7 @@ class DocumentView extends Component {
           return <Form>
             <Form.Group controlId="bioGroup">
               <Form.Label>Provide a short description of yourself</Form.Label>
-              <Form.Control as="textarea" rows="5" defaultValue={data.bio.value}/>
+              <Form.Control as="textarea" rows="5" {...mapData("value")} />
             </Form.Group>
           </Form>;
         }
