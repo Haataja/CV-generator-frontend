@@ -23,6 +23,7 @@ class DocumentView extends Component {
     this.getContent = this.getContent.bind(this);
 
     this.getProfileData = this.getProfileData.bind(this);
+    this.createDocumentData = this.createDocumentData.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
@@ -219,76 +220,116 @@ class DocumentView extends Component {
   }
 
   getProfileData(key, data) {
-    if(data) {
-      switch (key) {
+    if(data && data[key]) {
+      let array = [];
 
-        case 'courses_and_education': {
-          if (data[key]) {
-            let array = [];
+      switch (key) {
+        case 'education': {
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
               let type = temp.type === 'education';
-              // TODO CHANGE TIMESTAMP TO SECONDS
+
               array.push(
                 <li key={i}>
                   <div><b>{type?temp.field_name:temp.course_name}</b></div>
                   <div>{type?temp.school_name:temp.provider_name}</div>
-                  <div>Start: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
                   <div>{temp.grade?type?"Average grade: " + temp.grade:"Grade: " + temp.grade:""}</div>
                 </li>
               );
             }
-
             return array;
           }
-        }
+
 
         case 'experience': {
-          if(data[key]) {
-            let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
-              // TODO CHANGE TIMESTAMP TO SECONDS
 
               array.push(
                 <li key={i}>
                   <div><b>{temp.name}</b></div>
                   <div>{temp.title}</div>
                   <div>{temp.description}</div>
-                  <div>Start: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
 
                 </li>
               );
             }
-
             return array;
           }
-        }
+
+
+        case 'projects': {
+            for(let i = 0; i < data[key].data.length; i++) {
+              const temp = data[key].data[i];
+
+              array.push(
+                <li key={i}>
+                  <div><b>{temp.name}</b></div>
+                  <div>{temp.description}</div>
+                  <div>Completion date: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                </li>
+              );
+            }
+            return array;
+          }
+
         case 'profile_image': {
-          break;
+          return (
+            <img alt="profile_image" src={data[key].source} />
+          )
         }
         case 'bio': {
-          break;
-        }
-        case 'experience': {
-          break;
-        }
-        case 'education': {
-          break;
+          return (
+            <p>{data[key].value}</p>
+          );
         }
         case 'misc': {
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li key={i}>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.value}</div>
+              </li>
+            )
+          }
+
+          return array;
         }
         case 'titles': {
-          break;
-        }
-        case 'projects': {
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li key={i}>
+                <div><b>{temp.title}</b></div>
+                <div>Awarded: {new Date(temp.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+              </li>
+            );
+          }
+
+          return array;
         }
         case 'references': {
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li key={i}>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.type}</div>
+                <div>Email: {temp.contact_email}</div>
+                <div>Phone: {temp.contact_phone}</div>
+              </li>
+            );
+          }
+
+          return array;
         }
         default: {
           return (
@@ -298,6 +339,29 @@ class DocumentView extends Component {
           );
         }
       }
+    }
+  }
+
+  createDocumentData(data, key, dialogType, fieldText) {
+    if(data && data[key]) {
+      if (key === "bio") {
+        return this.getProfileData(key, data);
+      } else if(key === "profile_image") {
+        return this.getProfileData(key,data);
+      } else {
+          return (
+            <ul>
+              {this.getProfileData(key, data)}
+            </ul>
+          );
+        }
+    } else {
+
+      return(
+        <Button variant="primary" block onClick={this.onDialogShow(dialogType)}>
+          {fieldText}
+        </Button>
+      );
     }
   }
 
@@ -331,8 +395,11 @@ class DocumentView extends Component {
                                      defaultValue={this.prepareData("lastname")}/>
                       </InputGroup>
                     </Col>
-                    <Col xs={6} className="title">
+                    <Col xs={4} className="title">
                       Resume
+                    </Col>
+                    <Col xs={3} id={"profile-image"} >
+                      {this.createDocumentData(data,"profile_image", "profile_pic", getFieldText("profile_pic"))}
                     </Col>
                   </Row>
                   <Row>
@@ -360,7 +427,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("email")}/>
+                                     placeholder={getFieldText("email")}
+                                     defaultValue={this.prepareData("email","contact_info")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
@@ -371,24 +439,20 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("phone")}/>
+                                     placeholder={getFieldText("phone")}
+                                     defaultValue={this.prepareData("phone","contact_info")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('profile_pic')}>
-                        {getFieldText("profile_pic")}
-                      </Button>
                     </Col>
                   </Row>
                 </div>
                 <div id="content">
                   <Row>
                     <Col xs={11}>
-                      <Button variant="primary" block onClick={this.onDialogShow('bio')}>
-                        {getFieldText("bio")}
-                      </Button>
+                      {this.createDocumentData(data, "bio", "bio", getFieldText("bio"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -401,14 +465,9 @@ class DocumentView extends Component {
                       {getTitle("experience")}
                     </Col>
                     <Col xs={6}>
-                      <ul>
-                        {this.getProfileData("experience", data)}
-                      </ul>
-                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>
-                        {getFieldText("experience")}
-                      </Button>
+                      {this.createDocumentData(data,"experience","experience", getFieldText("experience"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -421,14 +480,9 @@ class DocumentView extends Component {
                       {getTitle("education")}
                     </Col>
                     <Col xs={6}>
-                      <ul>
-                        {this.getProfileData("courses_and_education", data)}
-                      </ul>
-                      <Button variant="primary" block onClick={this.onDialogShow('education')}>
-                        {getFieldText("education")}
-                      </Button>
+                      {this.createDocumentData(data, "education", "education", getFieldText("education"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -437,15 +491,13 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("achievements")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('projects')}>
-                        {getFieldText("achievements")}
-                      </Button>
+                      {this.createDocumentData(data,"projects", "projects", getFieldText("achievements"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -458,11 +510,9 @@ class DocumentView extends Component {
                       {getTitle("titles")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>
-                        {getFieldText("titles")}
-                      </Button>
+                      {this.createDocumentData(data,"titles", "titles", getFieldText("titles"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -475,11 +525,9 @@ class DocumentView extends Component {
                       {getTitle("misc")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('misc')}>
-                        {getFieldText("misc")}
-                      </Button>
+                      {this.createDocumentData(data,"misc", "misc", getFieldText("misc"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
@@ -492,11 +540,9 @@ class DocumentView extends Component {
                       {getTitle("references")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('references')}>
-                        {getFieldText("references")}
-                      </Button>
+                      {this.createDocumentData(data,"references", "references", getFieldText("references"))}
                     </Col>
-                    <Col xs={1} className="align-self-center item-controls">
+                    <Col xs={1} className="item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
                         <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
                         <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
