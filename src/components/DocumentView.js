@@ -220,11 +220,9 @@ class DocumentView extends Component {
   }
 
   getProfileData(key, data) {
-    if(data) {
+    if(data && data[key]) {
       switch (key) {
-
         case 'education': {
-          if (data[key]) {
             let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
@@ -240,13 +238,11 @@ class DocumentView extends Component {
                 </li>
               );
             }
-
             return array;
           }
-        }
+
 
         case 'experience': {
-          if(data[key]) {
             let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
@@ -263,13 +259,11 @@ class DocumentView extends Component {
                 </li>
               );
             }
-
             return array;
           }
-        }
+
 
         case 'projects': {
-          if(data[key]) {
             let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
@@ -283,10 +277,8 @@ class DocumentView extends Component {
                 </li>
               );
             }
-
             return array;
           }
-        }
 
         case 'profile_image': {
           break;
@@ -294,16 +286,11 @@ class DocumentView extends Component {
         case 'bio': {
           break;
         }
-        case 'experience': {
-          break;
-        }
-        case 'education': {
-          break;
-        }
         case 'misc': {
           break;
         }
         case 'titles': {
+
           break;
         }
         case 'projects': {
