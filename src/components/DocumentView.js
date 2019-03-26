@@ -266,6 +266,27 @@ class DocumentView extends Component {
             return array;
           }
         }
+
+        case 'projects': {
+          if(data[key]) {
+            let array = [];
+            for(let i = 0; i < data[key].data.length; i++) {
+              const temp = data[key].data[i];
+              // TODO CHANGE TIMESTAMP TO SECONDS
+
+              array.push(
+                <li key={i}>
+                  <div><b>{temp.name}</b></div>
+                  <div>{temp.description}</div>
+                  <div>Completion date: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                </li>
+              );
+            }
+
+            return array;
+          }
+        }
+
         case 'profile_image': {
           break;
         }
