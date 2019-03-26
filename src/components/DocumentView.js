@@ -325,14 +325,20 @@ class DocumentView extends Component {
 
   createDocumentData(data, key, dialogType, fieldText) {
     if(data && data[key]) {
-      return(<ul>
-        {this.getProfileData(key, data)}
-      </ul>);
-    } else {
+
       return(
-      <Button variant="primary" block onClick={this.onDialogShow(dialogType)}>
-        {fieldText}
-      </Button>);
+        <ul>
+          {this.getProfileData(key, data)}
+        </ul>
+      );
+
+    } else {
+
+      return(
+        <Button variant="primary" block onClick={this.onDialogShow(dialogType)}>
+          {fieldText}
+        </Button>
+      );
     }
   }
 
