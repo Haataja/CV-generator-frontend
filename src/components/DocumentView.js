@@ -312,7 +312,20 @@ class DocumentView extends Component {
           return array;
         }
         case 'references': {
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.type}</div>
+                <div>Email: {temp.contact_email}</div>
+                <div>Phone: {temp.contact_phone}</div>
+              </li>
+            );
+          }
+
+          return array;
         }
         default: {
           return (
@@ -519,9 +532,7 @@ class DocumentView extends Component {
                       {getTitle("references")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('references')}>
-                        {getFieldText("references")}
-                      </Button>
+                      {this.createDocumentData(data,"references", "references", getFieldText("references"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
