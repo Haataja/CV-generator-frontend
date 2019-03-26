@@ -233,8 +233,8 @@ class DocumentView extends Component {
                 <li key={i}>
                   <div><b>{type?temp.field_name:temp.course_name}</b></div>
                   <div>{type?temp.school_name:temp.provider_name}</div>
-                  <div>Start: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
                   <div>{temp.grade?type?"Average grade: " + temp.grade:"Grade: " + temp.grade:""}</div>
                 </li>
               );
@@ -252,8 +252,8 @@ class DocumentView extends Component {
                   <div><b>{temp.name}</b></div>
                   <div>{temp.title}</div>
                   <div>{temp.description}</div>
-                  <div>Start: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
 
                 </li>
               );
@@ -270,7 +270,7 @@ class DocumentView extends Component {
                 <li key={i}>
                   <div><b>{temp.name}</b></div>
                   <div>{temp.description}</div>
-                  <div>Completion date: {new Date(temp.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                  <div>Completion date: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
                 </li>
               );
             }
@@ -308,7 +308,7 @@ class DocumentView extends Component {
             array.push(
               <li key={i}>
                 <div><b>{temp.title}</b></div>
-                <div>Awarded: {new Date(temp.awarded * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>Awarded: {new Date(temp.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
               </li>
             );
           }
