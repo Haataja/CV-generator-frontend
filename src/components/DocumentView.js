@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {Container, Row, Col} from 'react-bootstrap';
-import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal, Fade} from 'react-bootstrap';
+import {Button, InputGroup, Form, FormControl, ButtonGroup, Modal, Alert} from 'react-bootstrap';
 
 import * as globalActions from '../actions';
 import * as actions from '../actions/DocumentActions';
 import locale from '../locales';
 
-import DocumentControls from './DocumentControls';
-import './DocumentControls.css';
 import './DocumentView.css';
 
 class DocumentView extends Component {
@@ -20,10 +18,6 @@ class DocumentView extends Component {
     this.onDialogHide = this.onDialogHide.bind(this);
     this.isDialogVisible = this.isDialogVisible.bind(this);
     this.onSaveChanges = this.onSaveChanges.bind(this);
-
-    this.onSidebarHide = this.onSidebarHide.bind(this);
-    this.onSidebarToggle = this.onSidebarToggle.bind(this);
-    this.isSidebarVisible = this.isSidebarVisible.bind(this);
 
     this.prepareData = this.prepareData.bind(this);
     this.getContent = this.getContent.bind(this);
@@ -190,19 +184,6 @@ class DocumentView extends Component {
     return typeof this.props['EDITOR_DIALOG'] === 'string';
   }
 
-  onSidebarToggle() {
-    this.props.dispatch(actions.toggleSidebar(!this.isSidebarVisible()));
-  }
-
-  onSidebarHide() {
-    this.props.dispatch(actions.toggleSidebar(null));
-  }
-
-  isSidebarVisible(setupCheck) {
-    const prop = this.props['EDITOR_SIDEBAR'];
-    return setupCheck ? prop === null || prop === undefined : prop;
-  }
-
   prepareData(key, category = null) {
     let data = this.props["GLOBAL_DATA"];
 
@@ -289,7 +270,7 @@ class DocumentView extends Component {
       <>
         <Container fluid={true} id="editor">
           <Row>
-            <Col xs={this.isSidebarVisible(true) ? 12 : 9}>
+            <Col xs={12}>
               <Container id="page">
                 <div id="header">
                   <Row>
@@ -303,11 +284,8 @@ class DocumentView extends Component {
                                      defaultValue={this.prepareData("lastname")}/>
                       </InputGroup>
                     </Col>
-                    <Col xs={4} className="title">
+                    <Col xs={6} className="title">
                       Resume
-                    </Col>
-                    <Col xs={2} className="text-right">
-                      <Button variant="secondary" className="fa fa-cog" onClick={this.onSidebarToggle}/>
                     </Col>
                   </Row>
                   <Row>
@@ -489,11 +467,6 @@ class DocumentView extends Component {
                 </div>
               </Container>
             </Col>
-            <Fade in={this.isSidebarVisible()} onExited={this.onSidebarHide} mountOnEnter={true} unmountOnExit={true}>
-              <Col xs={3} id="controls">
-                <DocumentControls props={this.props} onHide={this.onSidebarToggle}/>
-              </Col>
-            </Fade>
           </Row>
         </Container>
         <Modal size="lg" show={this.isDialogVisible()} centered onHide={this.onDialogHide}>

@@ -7,10 +7,3 @@ export function updateDialog(type) {
     payload: type
   };
 }
-
-export function toggleSidebar(value) {
-  return {
-    type: EDITOR_SIDEBAR,
-    payload: value
-  };
-}
