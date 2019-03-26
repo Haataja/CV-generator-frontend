@@ -13,8 +13,13 @@
     height: 15%;
     margin-bottom: 4em;
 }
+#profile-image {
+    position: relative;
+}
 
-#header img {
+#profile-image img {
+    position:absolute;
+    right:5pt;
     max-height: 125pt;
     min-height: 50pt;
 }

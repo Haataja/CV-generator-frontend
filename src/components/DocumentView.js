@@ -384,8 +384,7 @@ class DocumentView extends Component {
             <Col xs={12}>
               <Container id="page">
                 <div id="header">
-
-                  <Row className={"float_left"}>
+                  <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
@@ -396,10 +395,10 @@ class DocumentView extends Component {
                                      defaultValue={this.prepareData("lastname")}/>
                       </InputGroup>
                     </Col>
-                    <Col xs={5} className="title">
+                    <Col xs={4} className="title">
                       Resume
                     </Col>
-                    <Col className={"float-right"} xs={2}>
+                    <Col xs={3} id={"profile-image"} >
                       {this.createDocumentData(data,"profile_image", "profile_pic", getFieldText("profile_pic"))}
                     </Col>
                   </Row>
