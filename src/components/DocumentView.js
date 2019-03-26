@@ -491,7 +491,7 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("achievements")}
                     </Col>
                     <Col xs={6}>
