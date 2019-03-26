@@ -290,8 +290,20 @@ class DocumentView extends Component {
           break;
         }
         case 'titles': {
+          let array= [];
 
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li>
+                <di><b>{temp.title}</b></di>
+                <div>Awarded: {new Date(temp.awarded * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+              </li>
+            );
+          }
+
+          return array;
         }
         case 'projects': {
           break;
@@ -474,9 +486,7 @@ class DocumentView extends Component {
                       {getTitle("titles")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('titles')}>
-                        {getFieldText("titles")}
-                      </Button>
+                      {this.createDocumentData(data,"titles", "titles", getFieldText("titles"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
