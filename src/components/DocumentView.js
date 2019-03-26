@@ -222,7 +222,7 @@ class DocumentView extends Component {
     if(data) {
       switch (key) {
 
-        case 'courses_and_education': {
+        case 'education': {
           if (data[key]) {
             let array = [];
             for(let i = 0; i < data[key].data.length; i++) {
@@ -443,7 +443,7 @@ class DocumentView extends Component {
                     </Col>
                     <Col xs={6}>
                       <ul>
-                        {this.getProfileData("courses_and_education", data)}
+                        {this.getProfileData("education", data)}
                       </ul>
                       <Button variant="primary" block onClick={this.onDialogShow('education')}>
                         {getFieldText("education")}
