@@ -40,7 +40,9 @@ class DocumentView extends Component {
       const currentDialog = this.props['EDITOR_DIALOG'];
 
       if (typeof data === "object" && data[currentDialog]) {
-        this.temporaryData = {...data[currentDialog]};
+        if (!this.props["EDITOR_DIALOG_MODE"]) {
+          this.temporaryData = DocumentView.deepCopy(data[currentDialog]);
+        }
       } else {
         return <Alert variant="danger">Localize: Cannot get dialog information</Alert>;
       }
@@ -62,60 +64,153 @@ class DocumentView extends Component {
           </Form>;
         }
         case 'bio': {
-          return <Form>
-            <Form.Group controlId="bioGroup">
-              <Form.Label>Provide a short description of yourself</Form.Label>
-              <Form.Control as="textarea" rows="5" {...mapData("value")} />
-            </Form.Group>
-          </Form>;
+          return (
+            <Tabs defaultActiveKey="bio" transition={false}>
+              <Tab eventKey="bio" title="Biography">
+                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapData("value")} />
+              </Tab>
+              <Tab eventKey="footer" title="Footer">
+                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapData("footer")} />
+              </Tab>
+            </Tabs>
+          );
         }
         case 'experience': {
-          return <Form>
-            <Form.Row>
-              <Col>
+          return (
+            <Tabs activeKey={this.props["EDITOR_DIALOG_MODE"] ? this.props["EDITOR_DIALOG_MODE"] : "view"} onSelect={event => this.props.dispatch(actions.setDialogEditMode(event))} id="experience" transition={false} className="align-self-center">
+              <Tab eventKey="view" title={<i className="fa fa-list"/>}>
+                <Table borderless="true" striped="true" responsive={true} size="sm">
+                  <thead>
+                    <tr>
+                      <th>Start date</th>
+                      <th>End date</th>
+                      <th>Name</th>
+                      <th>Title</th>
+                      <th/>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.temporaryData.data.map((item, index) => (
+                        <tr key={item.id}>
+                          <td>{new Date(item.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                          <td>{new Date(item.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                          <td>{item.name}</td>
+                          <td>{item.title}</td>
+                          <td className="text-right">
+                            <ButtonGroup size="sm">
+                              <Button onClick={() => {
+                                this.props.dispatch(actions.setDialogEditMode("edit"));
+                              }} className="fa fa-cog" variant="primary" size="sm"/>
+                              <Button onClick={() => {
+                                this.temporaryData.data[index].visible = !this.temporaryData.data[index].visible;
+                                this.props.dispatch(actions.setDialogEditMode("view"));
+                              }} className={this.temporaryData.data[index].visible ? "fa fa-eye-slash" : "fa fa-eye"} variant="primary" size="sm"/>
+                              <Button onClick={() => {
+                                this.temporaryData.data.splice(index, 1);
+                                this.props.dispatch(actions.setDialogEditMode("view"));
+                              }} className="fa fa-times" variant="primary" size="sm"/>
+                            </ButtonGroup>
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </Table>
+              </Tab>
+              <Tab eventKey="edit" title={<i className="fa fa-edit"/>} disabled={this.props["EDITOR_DIALOG_MODE"] !== "edit"}>
                 <Form.Row>
-                  <Col xs={3}>
-                    <Form.Group controlId="startDateGroup">
-                      <Form.Label>Start date</Form.Label>
-                      <Form.Control type="date"/>
-                    </Form.Group>
-                  </Col>
                   <Col>
-                    <Form.Group controlId="typeGroup">
-                      <Form.Label>Experience type</Form.Label>
-                      <Form.Control as="select">
-                        <option>Work experience</option>
-                        <option>Other experience</option>
-                      </Form.Control>
-                    </Form.Group>
+                    <Form.Row>
+                      <Col xs={3}>
+                        <Form.Group controlId="startDateGroup">
+                          <Form.Label>Start date</Form.Label>
+                          <Form.Control type="date"/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="typeGroup">
+                          <Form.Label>Experience type</Form.Label>
+                          <Form.Control as="select">
+                            <option>Work experience</option>
+                            <option>Other experience</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Col>
+                    </Form.Row>
+                    <Form.Row>
+                      <Col xs={3}>
+                        <Form.Group controlId="endDateGroup">
+                          <Form.Label>End date</Form.Label>
+                          <Form.Control type="date"/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="employerGroup">
+                          <Form.Label>Employer</Form.Label>
+                          <Form.Control/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="titleGroup">
+                          <Form.Label>Title</Form.Label>
+                          <Form.Control/>
+                        </Form.Group>
+                      </Col>
+                    </Form.Row>
+                  </Col>
+                  <Col xs={1} className="align-self-center">
+                    <Button variant="primary">Edit</Button>
                   </Col>
                 </Form.Row>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
                 <Form.Row>
-                  <Col xs={3}>
-                    <Form.Group controlId="endDateGroup">
-                      <Form.Label>End date</Form.Label>
-                      <Form.Control type="date"/>
-                    </Form.Group>
-                  </Col>
                   <Col>
-                    <Form.Group controlId="employerGroup">
-                      <Form.Label>Employer</Form.Label>
-                      <Form.Control/>
-                    </Form.Group>
+                    <Form.Row>
+                      <Col xs={3}>
+                        <Form.Group controlId="startDateGroup">
+                          <Form.Label>Start date</Form.Label>
+                          <Form.Control type="date"/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="typeGroup">
+                          <Form.Label>Experience type</Form.Label>
+                          <Form.Control as="select">
+                            <option>Work experience</option>
+                            <option>Other experience</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Col>
+                    </Form.Row>
+                    <Form.Row>
+                      <Col xs={3}>
+                        <Form.Group controlId="endDateGroup">
+                          <Form.Label>End date</Form.Label>
+                          <Form.Control type="date"/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="employerGroup">
+                          <Form.Label>Employer</Form.Label>
+                          <Form.Control/>
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group controlId="titleGroup">
+                          <Form.Label>Title</Form.Label>
+                          <Form.Control/>
+                        </Form.Group>
+                      </Col>
+                    </Form.Row>
                   </Col>
-                  <Col>
-                    <Form.Group controlId="titleGroup">
-                      <Form.Label>Title</Form.Label>
-                      <Form.Control/>
-                    </Form.Group>
+                  <Col xs={1} className="align-self-center">
+                    <Button variant="primary">Add</Button>
                   </Col>
                 </Form.Row>
-              </Col>
-              <Col xs={1} className="align-self-center">
-                <Button variant="primary">Add</Button>
-              </Col>
-            </Form.Row>
-          </Form>;
+              </Tab>
+            </Tabs>
+          );
         }
         case 'education': {
           return <Form>
@@ -558,7 +653,7 @@ class DocumentView extends Component {
                 <div id="footer">
                   <Row className="text-center">
                     <Col xs={12}>
-                      {this.prepareData("footer_value", "document_settings")}
+                      {this.prepareData("footer", "bio")}
                     </Col>
                   </Row>
                 </div>
