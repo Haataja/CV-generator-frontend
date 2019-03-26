@@ -44,8 +44,6 @@ class DocumentView extends Component {
         if (!this.props["EDITOR_DIALOG_MODE"]) {
           this.temporaryData = DocumentView.deepCopy(data[currentDialog]);
         }
-      } else {
-        return <Alert variant="danger">Localize: Cannot get dialog information</Alert>;
       }
 
       const mapData = identifier => {
@@ -78,8 +76,8 @@ class DocumentView extends Component {
         }
         case 'experience': {
           return (
-            <Tabs activeKey={this.props["EDITOR_DIALOG_MODE"] ? this.props["EDITOR_DIALOG_MODE"] : "view"} onSelect={event => this.props.dispatch(actions.setDialogEditMode(event))} id="experience" transition={false} className="align-self-center">
-              <Tab eventKey="view" title={<i className="fa fa-list"/>}>
+            <Tabs activeKey={this.props["EDITOR_DIALOG_MODE"] ? this.props["EDITOR_DIALOG_MODE"] : data[currentDialog] ? "view" : "new"} onSelect={event => this.props.dispatch(actions.setDialogEditMode(event))} id="experience" transition={false} className="align-self-center">
+              <Tab eventKey="view" title={<i className="fa fa-list"/>} disabled={!data[currentDialog]}>
                 <Table borderless="true" striped="true" responsive={true} size="sm">
                   <thead>
                     <tr>
@@ -467,7 +465,11 @@ class DocumentView extends Component {
     let noData = true;
 
     if (typeof data === "object" && data[key]) {
-      noData = !data[key].data;
+      if (typeof data[key].data === "object" && data[key].data.length > 0) {
+        noData = false;
+      } else {
+        data[key] = null;
+      }
     }
 
     return (
