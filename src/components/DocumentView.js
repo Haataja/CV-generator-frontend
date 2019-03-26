@@ -228,7 +228,7 @@ class DocumentView extends Component {
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
               let type = temp.type === 'education';
-              // TODO CHANGE TIMESTAMP TO SECONDS
+
               array.push(
                 <li key={i}>
                   <div><b>{type?temp.field_name:temp.course_name}</b></div>
@@ -246,7 +246,6 @@ class DocumentView extends Component {
         case 'experience': {
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
-              // TODO CHANGE TIMESTAMP TO SECONDS
 
               array.push(
                 <li key={i}>
@@ -266,7 +265,6 @@ class DocumentView extends Component {
         case 'projects': {
             for(let i = 0; i < data[key].data.length; i++) {
               const temp = data[key].data[i];
-              // TODO CHANGE TIMESTAMP TO SECONDS
 
               array.push(
                 <li key={i}>
@@ -286,7 +284,18 @@ class DocumentView extends Component {
           break;
         }
         case 'misc': {
-          break;
+          for(let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+
+            array.push(
+              <li>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.value}</div>
+              </li>
+            )
+          }
+
+          return array;
         }
         case 'titles': {
           for(let i = 0; i < data[key].data.length; i++) {
@@ -301,9 +310,6 @@ class DocumentView extends Component {
           }
 
           return array;
-        }
-        case 'projects': {
-          break;
         }
         case 'references': {
           break;
@@ -498,9 +504,7 @@ class DocumentView extends Component {
                       {getTitle("misc")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('misc')}>
-                        {getFieldText("misc")}
-                      </Button>
+                      {this.createDocumentData(data,"misc", "misc", getFieldText("misc"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
