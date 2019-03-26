@@ -436,12 +436,7 @@ class DocumentView extends Component {
                       {getTitle("experience")}
                     </Col>
                     <Col xs={6}>
-                      <ul>
-                        {this.getProfileData("experience", data)}
-                      </ul>
-                      <Button variant="primary" block onClick={this.onDialogShow('experience')}>
-                        {getFieldText("experience")}
-                      </Button>
+                      {this.createDocumentData(data,"experience","experience", getFieldText("experience"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
