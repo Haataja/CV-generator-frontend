@@ -36,8 +36,7 @@ export class App extends Component {
 
   componentDidMount() {
     this.props.dispatch((dispatch) => {
-      dispatch(actions.saveData([]));
-      fetch("http://localhost:8080/test").then(response => response.json())
+        fetch("http://localhost:8080/test").then(response => response.json())
         .then((data) => {
           dispatch(actions.saveData(data))
         });

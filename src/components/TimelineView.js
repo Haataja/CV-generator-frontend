@@ -119,7 +119,9 @@ class TimelineView extends Component {
         min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
         max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
         zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
-        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
+        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
+        start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+        end: new Date(Date.now())
       };
   }
 
@@ -140,7 +142,23 @@ class TimelineView extends Component {
     };
 
     const data = this.props.GLOBAL_DATA;
-    console.log(data)
+    const initData = {
+      experience: {
+        data: [
+          {
+            "enddate": new Date(Date.now()),
+            "achievements": [],
+            "visible": true,
+            "name": "placeholder",
+            "description": "placeholder",
+            "id": 1,
+            "type": "place",
+            "startdate": new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+            "title": "placeholder"
+          }
+        ]
+      }
+    }
 
     return (
       <Container id="page">
@@ -158,7 +176,7 @@ class TimelineView extends Component {
         </Row>
         <Row>
           <Col xs={12} id="timeline">
-            <Timeline items={this.getTimelineItems(data)} options={this.getTimelineOptions()}
+            <Timeline items={this.getTimelineItems(data?data:initData)} options={this.getTimelineOptions()}
                       groups={this.getTimeLineGroups()}/>
           </Col>
         </Row>
