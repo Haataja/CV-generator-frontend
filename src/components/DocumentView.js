@@ -281,7 +281,9 @@ class DocumentView extends Component {
           break;
         }
         case 'bio': {
-          break;
+          return (
+            <p>{data[key].value}</p>
+          );
         }
         case 'misc': {
           for(let i = 0; i < data[key].data.length; i++) {
@@ -340,13 +342,15 @@ class DocumentView extends Component {
 
   createDocumentData(data, key, dialogType, fieldText) {
     if(data && data[key]) {
-
-      return(
-        <ul>
-          {this.getProfileData(key, data)}
-        </ul>
-      );
-
+      if(key === "bio") {
+        return this.getProfileData(key, data);
+      } else {
+        return (
+          <ul>
+            {this.getProfileData(key, data)}
+          </ul>
+        );
+      }
     } else {
 
       return(
@@ -440,9 +444,7 @@ class DocumentView extends Component {
                 <div id="content">
                   <Row>
                     <Col xs={11}>
-                      <Button variant="primary" block onClick={this.onDialogShow('bio')}>
-                        {getFieldText("bio")}
-                      </Button>
+                      {this.createDocumentData(data, "bio", "bio", getFieldText("bio"))}
                     </Col>
                     <Col xs={1} className="align-self-center item-controls">
                       <ButtonGroup size="sm" aria-label="Item controls">
