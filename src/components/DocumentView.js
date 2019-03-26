@@ -443,10 +443,8 @@ class DocumentView extends Component {
 
   createDocumentData(data, key, dialogType, fieldText) {
     if(data && data[key]) {
-      if (key === "bio") {
+      if (key === "bio" || key === "profile_image") {
         return this.getProfileData(key, data);
-      } else if(key === "profile_image") {
-        return this.getProfileData(key,data);
       } else {
           return (
             <ul>
@@ -495,10 +493,10 @@ class DocumentView extends Component {
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
-                      Resume
+                      Localize: Resume
                     </Col>
                     <Col xs={3} id={"profile-image"} >
-                      {this.createDocumentData(data,"profile_image", "profile_pic", getFieldText("profile_pic"))}
+                      {this.createDocumentData(data,"profile_image", "profile_image", getFieldText("profile_image"))}
                     </Col>
                   </Row>
                   <Row>
@@ -605,7 +603,7 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("titles")}
                     </Col>
                     <Col xs={6}>
@@ -620,7 +618,7 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("misc")}
                     </Col>
                     <Col xs={6}>
@@ -635,7 +633,7 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5} className="align-self-center title">
+                    <Col xs={5} className="title">
                       {getTitle("references")}
                     </Col>
                     <Col xs={6}>
