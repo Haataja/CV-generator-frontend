@@ -427,7 +427,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("email")}/>
+                                     placeholder={getFieldText("email")}
+                                     defaultValue={this.prepareData("email","contact_info")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
@@ -438,7 +439,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("phone")}/>
+                                     placeholder={getFieldText("phone")}
+                                     defaultValue={this.prepareData("phone","contact_info")}/>
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
