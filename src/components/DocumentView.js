@@ -36,7 +36,12 @@ class DocumentView extends Component {
   getContent(data) {
     if (this.isDialogVisible()) {
       const currentDialog = this.props['EDITOR_DIALOG'];
-      this.temporaryData = {...data[currentDialog]};
+
+      if (typeof data === "object" && data[currentDialog]) {
+        this.temporaryData = {...data[currentDialog]};
+      } else {
+        return <Alert variant="danger">Localize: Cannot get dialog information</Alert>;
+      }
 
       const mapData = identifier => {
         return {
@@ -46,7 +51,7 @@ class DocumentView extends Component {
       };
 
       switch (currentDialog) {
-        case 'profile_pic': {
+        case 'profile_image': {
           return <Form>
             <Form.Group controlId="bioGroup">
               <Form.Label>Allowed file image (*.bmp, *.jpg, *.png)</Form.Label>
@@ -158,10 +163,23 @@ class DocumentView extends Component {
             </Form.Row>
           </Form>;
         }
+        case 'misc': {
+          break;
+        }
+        case 'titles': {
+          break;
+        }
+        case 'projects': {
+          break;
+        }
+        case 'references': {
+          break;
+        }
+        default: {
+          return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
+        }
       }
     }
-
-    return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
   }
 
   onDialogShow(type) {
@@ -248,10 +266,39 @@ class DocumentView extends Component {
             return array;
           }
         }
+        case 'profile_image': {
+          break;
+        }
+        case 'bio': {
+          break;
+        }
+        case 'experience': {
+          break;
+        }
+        case 'education': {
+          break;
+        }
+        case 'misc': {
+          break;
+        }
+        case 'titles': {
+          break;
+        }
+        case 'projects': {
+          break;
+        }
+        case 'references': {
+          break;
+        }
+        default: {
+          return (
+            <Alert key={key} variant="danger">
+              Localize: Unknown category
+            </Alert>
+          );
+        }
       }
     }
-
-    return <div>empty</div>
   }
 
   render() {
@@ -394,7 +441,7 @@ class DocumentView extends Component {
                       {getTitle("achievements")}
                     </Col>
                     <Col xs={6}>
-                      <Button variant="primary" block onClick={this.onDialogShow('achievements')}>
+                      <Button variant="primary" block onClick={this.onDialogShow('projects')}>
                         {getFieldText("achievements")}
                       </Button>
                     </Col>
