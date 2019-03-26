@@ -581,6 +581,22 @@ class DocumentView extends Component {
       </>
     );
   }
+
+  static deepCopy(object) {
+    if (typeof object === "object") {
+      const result = Array.isArray(object) ? [...object] : {...object};
+
+      for (let key in result) {
+        if (result.hasOwnProperty(key)) {
+          result[key] = DocumentView.deepCopy(result[key]);
+        }
+      }
+
+      return result;
+    }
+
+    return object;
+  }
 }
 
 export default connect(data => data.Document)(DocumentView);
