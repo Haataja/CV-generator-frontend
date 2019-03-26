@@ -119,7 +119,9 @@ class TimelineView extends Component {
         min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
         max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
         zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
-        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25 // 25 years
+        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
+        start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+        end: new Date(Date.now())
       };
   }
 
