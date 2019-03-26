@@ -196,7 +196,10 @@ class DocumentView extends Component {
   }
 
   onDialogHide() {
-    this.props.dispatch(actions.updateDialog(null));
+    this.props.dispatch(dispatch => {
+      dispatch(actions.updateDialog(null));
+      dispatch(actions.setDialogEditMode(null));
+    });
   }
 
   isDialogVisible() {
