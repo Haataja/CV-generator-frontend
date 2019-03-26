@@ -142,7 +142,23 @@ class TimelineView extends Component {
     };
 
     const data = this.props.GLOBAL_DATA;
-    console.log(data)
+    const initData = {
+      experience: {
+        data: [
+          {
+            "enddate": new Date(Date.now()),
+            "achievements": [],
+            "visible": true,
+            "name": "placeholder",
+            "description": "placeholder",
+            "id": 1,
+            "type": "place",
+            "startdate": new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+            "title": "placeholder"
+          }
+        ]
+      }
+    }
 
     return (
       <Container id="page">
