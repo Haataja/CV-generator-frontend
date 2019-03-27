@@ -624,12 +624,12 @@ class DocumentView extends Component {
   }
 
   static deepCopy(object) {
-    if (typeof object === "object") {
+    if (this.isObject(object)) {
       const result = Array.isArray(object) ? [...object] : {...object};
 
       for (let key in result) {
         if (result.hasOwnProperty(key)) {
-          result[key] = DocumentView.deepCopy(result[key]);
+          result[key] = this.deepCopy(result[key]);
         }
       }
 
@@ -637,6 +637,10 @@ class DocumentView extends Component {
     }
 
     return object;
+  }
+
+  static isObject(object) {
+    return object instanceof Object && typeof object === 'object';
   }
 }
 
