@@ -8,7 +8,6 @@
   "ribbon_menu_item_publish": "Muunna PDF muotoon",
   "ribbon_menu_timeline": "Aikajananäkynä",
 
-  "editor_field_resume_text": "Ansioluettelo",
   "editor_field_first_name_text": "Etunimi",
   "editor_field_last_name_text": "Sukunimi",
   "editor_field_address_text": "Katuosoite",
@@ -29,12 +28,13 @@
   "editor_generic_bio_text": "Biografia",
   "editor_generic_experience_text": "Kokemukset",
   "editor_generic_education_text": "Koulutukset ja kurssit",
-  "editor_generic_achievements_text": "Saavutukset ja projektit",
+  "editor_generic_projects_text": "Saavutukset ja projektit",
   "editor_generic_references_text": "Suositteljat",
   "editor_generic_titles_text": "Tittelit ja tutkinnot",
   "editor_generic_misc_text": "Muut",
-  "editor_generic_profile_pic_text": "Profiilikuva",
+  "editor_generic_profile_image_text": "Profiilikuva",
   "editor_generic_null_text": "Ei sisältöä",
+  "editor_generic_resume_text": "Ansioluettelo",
 
   "timeline_setting_show_work": "Näytä työtiedot",
   "timeline_setting_hide_work": "Piilota työtiedot",

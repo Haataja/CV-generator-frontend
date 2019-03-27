@@ -8,7 +8,6 @@
   "ribbon_menu_item_publish": "Convert to PDF",
   "ribbon_menu_timeline": "Timeline",
 
-  "editor_field_resume_text": "Resume",
   "editor_field_first_name_text": "First name",
   "editor_field_last_name_text": "Last name",
   "editor_field_address_text": "Address",
@@ -29,12 +28,13 @@
   "editor_generic_bio_text": "Biography",
   "editor_generic_experience_text": "Experience",
   "editor_generic_education_text": "Courses and Education",
-  "editor_generic_achievements_text": "Achievements and Projects",
+  "editor_generic_projects_text": "Achievements and Projects",
   "editor_generic_references_text": "References and Recommendations",
   "editor_generic_titles_text": "Titles and Degrees",
   "editor_generic_misc_text": "Miscellaneous",
-  "editor_generic_profile_pic_text": "Profile picture",
+  "editor_generic_profile_image_text": "Profile picture",
   "editor_generic_null_text": "No content available",
+  "editor_generic_resume_text": "Resume",
 
   "timeline_setting_show_work": "Show work",
   "timeline_setting_hide_work": "Hide work",
