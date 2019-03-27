@@ -8,6 +8,7 @@
   "ribbon_menu_item_publish": "Muunna PDF muotoon",
   "ribbon_menu_timeline": "Aikajananäkynä",
 
+  "editor_field_resume_text": "Ansioluettelo",
   "editor_field_first_name_text": "Etunimi",
   "editor_field_last_name_text": "Sukunimi",
   "editor_field_address_text": "Katuosoite",
@@ -19,9 +20,9 @@
   "editor_field_bio_text": "Lisää biografia...",
   "editor_field_experience_text": "Lisää (työ)kokemus...",
   "editor_field_education_text": "Lisää koulutus tai kurssi...",
-  "editor_field_achievements_text": "Lisää saavutus tai projekti...",
+  "editor_field_projects_text": "Lisää saavutus tai projekti...",
   "editor_field_references_text": "Lisää suosittelija...",
-  "editor_field_profile_pic_text": "Lisää profiilikuva...",
+  "editor_field_profile_image_text": "Lisää profiilikuva...",
   "editor_field_titles_text": "Lisää titteli tai tutkintonimike...",
   "editor_field_misc_text": "Lisää sekalaisia tietoja...",
 

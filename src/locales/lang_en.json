@@ -8,6 +8,7 @@
   "ribbon_menu_item_publish": "Convert to PDF",
   "ribbon_menu_timeline": "Timeline",
 
+  "editor_field_resume_text": "Resume",
   "editor_field_first_name_text": "First name",
   "editor_field_last_name_text": "Last name",
   "editor_field_address_text": "Address",
@@ -19,9 +20,9 @@
   "editor_field_bio_text": "Add biography...",
   "editor_field_experience_text": "Add experience...",
   "editor_field_education_text": "Add education or course...",
-  "editor_field_achievements_text": "Add achievement or project...",
+  "editor_field_projects_text": "Add achievement or project...",
   "editor_field_references_text": "Add reference or recommendation...",
-  "editor_field_profile_pic_text": "Add profile picture...",
+  "editor_field_profile_image_text": "Add profile picture...",
   "editor_field_titles_text": "Add title or degree...",
   "editor_field_misc_text": "Add miscellaneous...",
 
