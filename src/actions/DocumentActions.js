@@ -1,3 +1,5 @@
+import * as global from './';
+
 export const EDITOR_DIALOG = 'EDITOR_DIALOG';
 export const EDITOR_DIALOG_MODE = 'EDITOR_DIALOG_MODE';
 
@@ -8,9 +10,4 @@ export function updateDialog(type) {
   };
 }
 
-export function setDialogEditMode(mode) {
-  return {
-    type: EDITOR_DIALOG_MODE,
-    payload: mode
-  }
-}
+export {global};

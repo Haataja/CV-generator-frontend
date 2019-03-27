@@ -1,3 +1,5 @@
+import * as global from './';
+
 export const SHOW_WORK = 'SHOW_WORK';
 export const SHOW_PROJECTS = 'SHOW_PROJECTS';
 export const SHOW_EDUCATION = 'SHOW_EDUCATION';
@@ -22,3 +24,5 @@ export function showEducation(value) {
     payload: value
   };
 }
+
+export {global};

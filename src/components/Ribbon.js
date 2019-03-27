@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {Nav, Navbar, NavDropdown, NavbarBrand} from 'react-bootstrap';
 
-import * as actions from '../actions';
+import * as actions from '../actions/RibbonActions';
 import locale from '../locales';
 
 import './Ribbon.css';
@@ -25,7 +25,7 @@ class Ribbon extends Component {
   switchLanguage() {
     const language = locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_ID);
 
-    this.props.dispatch(actions.setLanguage(language));
+    this.props.dispatch(actions.global.setLanguage(language));
   }
 
   static handleSelect(eventKey) {
