@@ -623,6 +623,16 @@ class DocumentView extends Component {
     );
   }
 
+  static getIconState(data, key) {
+    let icon = 'fa-eye';
+
+    if (this.isObject(data) && this.isObject(data[key])) {
+      icon = data[key].visible ? 'fa-eye-slash' : icon;
+    }
+
+    return `fa ${icon}`;
+  }
+
   static deepCopy(object) {
     if (this.isObject(object)) {
       const result = Array.isArray(object) ? [...object] : {...object};
