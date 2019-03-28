@@ -28,15 +28,14 @@
     height: 15%;
     margin-bottom: 4em;
 }
-#profile-image {
-    position: relative;
-}
 
 #profile-image img {
-    position:absolute;
-    right:5pt;
+    position: absolute;
     max-height: 125pt;
+    max-width: 125pt;
     min-height: 50pt;
+    min-width: 50pt;
+    right: 1em;
 }
 
 #content {
