@@ -16,16 +16,20 @@ class DocumentView extends Component {
 
     this.onDialogShow = this.onDialogShow.bind(this);
     this.onDialogHide = this.onDialogHide.bind(this);
-    this.isDialogVisible = this.isDialogVisible.bind(this);
+    this.getDialogTab = this.getDialogTab.bind(this);
+    this.getDialogType = this.getDialogType.bind(this);
+    this.getDialogItem = this.getDialogItem.bind(this);
+    this.getDialogCallback = this.getDialogCallback.bind(this);
     this.onSaveChanges = this.onSaveChanges.bind(this);
 
     this.prepareData = this.prepareData.bind(this);
     this.getContent = this.getContent.bind(this);
 
     this.getProfileData = this.getProfileData.bind(this);
-    this.createDocumentData = this.createDocumentData.bind(this);
     this.createRowData = this.createRowData.bind(this);
 
+    this.getLocalizedField = this.getLocalizedField.bind(this);
+    this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
@@ -35,177 +39,243 @@ class DocumentView extends Component {
     }
   }
 
-  getContent(data) {
-    if (this.isDialogVisible()) {
-      const currentDialog = this.props['EDITOR_DIALOG'];
+  getLocalizedTitle(identifier) {
+    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, identifier))
+  }
 
-      if (typeof data === "object" && data[currentDialog]) {
-        if (!this.props["EDITOR_DIALOG_MODE"]) {
-          this.temporaryData = DocumentView.deepCopy(data[currentDialog]);
+  getLocalizedField(identifier) {
+    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier))
+  }
+
+  getContent(data) {
+    const currentDialog = this.getDialogType();
+
+    if (currentDialog) {
+      const currentTab = this.getDialogTab();
+
+      if (!DocumentView.isObject(this.temporaryData)) {
+        this.temporaryData = DocumentView.deepCopy(data[currentDialog]);
+
+        if (!this.temporaryData) {
+          this.temporaryData = {};
         }
       }
 
       const mapData = identifier => {
         return {
-          defaultValue: this.temporaryData[identifier] ? this.temporaryData[identifier] : "",
+          defaultValue: this.temporaryData[identifier] ? this.temporaryData[identifier] : '',
           onChange: event => this.temporaryData[identifier] = event.target.value
+        };
+      };
+
+      const mapObjectData = (identifier) => {
+        const index = this.props['EDITOR_DIALOG'].item;
+
+        if (index) {
+          return {
+            defaultValue: this.temporaryData.data[index][identifier] ? this.temporaryData.data[index][identifier] : ''
+          };
+        }
+      };
+
+      const submitValues = (identifier, index) => {
+        return event => {
+          event.preventDefault();
+
+          const form = document.getElementById(identifier);
+          const values = Object.values(form.elements).reduce(
+            (obj, field) => {
+              if (field.name) {
+                obj[field.name] = field.value;
+              }
+              return obj;
+            },
+            {}
+          );
+
+          if (Array.isArray(this.temporaryData.data) && typeof index === 'number') {
+            this.temporaryData.data[index] = values;
+          } else {
+            if (!Array.isArray(this.temporaryData.data)) {
+              this.temporaryData.data = [];
+
+              this.props.dispatch(actions.updateDialog(this.getDialogType(), this.getDialogTab()));
+            }
+
+            this.temporaryData.data.push(values);
+          }
         };
       };
 
       switch (currentDialog) {
         case 'profile_image': {
-          return <Form>
-            <Form.Group controlId="bioGroup">
-              <Form.Label>Allowed file image (*.bmp, *.jpg, *.png)</Form.Label>
-              <Form.Control type="file"/>
-            </Form.Group>
-          </Form>;
+          return (
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  Image URL:
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl {...mapData('source')} />
+            </InputGroup>
+          );
         }
         case 'bio': {
           return (
             <Tabs defaultActiveKey="bio" transition={false}>
               <Tab eventKey="bio" title="Biography">
-                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapData("value")} />
+                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapData('value')} />
               </Tab>
               <Tab eventKey="footer" title="Footer">
-                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapData("footer")} />
+                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapData('footer')} />
               </Tab>
             </Tabs>
           );
         }
         case 'experience': {
-          return (
-            <Tabs activeKey={this.props["EDITOR_DIALOG_MODE"] ? this.props["EDITOR_DIALOG_MODE"] : data[currentDialog] ? "view" : "new"} onSelect={event => this.props.dispatch(actions.setDialogEditMode(event))} id="experience" transition={false} className="align-self-center">
-              <Tab eventKey="view" title={<i className="fa fa-list"/>} disabled={!data[currentDialog]}>
-                <Table borderless="true" striped="true" responsive={true} size="sm">
-                  <thead>
-                    <tr>
-                      <th>Start date</th>
-                      <th>End date</th>
-                      <th>Name</th>
-                      <th>Title</th>
-                      <th/>
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th>Name</th>
+                  <th>Title</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{new Date(item.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                      <td>{new Date(item.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                      <td>{item.name}</td>
+                      <td>{item.title}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {this.temporaryData.data.map((item, index) => (
-                        <tr key={item.id}>
-                          <td>{new Date(item.startdate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
-                          <td>{new Date(item.enddate * 1000).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
-                          <td>{item.name}</td>
-                          <td>{item.title}</td>
-                          <td className="text-right">
-                            <ButtonGroup size="sm">
-                              <Button onClick={() => {
-                                this.props.dispatch(actions.setDialogEditMode("edit"));
-                              }} className="fa fa-cog" variant="primary" size="sm"/>
-                              <Button onClick={() => {
-                                this.temporaryData.data[index].visible = !this.temporaryData.data[index].visible;
-                                this.props.dispatch(actions.setDialogEditMode("view"));
-                              }} className={this.temporaryData.data[index].visible ? "fa fa-eye-slash" : "fa fa-eye"} variant="primary" size="sm"/>
-                              <Button onClick={() => {
-                                this.temporaryData.data.splice(index, 1);
-                                this.props.dispatch(actions.setDialogEditMode("view"));
-                              }} className="fa fa-times" variant="primary" size="sm"/>
-                            </ButtonGroup>
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </Table>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!Array.isArray(this.temporaryData.data)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
-              <Tab eventKey="edit" title={<i className="fa fa-edit"/>} disabled={this.props["EDITOR_DIALOG_MODE"] !== "edit"}>
-                <Form.Row>
-                  <Col>
-                    <Form.Row>
-                      <Col xs={3}>
-                        <Form.Group controlId="startDateGroup">
-                          <Form.Label>Start date</Form.Label>
-                          <Form.Control type="date"/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="typeGroup">
-                          <Form.Label>Experience type</Form.Label>
-                          <Form.Control as="select">
-                            <option>Work experience</option>
-                            <option>Other experience</option>
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Form.Row>
-                    <Form.Row>
-                      <Col xs={3}>
-                        <Form.Group controlId="endDateGroup">
-                          <Form.Label>End date</Form.Label>
-                          <Form.Control type="date"/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="employerGroup">
-                          <Form.Label>Employer</Form.Label>
-                          <Form.Control/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="titleGroup">
-                          <Form.Label>Title</Form.Label>
-                          <Form.Control/>
-                        </Form.Group>
-                      </Col>
-                    </Form.Row>
-                  </Col>
-                  <Col xs={1} className="align-self-center">
-                    <Button variant="primary">Edit</Button>
-                  </Col>
-                </Form.Row>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col>
+                      <Form.Row>
+                        <Col xs={3}>
+                          <Form.Group controlId="startDateGroup">
+                            <Form.Label>Start date</Form.Label>
+                            <Form.Control name="startdate" type="date" {...mapObjectData('startdate')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="typeGroup">
+                            <Form.Label>Experience type</Form.Label>
+                            <Form.Control name="type" as="select" {...mapObjectData('type')}>
+                              <option key="work" value="work">Work experience</option>
+                              <option key="personal" value="personal">Other experience</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                      <Form.Row>
+                        <Col xs={4}>
+                          <Form.Group controlId="endDateGroup">
+                            <Form.Label>End date</Form.Label>
+                            <Form.Control name="enddate" type="date" {...mapObjectData('enddate')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="employerGroup">
+                            <Form.Label>Employer</Form.Label>
+                            <Form.Control name="name" {...mapObjectData('name')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="titleGroup">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control name="title" {...mapObjectData('title')}/>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block
+                              onClick={submitValues('update-data', this.getDialogItem())}>Edit</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form.Row>
-                  <Col>
-                    <Form.Row>
-                      <Col xs={3}>
-                        <Form.Group controlId="startDateGroup">
-                          <Form.Label>Start date</Form.Label>
-                          <Form.Control type="date"/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="typeGroup">
-                          <Form.Label>Experience type</Form.Label>
-                          <Form.Control as="select">
-                            <option>Work experience</option>
-                            <option>Other experience</option>
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Form.Row>
-                    <Form.Row>
-                      <Col xs={3}>
-                        <Form.Group controlId="endDateGroup">
-                          <Form.Label>End date</Form.Label>
-                          <Form.Control type="date"/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="employerGroup">
-                          <Form.Label>Employer</Form.Label>
-                          <Form.Control/>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        <Form.Group controlId="titleGroup">
-                          <Form.Label>Title</Form.Label>
-                          <Form.Control/>
-                        </Form.Group>
-                      </Col>
-                    </Form.Row>
-                  </Col>
-                  <Col xs={1} className="align-self-center">
-                    <Button variant="primary">Add</Button>
-                  </Col>
-                </Form.Row>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col>
+                      <Form.Row>
+                        <Col xs={3}>
+                          <Form.Group controlId="startDateGroup">
+                            <Form.Label>Start date</Form.Label>
+                            <Form.Control name="startdate" type="date"/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="typeGroup">
+                            <Form.Label>Experience type</Form.Label>
+                            <Form.Control name="type" as="select">
+                              <option value="work">Work experience</option>
+                              <option value="personal">Other experience</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                      <Form.Row>
+                        <Col xs={4}>
+                          <Form.Group controlId="endDateGroup">
+                            <Form.Label>End date</Form.Label>
+                            <Form.Control name="enddate" type="date"/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="employerGroup">
+                            <Form.Label>Employer</Form.Label>
+                            <Form.Control name="name" ref="shitpile"/>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group controlId="titleGroup">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control name="title"/>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
               </Tab>
             </Tabs>
           );
@@ -271,37 +341,70 @@ class DocumentView extends Component {
           break;
         }
         default: {
-          return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
+          break;
         }
+      }
+    }
+
+    return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
+  }
+
+  getDialogTab() {
+    return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].tab : null;
+  }
+
+  getDialogType() {
+    return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].type : null;
+  }
+
+  getDialogItem() {
+    return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].item : null;
+  }
+
+  getDialogCallback(type, index = null) {
+    switch (type) {
+      case 'update': {
+        return () => (
+          this.props.dispatch(actions.updateDialog(this.getDialogType(), type, index))
+        );
+      }
+      case 'delete': {
+        return () => {
+          this.temporaryData.data.splice(index, 1);
+          this.props.dispatch(actions.updateDialog(this.getDialogType(), ''));
+        };
+      }
+      case 'scope': {
+        return () => {
+          this.temporaryData.data[index].visible = !this.temporaryData.data[index].visible;
+          this.props.dispatch(actions.updateDialog(this.getDialogType(), ''));
+        };
+      }
+      default: {
+        this.props.dispatch(actions.updateDialog(this.getDialogType(), type));
       }
     }
   }
 
-  onDialogShow(type) {
-    return () => this.props.dispatch(actions.updateDialog(type));
+  onDialogShow(type, createMode) {
+    return () => this.props.dispatch(actions.updateDialog(type, createMode ? 'new' : ''));
   }
 
   onSaveChanges() {
-    const key = this.props["EDITOR_DIALOG"];
-    this.props.GLOBAL_DATA[key] = {...this.props.GLOBAL_DATA[key], ...this.temporaryData};
+    const key = this.props['EDITOR_DIALOG'].type;
+    this.props['GLOBAL_DATA'][key] = {...this.props['GLOBAL_DATA'][key], ...this.temporaryData};
 
     this.props.dispatch(actions.global.saveData(this.props['GLOBAL_DATA']));
     this.onDialogHide();
   }
 
   onDialogHide() {
-    this.props.dispatch(dispatch => {
-      dispatch(actions.updateDialog(null));
-      dispatch(actions.setDialogEditMode(null));
-    });
-  }
-
-  isDialogVisible() {
-    return typeof this.props['EDITOR_DIALOG'] === 'string';
+    this.temporaryData = null;
+    this.props.dispatch(actions.updateDialog(null));
   }
 
   prepareData(key, category = null) {
-    let data = this.props["GLOBAL_DATA"];
+    let data = this.props['GLOBAL_DATA'];
 
     if (data) {
       if (category !== null && data[category] !== undefined) {
@@ -313,71 +416,71 @@ class DocumentView extends Component {
       }
     }
 
-    return "";
+    return '';
   }
 
   getProfileData(key, data) {
-    if(data && data[key]) {
+    if (DocumentView.isObject(data) && DocumentView.isObject(data[key])) {
       let array = [];
 
       switch (key) {
         case 'education': {
-            for(let i = 0; i < data[key].data.length; i++) {
-              const temp = data[key].data[i];
-              let type = temp.type === 'education';
+          for (let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
+            let type = temp.type === 'education';
 
-              array.push(
-                <li key={i}>
-                  <div><b>{type?temp.field_name:temp.course_name}</b></div>
-                  <div>{type?temp.school_name:temp.provider_name}</div>
-                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>{temp.grade?type?"Average grade: " + temp.grade:"Grade: " + temp.grade:""}</div>
-                </li>
-              );
-            }
-            return array;
+            array.push(
+              <li key={i}>
+                <div><b>{type ? temp.field_name : temp.course_name}</b></div>
+                <div>{type ? temp.school_name : temp.provider_name}</div>
+                <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{temp.grade ? type ? 'Average grade: ' + temp.grade : 'Grade: ' + temp.grade : ''}</div>
+              </li>
+            );
           }
-
+          return array;
+        }
 
         case 'experience': {
-            for(let i = 0; i < data[key].data.length; i++) {
-              const temp = data[key].data[i];
+          for (let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
 
-              array.push(
-                <li key={i}>
-                  <div><b>{temp.name}</b></div>
-                  <div>{temp.title}</div>
-                  <div>{temp.description}</div>
-                  <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                  <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+            array.push(
+              <li key={i}>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.title}</div>
+                <div>{temp.description}</div>
+                <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
 
-                </li>
-              );
-            }
-            return array;
+              </li>
+            );
           }
+          return array;
+        }
 
 
         case 'projects': {
-            for(let i = 0; i < data[key].data.length; i++) {
-              const temp = data[key].data[i];
+          for (let i = 0; i < data[key].data.length; i++) {
+            const temp = data[key].data[i];
 
-              array.push(
-                <li key={i}>
-                  <div><b>{temp.name}</b></div>
-                  <div>{temp.description}</div>
-                  <div>Completion date: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                </li>
-              );
-            }
-            return array;
+            array.push(
+              <li key={i}>
+                <div><b>{temp.name}</b></div>
+                <div>{temp.description}</div>
+                <div>Completion
+                  date: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+              </li>
+            );
           }
+          return array;
+        }
 
         case 'profile_image': {
           return (
-            <img alt="profile_image" src={data[key].source} />
-          )
+            <img alt="profile_image" src={data[key].source}/>
+          );
         }
         case 'bio': {
           return (
@@ -385,7 +488,7 @@ class DocumentView extends Component {
           );
         }
         case 'misc': {
-          for(let i = 0; i < data[key].data.length; i++) {
+          for (let i = 0; i < data[key].data.length; i++) {
             const temp = data[key].data[i];
 
             array.push(
@@ -393,13 +496,13 @@ class DocumentView extends Component {
                 <div><b>{temp.name}</b></div>
                 <div>{temp.value}</div>
               </li>
-            )
+            );
           }
 
           return array;
         }
         case 'titles': {
-          for(let i = 0; i < data[key].data.length; i++) {
+          for (let i = 0; i < data[key].data.length; i++) {
             const temp = data[key].data[i];
 
             array.push(
@@ -413,7 +516,7 @@ class DocumentView extends Component {
           return array;
         }
         case 'references': {
-          for(let i = 0; i < data[key].data.length; i++) {
+          for (let i = 0; i < data[key].data.length; i++) {
             const temp = data[key].data[i];
 
             array.push(
@@ -439,68 +542,113 @@ class DocumentView extends Component {
     }
   }
 
-  createDocumentData(data, key, dialogType, fieldText) {
-    if(data && data[key]) {
-      if (key === "bio" || key === "profile_image") {
-        return this.getProfileData(key, data);
+  createRowData(data, key) {
+    const updateScope = () => {
+      data[key].visible = !data[key].visible;
+      this.props.dispatch(actions.global.saveData(data));
+    };
+
+    const deleteAll = () => {
+      data[key] = null;
+      this.props.dispatch(actions.global.saveData(data));
+    };
+
+    const hasData = () => {
+      return DocumentView.isObject(data) && DocumentView.isObject(data[key]);
+    };
+
+    const hasItems = () => {
+      return hasData() && Array.isArray(data[key].data) && data[key].data.length > 0;
+    };
+
+    if (key === 'profile_image') {
+      if (hasData()) {
+        return (
+          <>
+            {this.getProfileData(key, data)}
+            <ButtonGroup size="sm">
+              <Button className="fa fa-cog" variant="primary" onClick={this.onDialogShow(key)} size="sm"/>
+              <Button className={DocumentView.getIconState(data, key)} variant="primary" onClick={updateScope} size="sm"/>
+              <Button className="fa fa-times" variant="primary" onClick={deleteAll} size="sm"/>
+            </ButtonGroup>
+          </>
+        );
       } else {
-          return (
-            <ul>
+        return (
+          <Button size="sm" variant="primary" onClick={this.onDialogShow(key)}>
+            <i className="fa fa-camera"/>
+          </Button>
+        );
+      }
+    } else if (key === 'bio') {
+      if (hasData()) {
+        return (
+          <Row>
+            <Col xs={10}>
               {this.getProfileData(key, data)}
-            </ul>
-          );
-        }
-    } else {
-
-      return(
-        <Button variant="primary" block onClick={this.onDialogShow(dialogType)}>
-          {fieldText}
-        </Button>
-      );
-    }
-  }
-
-  createRowData(data, key, title_func, text_func) {
-    let noData = true;
-
-    if (typeof data === "object" && data[key]) {
-      if (typeof data[key].data === "object" && data[key].data.length > 0) {
-        noData = false;
+            </Col>
+            <Col xs={2} className="item-controls text-right">
+              <ButtonGroup size="sm">
+                <Button className="fa fa-cog" variant="primary" onClick={this.onDialogShow(key)} size="sm"/>
+                <Button className={DocumentView.getIconState(data, key)} variant="primary" onClick={updateScope} size="sm"/>
+                <Button className="fa fa-times" variant="primary" onClick={deleteAll} size="sm"/>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        );
       } else {
-        data[key] = null;
+        return (
+          <Row>
+            <Col xs={12}>
+              <Button variant="primary" block onClick={this.onDialogShow(key, true)}>
+                {this.getLocalizedField(key)}
+              </Button>
+            </Col>
+          </Row>
+        );
+      }
+    } else {
+      if (hasItems()) {
+        return (
+          <Row>
+            <Col xs={5} className="title">
+              {this.getLocalizedTitle(key)}
+            </Col>
+            <Col xs={5}>
+              <ul>
+                {this.getProfileData(key, data)}
+              </ul>
+            </Col>
+            <Col xs={2} className="item-controls text-right">
+              <ButtonGroup size="sm">
+                <Button className="fa fa-cog" variant="primary" onClick={this.onDialogShow(key)} size="sm"/>
+                <Button className="fa fa-plus" variant="primary" onClick={this.onDialogShow(key, true)} size="sm"/>
+                <Button className={DocumentView.getIconState(data, key)} variant="primary" onClick={updateScope} size="sm"/>
+                <Button className="fa fa-times" variant="primary" onClick={deleteAll} size="sm"/>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        );
+      } else {
+        return (
+          <Row>
+            <Col xs={5} className="title">
+              {this.getLocalizedTitle(key)}
+            </Col>
+            <Col xs={7}>
+              <Button variant="primary" block onClick={this.onDialogShow(key, true)}>
+                {this.getLocalizedField(key)}
+              </Button>
+            </Col>
+          </Row>
+        );
       }
     }
-
-    return (
-      <Row>
-        <Col xs={5} className="title">
-          {title_func(key)}
-        </Col>
-        <Col xs={6}>
-          {this.createDocumentData(data, key, key, text_func(key))}
-        </Col>
-        <Col xs={1} className="item-controls">
-          <ButtonGroup size="sm" aria-label="Item controls">
-            <Button className="fa fa-cog" variant="secondary" onClick={this.onDialogShow(key)} disabled={noData} size="sm"/>
-            <Button className="fa fa-eye-slash" variant="secondary" disabled={noData} size="sm"/>
-            <Button className="fa fa-times" variant="secondary" disabled={noData} size="sm"/>
-          </ButtonGroup>
-        </Col>
-      </Row>
-    );
   }
 
   render() {
     const date = new Date();
-    const data = this.props["GLOBAL_DATA"];
-
-    const getFieldText = identifier => (
-      this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier))
-    );
-
-    const getTitle = identifier => (
-      this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, identifier))
-    );
+    const data = this.props['GLOBAL_DATA'];
 
     return (
       <>
@@ -513,26 +661,26 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("first_name")}
-                                     defaultValue={this.prepareData("firstname")}/>
+                                     placeholder={this.getLocalizedField('first_name')}
+                                     defaultValue={this.prepareData('firstname')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("last_name")}
-                                     defaultValue={this.prepareData("lastname")}/>
+                                     placeholder={this.getLocalizedField('last_name')}
+                                     defaultValue={this.prepareData('lastname')}/>
                       </InputGroup>
                     </Col>
                     <Col xs={4} className="title">
-                      Localize: Resume
+                      {this.getLocalizedTitle('resume')}
                     </Col>
-                    <Col xs={3} id={"profile-image"} >
-                      {this.createDocumentData(data,"profile_image", "profile_image", getFieldText("profile_image"))}
+                    <Col xs={3} id="profile-image" className="text-right">
+                      {this.createRowData(data, 'profile_image', this.getLocalizedTitle, this.getLocalizedField)}
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("address")}
-                                     defaultValue={this.prepareData("street_address", "address")}/>
+                                     placeholder={this.getLocalizedField('address')}
+                                     defaultValue={this.prepareData('street_address', 'address')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -540,11 +688,11 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("zip_code")}
-                                     defaultValue={this.prepareData("zipcode", "address")}/>
+                                     placeholder={this.getLocalizedField('zip_code')}
+                                     defaultValue={this.prepareData('zipcode', 'address')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("city")}
-                                     defaultValue={this.prepareData("city", "address")}/>
+                                     placeholder={this.getLocalizedField('city')}
+                                     defaultValue={this.prepareData('city', 'address')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -552,8 +700,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("email")}
-                                     defaultValue={this.prepareData("email","contact_info")}/>
+                                     placeholder={this.getLocalizedField('email')}
+                                     defaultValue={this.prepareData('email', 'contact_info')}/>
                       </InputGroup>
                     </Col>
                     <Col xs={7} id="date">
@@ -564,8 +712,8 @@ class DocumentView extends Component {
                     <Col xs={5}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                                     placeholder={getFieldText("phone")}
-                                     defaultValue={this.prepareData("phone","contact_info")}/>
+                                     placeholder={this.getLocalizedField('phone')}
+                                     defaultValue={this.prepareData('phone', 'contact_info')}/>
                       </InputGroup>
                     </Col>
                     <Col xs={6}>
@@ -573,29 +721,18 @@ class DocumentView extends Component {
                   </Row>
                 </div>
                 <div id="content">
-                  <Row>
-                    <Col xs={11}>
-                      {this.createDocumentData(data, "bio", "bio", getFieldText("bio"))}
-                    </Col>
-                    <Col xs={1} className="item-controls">
-                      <ButtonGroup size="sm" aria-label="Item controls">
-                        <Button className="fa fa-cog" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-eye-slash" variant="secondary" disabled size="sm"/>
-                        <Button className="fa fa-times" variant="secondary" disabled size="sm"/>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-                  {this.createRowData(data, "experience", getTitle, getFieldText)}
-                  {this.createRowData(data, "education", getTitle, getFieldText)}
-                  {this.createRowData(data, "projects", getTitle, getFieldText)}
-                  {this.createRowData(data, "titles", getTitle, getFieldText)}
-                  {this.createRowData(data, "misc", getTitle, getFieldText)}
-                  {this.createRowData(data, "references", getTitle, getFieldText)}
+                  {this.createRowData(data, 'bio')}
+                  {this.createRowData(data, 'experience')}
+                  {this.createRowData(data, 'education')}
+                  {this.createRowData(data, 'projects')}
+                  {this.createRowData(data, 'titles')}
+                  {this.createRowData(data, 'misc')}
+                  {this.createRowData(data, 'references')}
                 </div>
                 <div id="footer">
                   <Row className="text-center">
                     <Col xs={12}>
-                      {this.prepareData("footer", "bio")}
+                      {/*this.prepareData('footer', 'bio')*/}
                     </Col>
                   </Row>
                 </div>
@@ -603,9 +740,9 @@ class DocumentView extends Component {
             </Col>
           </Row>
         </Container>
-        <Modal size="lg" show={this.isDialogVisible()} centered onHide={this.onDialogHide}>
+        <Modal size="lg" show={!!this.getDialogType()} centered onHide={this.onDialogHide}>
           <Modal.Header closeButton>
-            <Modal.Title>{getTitle(this.props["EDITOR_DIALOG"])}</Modal.Title>
+            <Modal.Title>{this.getLocalizedTitle(this.getDialogType())}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -613,10 +750,12 @@ class DocumentView extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary"
-                    onClick={this.onDialogHide}>{this.getLocalizedString(locale.GLOBAL_CLOSE)}</Button>
-            <Button variant="primary"
-                    onClick={this.onSaveChanges}>{this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}</Button>
+            <Button variant="secondary" onClick={this.onDialogHide}>
+              {this.getLocalizedString(locale.GLOBAL_CLOSE)}
+            </Button>
+            <Button variant="primary" onClick={this.onSaveChanges}>
+              {this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}
+            </Button>
           </Modal.Footer>
         </Modal>
       </>

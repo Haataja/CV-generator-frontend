@@ -1,12 +1,22 @@
 import * as global from './';
 
 export const EDITOR_DIALOG = 'EDITOR_DIALOG';
-export const EDITOR_DIALOG_MODE = 'EDITOR_DIALOG_MODE';
 
-export function updateDialog(type) {
+export function updateDialog(dialogType, tabName = '', index = null) {
+  if (dialogType) {
+    return {
+      type: EDITOR_DIALOG,
+      payload: {
+        type: dialogType,
+        tab: tabName,
+        item: index
+      }
+    };
+  }
+
   return {
     type: EDITOR_DIALOG,
-    payload: type
+    payload: null
   };
 }
 
