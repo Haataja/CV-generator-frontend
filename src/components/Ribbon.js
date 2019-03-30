@@ -34,7 +34,7 @@ class Ribbon extends Component {
   }
 
   login() {
-    return <button class="btn btn-light" id="login_button">Login</button>
+    return <button className="btn btn-light" id="login_button">Login</button>
   }
 
   render() {
