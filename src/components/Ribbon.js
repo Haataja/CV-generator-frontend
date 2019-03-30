@@ -30,7 +30,11 @@ class Ribbon extends Component {
   }
 
   static handleSelect(eventKey) {
-    window.location = `/#/${eventKey}`;
+    if(eventKey === "publish") {
+      window.location.href = "http://localhost:8080/api/pdf"
+    } else {
+      window.location.hash = `/${eventKey}`;
+    }
   }
 
   login() {
@@ -49,7 +53,7 @@ class Ribbon extends Component {
                 <NavDropdown.Item eventKey="editor">
                   {this.getLocalizedString(locale.RIBBON_EDIT_DOCUMENT)}
                 </NavDropdown.Item>
-                <NavDropdown.Item eventKey="publish" disabled>
+                <NavDropdown.Item eventKey="publish">
                   {this.getLocalizedString(locale.RIBBON_PUBLISH_DOCUMENT)}
                 </NavDropdown.Item>
               </NavDropdown>
