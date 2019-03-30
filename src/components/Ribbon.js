@@ -13,6 +13,7 @@ class Ribbon extends Component {
     super(props);
 
     this.switchLanguage = this.switchLanguage.bind(this);
+    this.login = this.login.bind(this);
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
@@ -30,6 +31,10 @@ class Ribbon extends Component {
 
   static handleSelect(eventKey) {
     window.location = `/#/${eventKey}`;
+  }
+
+  login() {
+    return <button class="btn btn-light" id="login_button">Login</button>
   }
 
   render() {
@@ -56,6 +61,9 @@ class Ribbon extends Component {
             </Nav>
 
             <Nav onSelect={this.switchLanguage}>
+              <Nav.Item>
+                {this.login()}
+              </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="language" active>
                   {locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_TOGGLE_LANGUAGE)}
