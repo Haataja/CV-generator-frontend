@@ -38,7 +38,15 @@ class Ribbon extends Component {
   }
 
   login() {
-    return <button className="btn btn-light" id="login_button">Login</button>
+    let data = this.props.GLOBAL_DATA;
+    if(data) {
+      if(data.firstname && data.lastname) {
+        return <Nav.Link> {data.firstname + " " + data.lastname}</Nav.Link>
+      }
+      return <Nav.Link>Unknown user</Nav.Link>
+    } else {
+      return <button className="btn btn-light" id="login_button">Login</button>
+    }
   }
 
   render() {
