@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Nav, Navbar, NavDropdown, NavbarBrand} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 import * as actions from '../actions/RibbonActions';
 import locale from '../locales';
@@ -29,14 +29,6 @@ class Ribbon extends Component {
     this.props.dispatch(actions.global.setLanguage(language));
   }
 
-  static handleSelect(eventKey) {
-    if(eventKey === "publish") {
-      window.location.href = "http://localhost:8080/api/pdf"
-    } else {
-      window.location.hash = `/${eventKey}`;
-    }
-  }
-
   login() {
     let data = this.props.GLOBAL_DATA;
     if(data) {
@@ -52,8 +44,8 @@ class Ribbon extends Component {
   render() {
     return (
       <div id="ribbon">
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-          <NavbarBrand className="brand-cv-generator">CV-generator</NavbarBrand>
+        <Navbar fixed="top" expand="md" bg="dark" variant="dark">
+          <Navbar.Brand>CV-generator</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto" onSelect={Ribbon.handleSelect}>
@@ -86,6 +78,20 @@ class Ribbon extends Component {
         </Navbar>
       </div>
     );
+  }
+
+  static handleSelect(eventKey) {
+    let origin = window.location.origin;
+
+    if (process.env.NODE_ENV === 'development') {
+      origin = origin.replace(/:\d+$/, ':8080');
+    }
+
+    if(eventKey === 'publish') {
+      window.location.href = `${origin}/api/pdf`;
+    } else {
+      window.location.href = `${origin}/#/${eventKey}`;
+    }
   }
 }
 

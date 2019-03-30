@@ -1,11 +1,17 @@
-/* Component overrides */
+/* Bootstrap overrides */
+
+.navbar-brand {
+    margin-left: 10pt;
+}
 
 .bg-dark {
     background-color: #4e008e !important;
 }
 
-.brand-cv-generator {
-    margin-left: 10pt;
+/* Component overrides */
+
+#ribbon {
+    margin-bottom: 35pt;
 }
 
 #login_button {
