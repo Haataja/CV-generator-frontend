@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+
 import {Container, Col, Row} from 'react-bootstrap';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 
@@ -9,9 +11,17 @@ import Ribbon from './Ribbon';
 import * as actions from '../actions';
 
 import './App.css';
-import {connect} from "react-redux";
 
 export class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.origin = window.location.origin;
+    if (process.env.NODE_ENV === 'development') {
+      this.origin = this.origin.replace(/:\d+$/, ':8080');
+    }
+  }
+
   render() {
     return (
       <HashRouter>
@@ -35,11 +45,19 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    const processResponse = response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      // No content or unauthorized
+      return {};
+    };
+
     this.props.dispatch((dispatch) => {
-        fetch("http://localhost:8080/api/demo").then(response => response.json())
-        .then((data) => {
-          dispatch(actions.saveData(data))
-        });
+      fetch(`${this.origin}/api/get/user`)
+        .then(response => processResponse(response))
+        .then((data) => dispatch(actions.saveData(data)));
     });
   }
 }
