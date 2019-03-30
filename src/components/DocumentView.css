@@ -39,11 +39,12 @@
 }
 
 #content {
+    word-break: break-all;
     height: 70%;
 }
 
 #content .row {
-  margin-bottom: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 #content .row + .row {
@@ -52,7 +53,7 @@
 }
 
 #footer {
-    overflow: hidden;
+    word-break: break-all;
     height: 10%;
 }
 

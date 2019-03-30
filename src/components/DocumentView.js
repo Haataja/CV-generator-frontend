@@ -69,9 +69,9 @@ class DocumentView extends Component {
       };
 
       const mapObjectData = (identifier) => {
-        const index = this.props['EDITOR_DIALOG'].item;
+        const index = this.getDialogItem();
 
-        if (index) {
+        if (typeof index === 'number') {
           return {
             defaultValue: this.temporaryData.data[index][identifier] ? this.temporaryData.data[index][identifier] : ''
           };
@@ -173,7 +173,7 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!Array.isArray(this.temporaryData.data)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -584,10 +584,10 @@ class DocumentView extends Component {
       if (hasData()) {
         return (
           <Row>
-            <Col xs={10}>
+            <Col xs={12} sm={9} md={10}>
               {this.getProfileData(key, data)}
             </Col>
-            <Col xs={2} className="item-controls text-right">
+            <Col xs={12} sm={3} md={2} className="item-controls text-right">
               <ButtonGroup size="sm">
                 <Button className="fa fa-cog" variant="primary" onClick={this.onDialogShow(key)} size="sm"/>
                 <Button className={DocumentView.getIconState(data, key)} variant="primary" onClick={updateScope} size="sm"/>
@@ -611,15 +611,15 @@ class DocumentView extends Component {
       if (hasItems()) {
         return (
           <Row>
-            <Col xs={5} className="title">
+            <Col xs={12} sm={5} md={5} className="title">
               {this.getLocalizedTitle(key)}
             </Col>
-            <Col xs={5}>
+            <Col xs={12} sm={7} md={5}>
               <ul>
                 {this.getProfileData(key, data)}
               </ul>
             </Col>
-            <Col xs={2} className="item-controls text-right">
+            <Col xs={12} md={2} className="item-controls text-right">
               <ButtonGroup size="sm">
                 <Button className="fa fa-cog" variant="primary" onClick={this.onDialogShow(key)} size="sm"/>
                 <Button className="fa fa-plus" variant="primary" onClick={this.onDialogShow(key, true)} size="sm"/>
@@ -632,10 +632,10 @@ class DocumentView extends Component {
       } else {
         return (
           <Row>
-            <Col xs={5} className="title">
+            <Col xs={12} sm={5} className="d-none d-sm-block title">
               {this.getLocalizedTitle(key)}
             </Col>
-            <Col xs={7}>
+            <Col xs={12} sm={7}>
               <Button variant="primary" block onClick={this.onDialogShow(key, true)}>
                 {this.getLocalizedField(key)}
               </Button>
@@ -658,7 +658,7 @@ class DocumentView extends Component {
               <Container id="page">
                 <div id="header">
                   <Row>
-                    <Col xs={5}>
+                    <Col xs={12} sm={6} md={6}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('first_name')}
@@ -668,15 +668,15 @@ class DocumentView extends Component {
                                      defaultValue={this.prepareData('lastname')}/>
                       </InputGroup>
                     </Col>
-                    <Col xs={4} className="title">
+                    <Col sm={6} md={3} className="d-none d-sm-block title">
                       {this.getLocalizedTitle('resume')}
                     </Col>
-                    <Col xs={3} id="profile-image" className="text-right">
+                    <Col md={3} id="profile-image" className="d-none d-md-block text-right">
                       {this.createRowData(data, 'profile_image', this.getLocalizedTitle, this.getLocalizedField)}
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5}>
+                    <Col xs={12} sm={6}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('address')}
@@ -685,7 +685,7 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5}>
+                    <Col xs={12} sm={6}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('zip_code')}
@@ -697,26 +697,24 @@ class DocumentView extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5}>
+                    <Col xs={12} sm={6}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('email')}
                                      defaultValue={this.prepareData('email', 'contact_info')}/>
                       </InputGroup>
                     </Col>
-                    <Col xs={7} id="date">
+                    <Col sm={6} className="d-none d-sm-block">
                       {date.toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={5}>
+                    <Col xs={12} sm={6}>
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('phone')}
                                      defaultValue={this.prepareData('phone', 'contact_info')}/>
                       </InputGroup>
-                    </Col>
-                    <Col xs={6}>
                     </Col>
                   </Row>
                 </div>
@@ -730,9 +728,9 @@ class DocumentView extends Component {
                   {this.createRowData(data, 'references')}
                 </div>
                 <div id="footer">
-                  <Row className="text-center">
-                    <Col xs={12}>
-                      {/*this.prepareData('footer', 'bio')*/}
+                  <Row>
+                    <Col xs={12} className="text-center">
+                      {this.prepareData('footer', 'bio')}
                     </Col>
                   </Row>
                 </div>
