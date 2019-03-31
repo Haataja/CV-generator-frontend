@@ -61,28 +61,50 @@ class DocumentView extends Component {
         }
       }
 
-      const mapData = identifier => {
-        return {
-          defaultValue: this.temporaryData[identifier] ? this.temporaryData[identifier] : '',
-          onChange: event => this.temporaryData[identifier] = event.target.value
+      const mapProperty = (property, type) => {
+        const mapData = data => {
+          switch(type) {
+            case 'number': {
+              return {
+                defaultValue: Number(data[property]),
+                onChange: event => data[property] = Number(event.target.value),
+                name: property
+              };
+            }
+            case 'boolean': {
+              return {
+                defaultValue: Boolean(data[property]),
+                onChange: event => data[property] = Boolean(event.target.value),
+                name: property
+              };
+            }
+            default: {
+              return {
+                defaultValue: String(data[property]),
+                onChange: event => data[property] = String(event.target.value),
+                name: property
+              };
+            }
+          }
         };
-      };
 
-      const mapObjectData = (identifier) => {
-        const index = this.getDialogItem();
-
-        if (typeof index === 'number') {
-          return {
-            defaultValue: this.temporaryData.data[index][identifier] ? this.temporaryData.data[index][identifier] : ''
-          };
+        let data = this.temporaryData;
+        if (DocumentView.isObject(data)) {
+          if (Array.isArray(data)) {
+            return mapData(data.data[this.getDialogItem()]);
+          } else {
+            return mapData(data);
+          }
         }
       };
 
-      const submitValues = (identifier, index) => {
+      const submitValues = identifier => {
         return event => {
           event.preventDefault();
 
-          const form = document.getElementById(identifier);
+          const index = this.getDialogItem();
+
+          const form = document.getElementById(index ? 'update-data' : 'create-data');
           const values = Object.values(form.elements).reduce(
             (obj, field) => {
               if (field.name) {
@@ -116,7 +138,7 @@ class DocumentView extends Component {
                   Image URL:
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <FormControl {...mapData('source')} />
+              <Form.Control type="url" {...mapProperty('source', 'string')} />
             </InputGroup>
           );
         }
@@ -124,10 +146,10 @@ class DocumentView extends Component {
           return (
             <Tabs defaultActiveKey="bio" transition={false}>
               <Tab eventKey="bio" title="Biography">
-                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapData('value')} />
+                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapProperty('value', 'string')} />
               </Tab>
               <Tab eventKey="footer" title="Footer">
-                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapData('footer')} />
+                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapProperty('footer', 'string')} />
               </Tab>
             </Tabs>
           );
@@ -181,39 +203,39 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col>
                       <Form.Row>
-                        <Col xs={3}>
+                        <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control name="startdate" type="date" {...mapObjectData('startdate')}/>
+                            <Form.Control type="date" {...mapProperty('startdate')}/>
                           </Form.Group>
                         </Col>
-                        <Col>
-                          <Form.Group controlId="typeGroup">
-                            <Form.Label>Experience type</Form.Label>
-                            <Form.Control name="type" as="select" {...mapObjectData('type')}>
-                              <option key="work" value="work">Work experience</option>
-                              <option key="personal" value="personal">Other experience</option>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="endDateGroup">
+                            <Form.Label>End date</Form.Label>
+                            <Form.Control type="date" {...mapProperty('enddate')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="visibleGroup">
+                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                              <option value={true}>Visible</option>
+                              <option value={false}>Hidden</option>
                             </Form.Control>
                           </Form.Group>
                         </Col>
                       </Form.Row>
                       <Form.Row>
-                        <Col xs={4}>
-                          <Form.Group controlId="endDateGroup">
-                            <Form.Label>End date</Form.Label>
-                            <Form.Control name="enddate" type="date" {...mapObjectData('enddate')}/>
-                          </Form.Group>
-                        </Col>
-                        <Col>
+                        <Col xs={12} sm={6}>
                           <Form.Group controlId="employerGroup">
                             <Form.Label>Employer</Form.Label>
-                            <Form.Control name="name" {...mapObjectData('name')}/>
+                            <Form.Control {...mapProperty('name')}/>
                           </Form.Group>
                         </Col>
-                        <Col>
+                        <Col xs={12} sm={6}>
                           <Form.Group controlId="titleGroup">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control name="title" {...mapObjectData('title')}/>
+                            <Form.Control {...mapProperty('title')}/>
                           </Form.Group>
                         </Col>
                       </Form.Row>
@@ -221,8 +243,15 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block
-                              onClick={submitValues('update-data', this.getDialogItem())}>Edit</Button>
+                      <Form.Group controlId="descriptionGroup">
+                        <Form.Label>Short description</Form.Label>
+                        <Form.Control {...mapProperty('description')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -232,42 +261,50 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col>
                       <Form.Row>
-                        <Col xs={3}>
+                        <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
                             <Form.Control name="startdate" type="date"/>
                           </Form.Group>
                         </Col>
-                        <Col>
-                          <Form.Group controlId="typeGroup">
-                            <Form.Label>Experience type</Form.Label>
-                            <Form.Control name="type" as="select">
-                              <option value="work">Work experience</option>
-                              <option value="personal">Other experience</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </Col>
-                      </Form.Row>
-                      <Form.Row>
-                        <Col xs={4}>
+                        <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
                             <Form.Control name="enddate" type="date"/>
                           </Form.Group>
                         </Col>
-                        <Col>
-                          <Form.Group controlId="employerGroup">
-                            <Form.Label>Employer</Form.Label>
-                            <Form.Control name="name" ref="shitpile"/>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="visibleGroup">
+                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Control name="visible" as="select">
+                              <option value={true}>Visible</option>
+                              <option value={false}>Hidden</option>
+                            </Form.Control>
                           </Form.Group>
                         </Col>
-                        <Col>
+                      </Form.Row>
+                      <Form.Row>
+                        <Col xs={12} sm={6}>
+                          <Form.Group controlId="employerGroup">
+                            <Form.Label>Employer</Form.Label>
+                            <Form.Control name="name"/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={6}>
                           <Form.Group controlId="titleGroup">
                             <Form.Label>Title</Form.Label>
                             <Form.Control name="title"/>
                           </Form.Group>
                         </Col>
                       </Form.Row>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="descriptionGroup">
+                        <Form.Label>Short description</Form.Label>
+                        <Form.Control name="description"/>
+                      </Form.Group>
                     </Col>
                   </Form.Row>
                   <Form.Row>
@@ -281,64 +318,639 @@ class DocumentView extends Component {
           );
         }
         case 'education': {
-          return <Form>
-            <Form.Row>
-              <Col>
-                <Form.Row>
-                  <Col xs={3}>
-                    <Form.Group controlId="startDateGroup">
-                      <Form.Label>Start date</Form.Label>
-                      <Form.Control type="date"/>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="typeGroup">
-                      <Form.Label>Experience type</Form.Label>
-                      <Form.Control as="select">
-                        <option>Course</option>
-                        <option>Degree</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Form.Row>
-                <Form.Row>
-                  <Col xs={3}>
-                    <Form.Group controlId="endDateGroup">
-                      <Form.Label>End date</Form.Label>
-                      <Form.Control type="date"/>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="employerGroup">
-                      <Form.Label>School</Form.Label>
-                      <Form.Control/>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="titleGroup">
-                      <Form.Label>Field</Form.Label>
-                      <Form.Control/>
-                    </Form.Group>
-                  </Col>
-                </Form.Row>
-              </Col>
-              <Col xs={1} className="align-self-center">
-                <Button variant="primary">Add</Button>
-              </Col>
-            </Form.Row>
-          </Form>;
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th>School name</th>
+                  <th>Field name</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{new Date(item.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                      <td>{new Date(item.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</td>
+                      <td>{item.school_name}</td>
+                      <td>{item.field_name}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
+              </Tab>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col>
+                      <Form.Row>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="startDateGroup">
+                            <Form.Label>Start date</Form.Label>
+                            <Form.Control type="date" {...mapProperty('startdate')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="endDateGroup">
+                            <Form.Label>End date</Form.Label>
+                            <Form.Control type="date" {...mapProperty('enddate')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="visibleGroup">
+                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                              <option value={true}>Visible</option>
+                              <option value={false}>Hidden</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                      <Form.Row>
+                        <Col xs={12} sm={6}>
+                          <Form.Group controlId="schoolGroup">
+                            <Form.Label>School name</Form.Label>
+                            <Form.Control {...mapProperty('school_name')}/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={6}>
+                          <Form.Group controlId="schoolTypeGroup">
+                            <Form.Label>School type</Form.Label>
+                            <Form.Control {...mapProperty('school_type')}/>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="gradeGroup">
+                        <Form.Label>Grade</Form.Label>
+                        <Form.Control type="number" {...mapProperty('grade', 'number')}/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="fieldGroup">
+                        <Form.Label>Field name</Form.Label>
+                        <Form.Control {...mapProperty('field_name')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col>
+                      <Form.Row>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="startDateGroup">
+                            <Form.Label>Start date</Form.Label>
+                            <Form.Control name="startdate" type="date"/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="endDateGroup">
+                            <Form.Label>End date</Form.Label>
+                            <Form.Control name="enddate" type="date"/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <Form.Group controlId="visibleGroup">
+                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Control name="visible" as="select">
+                              <option value={true}>Visible</option>
+                              <option value={false}>Hidden</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                      <Form.Row>
+                        <Col xs={12} sm={6}>
+                          <Form.Group controlId="schoolGroup">
+                            <Form.Label>School name</Form.Label>
+                            <Form.Control name="school_name"/>
+                          </Form.Group>
+                        </Col>
+                        <Col xs={12} sm={6}>
+                          <Form.Group controlId="schoolTypeGroup">
+                            <Form.Label>School type</Form.Label>
+                            <Form.Control name="school_type"/>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="gradeGroup">
+                        <Form.Label>Grade</Form.Label>
+                        <Form.Control name="grade" type="number"/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="fieldGroup">
+                        <Form.Label>Field name</Form.Label>
+                        <Form.Control name="field_name"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+            </Tabs>
+          );
         }
         case 'misc': {
-          break;
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.value}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
+              </Tab>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control {...mapProperty('name')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control {...mapProperty('value')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control name="value"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+            </Tabs>
+          );
         }
         case 'titles': {
-          break;
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.value}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
+              </Tab>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control {...mapProperty('name')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control {...mapProperty('value')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control name="value"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+            </Tabs>
+          );
         }
         case 'projects': {
-          break;
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.value}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
+              </Tab>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control {...mapProperty('name')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control {...mapProperty('value')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control name="value"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+            </Tabs>
+          );
         }
         case 'references': {
-          break;
+          const getItems = data => {
+            return (
+              <Table borderless="true" striped="true" responsive={true} size="sm">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.value}</td>
+                      <td className="text-right">
+                        <ButtonGroup size="sm">
+                          <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('scope', index)}
+                                  className={DocumentView.getIconState(data, index)}
+                                  variant="primary" size="sm"/>
+                          <Button onClick={this.getDialogCallback('delete', index)} className="fa fa-times"
+                                  variant="primary" size="sm"/>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
+                  )
+                )}
+                </tbody>
+              </Table>
+            );
+          };
+
+          return (
+            <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
+              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+                {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
+              </Tab>
+              <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
+                <Form id="update-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control {...mapProperty('name')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control {...mapProperty('value')}/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
+                <Form id="create-data">
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="visibleGroup">
+                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                          <option value={true}>Visible</option>
+                          <option value={false}>Hidden</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Form.Group controlId="valueGroup">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control name="value"/>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={12}>
+                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Tab>
+            </Tabs>
+          );
         }
         default: {
           break;
@@ -371,7 +983,12 @@ class DocumentView extends Component {
       case 'delete': {
         return () => {
           this.temporaryData.data.splice(index, 1);
-          this.props.dispatch(actions.updateDialog(this.getDialogType(), ''));
+
+          if (this.temporaryData.data.length > 0) {
+            this.props.dispatch(actions.updateDialog(this.getDialogType()));
+          } else {
+            this.props.dispatch(actions.updateDialog(this.getDialogType()), 'new');
+          }
         };
       }
       case 'scope': {
@@ -740,11 +1357,11 @@ class DocumentView extends Component {
         </Container>
         <Modal size="lg" show={!!this.getDialogType()} centered onHide={this.onDialogHide}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.getLocalizedTitle(this.getDialogType())}</Modal.Title>
+            <Modal.Title className="mr-auto">{this.getLocalizedTitle(this.getDialogType())}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            {this.getContent(data)}
+            {this.getContent(data ? data : {})}
           </Modal.Body>
 
           <Modal.Footer>
