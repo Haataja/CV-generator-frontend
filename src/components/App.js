@@ -55,7 +55,7 @@ export class App extends Component {
     };
 
     this.props.dispatch((dispatch) => {
-      fetch(`${this.origin}/api/get/user`)
+      fetch(`${this.origin}/api/get/user`, {credentials: 'include'})
         .then(response => processResponse(response))
         .then((data) => dispatch(actions.saveData(data)));
     });
