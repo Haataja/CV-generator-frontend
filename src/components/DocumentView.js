@@ -1055,6 +1055,31 @@ class DocumentView extends Component {
           this.post(url, postData);
           break;
         }
+
+        case 'basic_info': {
+          let url = `${window.location.origin}/api/post/profile`;
+          //TODO IMPLEMENT WITH REAL DATA
+          //TODO IMPLEMENT CONTRY INPUT OPTION
+          let postData = {
+            firstname: "tuksu",
+            lastname: "juksu",
+            birthdate: "01/01/1991",
+            contact_info: {
+              email: "juksu@tuksu.fi",
+              phone: "0401234321",
+              visibile: true
+            },
+            address: {
+              street_address: "Cool street 123",
+              zipcode: "39500",
+              country: "Soviet States of America",
+              city: "Washingtongrad",
+              visible: true
+            }
+          };
+          this.post(url, postData);
+          break;
+        }
       }
     }
   }
