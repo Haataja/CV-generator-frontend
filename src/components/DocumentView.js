@@ -1018,8 +1018,7 @@ class DocumentView extends Component {
   }
 
   postPartialData(key, data) {
-    console.log(key)
-    console.log(data)
+
     if(data) {
       switch (key) {
         case 'bio': {
@@ -1087,20 +1086,20 @@ class DocumentView extends Component {
           //TODO IMPLEMENT CONTRY INPUT OPTION
           let url = `${window.location.origin}/api/post/profile`;
           let postData = {
-            firstname: "tuksu",
-            lastname: "juksu",
-            birthdate: "01/01/1991",
+            firstname: data.firstname,
+            lastname: data.lastname,
+            birthdate: "",
             contact_info: {
-              email: "juksu@tuksu.fi",
-              phone: "0401234321",
-              visibile: true
+              email: data.contact_info.email,
+              phone: data.contact_info.phone,
+              visibile: data.contact_info.visibile
             },
             address: {
-              street_address: "Cool street 123",
-              zipcode: "39500",
-              country: "Soviet States of America",
-              city: "Washingtongrad",
-              visible: true
+              street_address: data.address.street_address,
+              zipcode: data.address.zipcode,
+              country: "",
+              city: data.address.city,
+              visible: data.address.visible
             }
           };
           this.post(url, postData);
@@ -1443,7 +1442,7 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={12} sm={6}>
-                      <Button size="sm" block onClick={() => console.log(this.props['GLOBAL_DATA'])}>Save</Button>
+                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", this.props['GLOBAL_DATA'])}>Save</Button>
                     </Col>
                   </Row>
                 </div>
