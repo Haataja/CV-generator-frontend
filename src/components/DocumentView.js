@@ -28,6 +28,7 @@ class DocumentView extends Component {
     this.getProfileData = this.getProfileData.bind(this);
     this.createRowData = this.createRowData.bind(this);
     this.postPartialData = this.postPartialData.bind(this);
+    this.post = this.post.bind(this);
 
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
@@ -1012,37 +1013,53 @@ class DocumentView extends Component {
     const key = this.props['EDITOR_DIALOG'].type;
     this.props['GLOBAL_DATA'][key] = {...this.props['GLOBAL_DATA'][key], ...this.temporaryData};
     this.props.dispatch(actions.global.saveData(this.props['GLOBAL_DATA']));
+
+    this.postPartialData(key, this.props['GLOBAL_DATA'][key])
     this.onDialogHide();
   }
 
   postPartialData(key, data) {
-    switch (key) {
+    if(data) {
+      switch (key) {
+        case 'bio': {
+          let url = `${window.location.origin}/api/post/bio`;
+          let postData = {value: data.value, visible: data.visible, footer: data.footer};
+          this.post(url, postData);
+          break;
+        }
 
-      case 'bio': {
-        break;
+        case 'experience': {
+          break;
+        }
+
+        case 'projects': {
+          break;
+        }
+
+        case 'titles': {
+          break;
+        }
+
+        case 'misc': {
+          break;
+        }
+
+        case 'references': {
+          break;
+        }
       }
-
-      case 'experience': {
-        break;
-      }
-
-      case 'projects': {
-        break;
-      }
-
-      case 'titles': {
-        break;
-      }
-
-      case 'misc': {
-        break;
-      }
-
-      case 'references': {
-        break;
-      }
-
     }
+  }
+
+  post(url, data) {
+    fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(response => console.log("RESPONESE", response))
   }
 
 
