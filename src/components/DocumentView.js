@@ -1442,7 +1442,7 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={12} sm={6}>
-                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", this.props['GLOBAL_DATA'])}>Save</Button>
+                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", this.props['GLOBAL_DATA'])}>Save information</Button>
                     </Col>
                   </Row>
                 </div>
