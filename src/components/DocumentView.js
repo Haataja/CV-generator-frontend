@@ -1030,26 +1030,52 @@ class DocumentView extends Component {
         }
 
         case 'experience': {
+          //TODO IMPLEMENT WITH REAL DATA
+          let url = `${window.location.origin}/api/post/experience`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
           break;
         }
 
         case 'projects': {
+          //TODO IMPLEMENT WITH REAL DATA
+
+          let url = `${window.location.origin}/api/post/experience`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
           break;
         }
 
         case 'titles': {
+          //TODO IMPLEMENT WITH REAL DATA
+
+          let url = `${window.location.origin}/api/post/experience`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
           break;
         }
 
         case 'misc': {
+          //TODO IMPLEMENT WITH REAL DATA
+
+          let url = `${window.location.origin}/api/post/experience`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
           break;
         }
 
         case 'references': {
+          //TODO IMPLEMENT WITH REAL DATA
+
+          let url = `${window.location.origin}/api/post/experience`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
           break;
         }
 
         case 'profile_image': {
+          //TODO IMPLEMENT WITH REAL DATA
+
           let url = `${window.location.origin}/api/post/profile`;
           let postData = {source: data.source, visible: data.visible};
           this.post(url, postData);
@@ -1057,9 +1083,9 @@ class DocumentView extends Component {
         }
 
         case 'basic_info': {
-          let url = `${window.location.origin}/api/post/profile`;
           //TODO IMPLEMENT WITH REAL DATA
           //TODO IMPLEMENT CONTRY INPUT OPTION
+          let url = `${window.location.origin}/api/post/profile`;
           let postData = {
             firstname: "tuksu",
             lastname: "juksu",
