@@ -1013,12 +1013,13 @@ class DocumentView extends Component {
     const key = this.props['EDITOR_DIALOG'].type;
     this.props['GLOBAL_DATA'][key] = {...this.props['GLOBAL_DATA'][key], ...this.temporaryData};
     this.props.dispatch(actions.global.saveData(this.props['GLOBAL_DATA']));
-
     this.postPartialData(key, this.props['GLOBAL_DATA'][key])
     this.onDialogHide();
   }
 
   postPartialData(key, data) {
+    console.log(key)
+    console.log(data)
     if(data) {
       switch (key) {
         case 'bio': {
@@ -1045,6 +1046,13 @@ class DocumentView extends Component {
         }
 
         case 'references': {
+          break;
+        }
+
+        case 'profile_image': {
+          let url = `${window.location.origin}/api/post/profile`;
+          let postData = {source: data.source, visible: data.visible};
+          this.post(url, postData);
           break;
         }
       }
