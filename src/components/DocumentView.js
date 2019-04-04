@@ -27,6 +27,7 @@ class DocumentView extends Component {
 
     this.getProfileData = this.getProfileData.bind(this);
     this.createRowData = this.createRowData.bind(this);
+    this.postPartialData = this.postPartialData.bind(this);
 
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
@@ -1010,10 +1011,40 @@ class DocumentView extends Component {
   onSaveChanges() {
     const key = this.props['EDITOR_DIALOG'].type;
     this.props['GLOBAL_DATA'][key] = {...this.props['GLOBAL_DATA'][key], ...this.temporaryData};
-
     this.props.dispatch(actions.global.saveData(this.props['GLOBAL_DATA']));
     this.onDialogHide();
   }
+
+  postPartialData(key, data) {
+    switch (key) {
+
+      case 'bio': {
+        break;
+      }
+
+      case 'experience': {
+        break;
+      }
+
+      case 'projects': {
+        break;
+      }
+
+      case 'titles': {
+        break;
+      }
+
+      case 'misc': {
+        break;
+      }
+
+      case 'references': {
+        break;
+      }
+
+    }
+  }
+
 
   onDialogHide() {
     this.temporaryData = null;
