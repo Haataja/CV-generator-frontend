@@ -1441,6 +1441,11 @@ class DocumentView extends Component {
                       </InputGroup>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col xs={12} sm={6}>
+                      <Button size="sm" block onClick={() => console.log(this.props['GLOBAL_DATA'])}>Save</Button>
+                    </Col>
+                  </Row>
                 </div>
                 <div id="content">
                   {this.createRowData(data, 'bio')}
