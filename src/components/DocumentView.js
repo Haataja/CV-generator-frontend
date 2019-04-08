@@ -1056,6 +1056,13 @@ class DocumentView extends Component {
           break;
         }
 
+        case 'education': {
+          let url = `${window.location.origin}/api/post/education`;
+          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          this.post(url, postData);
+          break;
+        }
+
         case 'projects': {
           //TODO IMPLEMENT WITH REAL DATA
 
@@ -1104,7 +1111,7 @@ class DocumentView extends Component {
         case 'basic_info': {
           //TODO IMPLEMENT WITH REAL DATA
           //TODO IMPLEMENT CONTRY INPUT OPTION
-          let url = `${window.location.origin}/api/post/profile`;
+          let url = `${window.location.origin}/api/post/user`;
           let postData = {
             firstname: data.firstname,
             lastname: data.lastname,
@@ -1130,6 +1137,7 @@ class DocumentView extends Component {
   }
 
   post(url, data) {
+    console.log(data)
     fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -1382,7 +1390,7 @@ class DocumentView extends Component {
         lastname: '',
         address: {
           street_address: '',
-          zip_code: '',
+          zipcode: '',
           city: '',
           visible: true
         },
