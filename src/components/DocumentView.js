@@ -1503,13 +1503,6 @@ class DocumentView extends Component {
                   {this.createRowData(data, 'misc')}
                   {this.createRowData(data, 'references')}
                 </div>
-                <div id="footer">
-                  <Row>
-                    <Col xs={12} className="text-center">
-                      {this.prepareData('footer', 'bio')}
-                    </Col>
-                  </Row>
-                </div>
               </Container>
             </Col>
           </Row>
