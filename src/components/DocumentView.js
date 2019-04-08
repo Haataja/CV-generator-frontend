@@ -100,35 +100,33 @@ class DocumentView extends Component {
         }
       };
 
-      const submitValues = () => {
-        return event => {
-          event.preventDefault();
+      const submitValues = event => {
+        event.preventDefault();
 
-          const index = this.getDialogItem();
+        const index = this.getDialogItem();
 
-          const form = document.getElementById(index ? 'update-data' : 'create-data');
-          const values = Object.values(form.elements).reduce(
-            (obj, field) => {
-              if (field.name) {
-                obj[field.name] = field.value;
-              }
-              return obj;
-            },
-            {}
-          );
-
-          if (Array.isArray(this.temporaryData.data) && typeof index === 'number') {
-            this.temporaryData.data[index] = values;
-          } else {
-            if (!Array.isArray(this.temporaryData.data)) {
-              this.temporaryData.data = [];
-
-              this.props.dispatch(actions.updateDialog(this.getDialogType(), this.getDialogTab()));
+        const form = document.getElementById(index ? 'update-data' : 'create-data');
+        const values = Object.values(form.elements).reduce(
+          (obj, field) => {
+            if (field.name) {
+              obj[field.name] = field.value;
             }
+            return obj;
+          },
+          {}
+        );
 
-            this.temporaryData.data.push(values);
+        if (Array.isArray(this.temporaryData.data) && typeof index === 'number') {
+          this.temporaryData.data[index] = values;
+        } else {
+          if (!Array.isArray(this.temporaryData.data)) {
+            this.temporaryData.data = [];
+
+            this.props.dispatch(actions.updateDialog(this.getDialogType(), this.getDialogTab()));
           }
-        };
+
+          this.temporaryData.data.push(values);
+        }
       };
 
       switch (currentDialog) {
@@ -146,14 +144,10 @@ class DocumentView extends Component {
         }
         case 'bio': {
           return (
-            <Tabs defaultActiveKey="bio" transition={false}>
-              <Tab eventKey="bio" title="Biography">
-                <Form.Control as="textarea" rows="5" placeholder="Biography" {...mapProperty('value', 'string')} />
-              </Tab>
-              <Tab eventKey="footer" title="Footer">
-                <Form.Control as="textarea" rows="5" placeholder="Footer notes" {...mapProperty('footer', 'string')} />
-              </Tab>
-            </Tabs>
+            <Form.Group controlId="bioGroup">
+              <Form.Label>Write something about yourself</Form.Label>
+              <Form.Control as="textarea" rows="5" {...mapProperty('value', 'string')} />
+            </Form.Group>
           );
         }
         case 'experience': {
@@ -253,7 +247,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="work"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -311,7 +306,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="work"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -422,7 +418,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="education"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -486,7 +483,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="education"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -563,7 +561,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="other"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -597,7 +596,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="other"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -674,7 +674,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="title"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -708,7 +709,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="title"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -793,7 +795,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="project"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -835,7 +838,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="project"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -920,7 +924,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('update-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="person"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -960,7 +965,8 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Button variant="primary" block onClick={submitValues('create-data')}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Form.Control name="type" type="hidden" defaultValue="person"/>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -1106,7 +1112,7 @@ class DocumentView extends Component {
             contact_info: {
               email: data.contact_info.email,
               phone: data.contact_info.phone,
-              visibile: data.contact_info.visibile
+              visible: data.contact_info.visible
             },
             address: {
               street_address: data.address.street_address,
@@ -1267,11 +1273,13 @@ class DocumentView extends Component {
     const updateScope = () => {
       data[key].visible = !data[key].visible;
       this.props.dispatch(actions.global.saveData(data));
+      this.postPartialData(key, data[key]);
     };
 
     const deleteAll = () => {
       data[key] = null;
       this.props.dispatch(actions.global.saveData(data));
+      this.postPartialData(key, {visible: true});
     };
 
     const hasData = () => {
@@ -1412,7 +1420,7 @@ class DocumentView extends Component {
 
   render() {
     const date = new Date();
-    let data = this.prepareData(this.props['GLOBAL_DATA']);
+    const data = this.prepareData(this.props['GLOBAL_DATA']);
 
     const mapData = (data, property) => {
       return {
@@ -1460,7 +1468,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('zip_code')}
-                                     {...mapData(data.address, 'zip_code')}/>
+                                     {...mapData(data.address, 'zipcode')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('city')}
                                      {...mapData(data.address, 'city')}/>
@@ -1490,7 +1498,7 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={12} sm={6}>
-                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", this.props['GLOBAL_DATA'])}>Save information</Button>
+                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", data)}>Save information</Button>
                     </Col>
                   </Row>
                 </div>
