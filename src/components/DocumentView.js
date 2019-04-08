@@ -82,8 +82,8 @@ class DocumentView extends Component {
             }
             default: {
               return {
-                defaultValue: String(data[property]),
-                onChange: event => data[property] = String(event.target.value),
+                defaultValue: data[property],
+                onChange: event => data[property] = event.target.value,
                 name: property
               };
             }
@@ -100,7 +100,7 @@ class DocumentView extends Component {
         }
       };
 
-      const submitValues = identifier => {
+      const submitValues = () => {
         return event => {
           event.preventDefault();
 
@@ -548,15 +548,13 @@ class DocumentView extends Component {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
                         <Form.Label>Name</Form.Label>
                         <Form.Control {...mapProperty('name')}/>
                       </Form.Group>
                     </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="valueGroup">
                         <Form.Label>Value</Form.Label>
                         <Form.Control {...mapProperty('value')}/>
@@ -584,15 +582,13 @@ class DocumentView extends Component {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
                         <Form.Label>Name</Form.Label>
                         <Form.Control name="name"/>
                       </Form.Group>
                     </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="valueGroup">
                         <Form.Label>Value</Form.Label>
                         <Form.Control name="value"/>
@@ -615,16 +611,16 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Value</th>
+                  <th>Awarded</th>
+                  <th>Title</th>
                   <th/>
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>{item.value}</td>
+                      <td>{item.awarded}</td>
+                      <td>{item.title}</td>
                       <td className="text-right">
                         <ButtonGroup size="sm">
                           <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
@@ -652,7 +648,13 @@ class DocumentView extends Component {
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
                 <Form id="update-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="awardedGroup">
+                        <Form.Label>Awarded</Form.Label>
+                        <Form.Control type="date" {...mapProperty('awarded')}/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
@@ -664,17 +666,9 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control {...mapProperty('name')}/>
-                      </Form.Group>
-                    </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
-                      <Form.Group controlId="valueGroup">
+                      <Form.Group controlId="titleGroup">
                         <Form.Label>Value</Form.Label>
-                        <Form.Control {...mapProperty('value')}/>
+                        <Form.Control {...mapProperty('title')}/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -688,7 +682,13 @@ class DocumentView extends Component {
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
                 <Form id="create-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="awardedGroup">
+                        <Form.Label>Awarded</Form.Label>
+                        <Form.Control name="awarded" type="date"/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
@@ -700,17 +700,9 @@ class DocumentView extends Component {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control name="name"/>
-                      </Form.Group>
-                    </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
                       <Form.Group controlId="valueGroup">
                         <Form.Label>Value</Form.Label>
-                        <Form.Control name="value"/>
+                        <Form.Control name="title"/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -730,16 +722,16 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Value</th>
+                  <th>Completion date</th>
+                  <th>Project name</th>
                   <th/>
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
                     <tr key={index}>
+                      <td>{item.completion_date}</td>
                       <td>{item.name}</td>
-                      <td>{item.value}</td>
                       <td className="text-right">
                         <ButtonGroup size="sm">
                           <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
@@ -767,7 +759,13 @@ class DocumentView extends Component {
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
                 <Form id="update-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="dateGroup">
+                        <Form.Label>Completion date</Form.Label>
+                        <Form.Control type="date" {...mapProperty('completion_date')}/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
@@ -780,16 +778,16 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Project name</Form.Label>
                         <Form.Control {...mapProperty('name')}/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
-                        <Form.Control {...mapProperty('value')}/>
+                      <Form.Group controlId="descriptionGroup">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control as="textarea" rows="3" {...mapProperty('description')}/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -803,10 +801,16 @@ class DocumentView extends Component {
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
                 <Form id="create-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="dateGroup">
+                        <Form.Label>Completion date</Form.Label>
+                        <Form.Control name="completion_date" type="date"/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" name="visible">
                           <option value={true}>Visible</option>
                           <option value={false}>Hidden</option>
                         </Form.Control>
@@ -816,16 +820,16 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Project name</Form.Label>
                         <Form.Control name="name"/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
                   <Form.Row>
                     <Col xs={12}>
-                      <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
-                        <Form.Control name="value"/>
+                      <Form.Group controlId="descriptionGroup">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control as="textarea" rows="3" name="description"/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -846,7 +850,8 @@ class DocumentView extends Component {
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Value</th>
+                  <th>Email</th>
+                  <th>Phone</th>
                   <th/>
                 </tr>
                 </thead>
@@ -854,7 +859,8 @@ class DocumentView extends Component {
                 {data.map((item, index) => (
                     <tr key={index}>
                       <td>{item.name}</td>
-                      <td>{item.value}</td>
+                      <td>{item.contact_email}</td>
+                      <td>{item.contact_phone}</td>
                       <td className="text-right">
                         <ButtonGroup size="sm">
                           <Button onClick={this.getDialogCallback('update', index)} className="fa fa-cog"
@@ -882,7 +888,13 @@ class DocumentView extends Component {
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
                 <Form id="update-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control {...mapProperty('name')}/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
@@ -893,18 +905,16 @@ class DocumentView extends Component {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col xs={12}>
-                      <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control {...mapProperty('name')}/>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="emailGroup">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control {...mapProperty('contact_email')}/>
                       </Form.Group>
                     </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
-                      <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
-                        <Form.Control {...mapProperty('value')}/>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="phoneGroup">
+                        <Form.Label>Phone</Form.Label>
+                        <Form.Control {...mapProperty('contact_email')}/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -918,7 +928,13 @@ class DocumentView extends Component {
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
                 <Form id="create-data">
                   <Form.Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="nameGroup">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name"/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
@@ -929,18 +945,16 @@ class DocumentView extends Component {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col xs={12}>
-                      <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control name="name"/>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="emailGroup">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control name="contact_email"/>
                       </Form.Group>
                     </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col xs={12}>
-                      <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
-                        <Form.Control name="value"/>
+                    <Col xs={12} sm={6}>
+                      <Form.Group controlId="phoneGroup">
+                        <Form.Label>Phone</Form.Label>
+                        <Form.Control name="contact_phone"/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -1124,22 +1138,6 @@ class DocumentView extends Component {
   onDialogHide() {
     this.temporaryData = null;
     this.props.dispatch(actions.updateDialog(null));
-  }
-
-  prepareData(key, category = null) {
-    let data = this.props['GLOBAL_DATA'];
-
-    if (data) {
-      if (category !== null && data[category] !== undefined) {
-        data = data[category];
-      }
-
-      if (key !== null && data[key] !== undefined) {
-        return data[key];
-      }
-    }
-
-    return '';
   }
 
   getProfileData(key, data) {
@@ -1369,9 +1367,59 @@ class DocumentView extends Component {
     }
   }
 
+  prepareData(data) {
+    if (!DocumentView.isObject(data)) {
+      data = {
+        firstname: '',
+        lastname: '',
+        address: {
+          street_address: '',
+          zip_code: '',
+          city: '',
+          visible: true
+        },
+        contact_info: {
+          email: '',
+          phone: '',
+          visible: ''
+        },
+        bio: {
+          visible: true
+        },
+        experience: {
+          visible: true
+        },
+        education: {
+          visible: true
+        },
+        references: {
+          visible: true
+        },
+        projects: {
+          visible: true
+        },
+        titles: {
+          visible: true
+        },
+        misc: {
+          visible: true
+        }
+      };
+    }
+
+    return data;
+  }
+
   render() {
     const date = new Date();
-    const data = this.props['GLOBAL_DATA'];
+    let data = this.prepareData(this.props['GLOBAL_DATA']);
+
+    const mapData = (data, property) => {
+      return {
+        defaultValue: data[property],
+        onChange: event => data[property] = event.target.value
+      };
+    };
 
     return (
       <>
@@ -1385,10 +1433,10 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('first_name')}
-                                     defaultValue={this.prepareData('firstname')}/>
+                                     {...mapData(data, 'firstname')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('last_name')}
-                                     defaultValue={this.prepareData('lastname')}/>
+                                     {...mapData(data, 'lastname')}/>
                       </InputGroup>
                     </Col>
                     <Col sm={6} md={3} className="d-none d-sm-block title">
@@ -1403,7 +1451,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('address')}
-                                     defaultValue={this.prepareData('street_address', 'address')}/>
+                                     {...mapData(data.address, 'street_address')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -1412,10 +1460,10 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('zip_code')}
-                                     defaultValue={this.prepareData('zipcode', 'address')}/>
+                                     {...mapData(data.address, 'zip_code')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('city')}
-                                     defaultValue={this.prepareData('city', 'address')}/>
+                                     {...mapData(data.address, 'city')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -1424,7 +1472,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('email')}
-                                     defaultValue={this.prepareData('email', 'contact_info')}/>
+                                     {...mapData(data.contact_info, 'email')}/>
                       </InputGroup>
                     </Col>
                     <Col sm={6} className="d-none d-sm-block">
@@ -1436,7 +1484,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('phone')}
-                                     defaultValue={this.prepareData('phone', 'contact_info')}/>
+                                     {...mapData(data.contact_info, 'phone')}/>
                       </InputGroup>
                     </Col>
                   </Row>
