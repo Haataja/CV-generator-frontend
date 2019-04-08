@@ -1049,7 +1049,6 @@ class DocumentView extends Component {
         }
 
         case 'experience': {
-          //TODO IMPLEMENT WITH REAL DATA
           let url = `${window.location.origin}/api/post/experience`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
@@ -1064,44 +1063,34 @@ class DocumentView extends Component {
         }
 
         case 'projects': {
-          //TODO IMPLEMENT WITH REAL DATA
-
-          let url = `${window.location.origin}/api/post/experience`;
+          let url = `${window.location.origin}/api/post/projects`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'titles': {
-          //TODO IMPLEMENT WITH REAL DATA
-
-          let url = `${window.location.origin}/api/post/experience`;
+          let url = `${window.location.origin}/api/post/titles`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'misc': {
-          //TODO IMPLEMENT WITH REAL DATA
-
-          let url = `${window.location.origin}/api/post/experience`;
+          let url = `${window.location.origin}/api/post/misc`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'references': {
-          //TODO IMPLEMENT WITH REAL DATA
-
-          let url = `${window.location.origin}/api/post/experience`;
+          let url = `${window.location.origin}/api/post/references`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'profile_image': {
-          //TODO IMPLEMENT WITH REAL DATA
-
           let url = `${window.location.origin}/api/post/profile`;
           let postData = {source: data.source, visible: data.visible};
           this.post(url, postData);
@@ -1109,8 +1098,6 @@ class DocumentView extends Component {
         }
 
         case 'basic_info': {
-          //TODO IMPLEMENT WITH REAL DATA
-          //TODO IMPLEMENT CONTRY INPUT OPTION
           let url = `${window.location.origin}/api/post/user`;
           let postData = {
             firstname: data.firstname,
