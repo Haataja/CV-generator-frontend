@@ -1215,7 +1215,7 @@ class DocumentView extends Component {
 
         case 'profile_image': {
           return (
-            <img alt="profile_image" src={data[key].source}/>
+            <img alt="" src={data[key].source}/>
           );
         }
         case 'bio': {
