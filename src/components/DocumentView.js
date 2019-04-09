@@ -68,6 +68,11 @@ class DocumentView extends Component {
         }
       }
 
+      const dateFormat = date => {
+        date = typeof date === 'string' ? new Date(date) : new Date();
+        return date.toISOString().slice(0, 10);
+      };
+
       const mapProperty = (property, type) => {
         const mapData = data => {
           switch(type) {
@@ -87,7 +92,7 @@ class DocumentView extends Component {
             }
             case 'date': {
               return {
-                defaultValue: new Date(data[property]),
+                defaultValue: dateFormat(data[property]),
                 onChange: event => data[property] = event.target.value,
                 name: property
               };
@@ -275,13 +280,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control name="startdate" type="date" defaultValue={new Date()}/>
+                            <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control name="enddate" type="date" defaultValue={new Date()}/>
+                            <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -446,13 +451,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control name="startdate" type="date" defaultValue={new Date()}/>
+                            <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control name="enddate" type="date" defaultValue={new Date()}/>
+                            <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -700,7 +705,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
                         <Form.Label>Awarded</Form.Label>
-                        <Form.Control name="awarded" type="date" defaultValue={new Date()}/>
+                        <Form.Control name="awarded" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
@@ -821,7 +826,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
                         <Form.Label>Completion date</Form.Label>
-                        <Form.Control name="completion_date" type="date" defaultValue={new Date()}/>
+                        <Form.Control name="completion_date" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
