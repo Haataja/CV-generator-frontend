@@ -1244,7 +1244,6 @@ class DocumentView extends Component {
             array.push(
               <li key={i}>
                 <div><b>{temp.name}</b></div>
-                <div>{temp.type}</div>
                 <div>Email: {temp.contact_email}</div>
                 <div>Phone: {temp.contact_phone}</div>
               </li>
