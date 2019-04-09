@@ -68,6 +68,11 @@ class DocumentView extends Component {
         }
       }
 
+      const dateFormat = date => {
+        date = typeof date === 'string' ? new Date(date) : new Date();
+        return date.toISOString().slice(0, 10);
+      };
+
       const mapProperty = (property, type) => {
         const mapData = data => {
           switch(type) {
@@ -82,6 +87,13 @@ class DocumentView extends Component {
               return {
                 defaultValue: Boolean(data[property]),
                 onChange: event => data[property] = Boolean(event.target.value),
+                name: property
+              };
+            }
+            case 'date': {
+              return {
+                defaultValue: dateFormat(data[property]),
+                onChange: event => data[property] = event.target.value,
                 name: property
               };
             }
@@ -145,7 +157,7 @@ class DocumentView extends Component {
                   Image URL:
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control type="url" {...mapProperty('source', 'string')} />
+              <Form.Control type="url" {...mapProperty('source')} />
             </InputGroup>
           );
         }
@@ -153,7 +165,7 @@ class DocumentView extends Component {
           return (
             <Form.Group controlId="bioGroup">
               <Form.Label>Write something about yourself</Form.Label>
-              <Form.Control as="textarea" rows="5" {...mapProperty('value', 'string')} />
+              <Form.Control as="textarea" rows="5" {...mapProperty('value')} />
             </Form.Group>
           );
         }
@@ -209,13 +221,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control type="date" {...mapProperty('startdate')}/>
+                            <Form.Control type="date" {...mapProperty('startdate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control type="date" {...mapProperty('enddate')}/>
+                            <Form.Control type="date" {...mapProperty('enddate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -268,13 +280,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control name="startdate" type="date"/>
+                            <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control name="enddate" type="date"/>
+                            <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -374,13 +386,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control type="date" {...mapProperty('startdate')}/>
+                            <Form.Control type="date" {...mapProperty('startdate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control type="date" {...mapProperty('enddate')}/>
+                            <Form.Control type="date" {...mapProperty('enddate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -439,13 +451,13 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
                             <Form.Label>Start date</Form.Label>
-                            <Form.Control name="startdate" type="date"/>
+                            <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
                             <Form.Label>End date</Form.Label>
-                            <Form.Control name="enddate" type="date"/>
+                            <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
@@ -658,7 +670,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
                         <Form.Label>Awarded</Form.Label>
-                        <Form.Control type="date" {...mapProperty('awarded')}/>
+                        <Form.Control type="date" {...mapProperty('awarded', 'date')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
@@ -693,7 +705,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
                         <Form.Label>Awarded</Form.Label>
-                        <Form.Control name="awarded" type="date"/>
+                        <Form.Control name="awarded" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
@@ -771,7 +783,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
                         <Form.Label>Completion date</Form.Label>
-                        <Form.Control type="date" {...mapProperty('completion_date')}/>
+                        <Form.Control type="date" {...mapProperty('completion_date', 'date')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
@@ -814,7 +826,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
                         <Form.Label>Completion date</Form.Label>
-                        <Form.Control name="completion_date" type="date"/>
+                        <Form.Control name="completion_date" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
