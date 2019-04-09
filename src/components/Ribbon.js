@@ -13,7 +13,6 @@ class Ribbon extends Component {
     super(props);
 
     this.switchLanguage = this.switchLanguage.bind(this);
-    this.login = this.login.bind(this);
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
@@ -27,18 +26,6 @@ class Ribbon extends Component {
     const language = locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_ID);
 
     this.props.dispatch(actions.global.setLanguage(language));
-  }
-
-  login() {
-    let data = this.props.GLOBAL_DATA;
-    if(data) {
-      if(data.firstname && data.lastname) {
-        return <Nav.Link> {data.firstname + " " + data.lastname}</Nav.Link>
-      }
-      return <Nav.Link>Unknown user</Nav.Link>
-    } else {
-      return <button className="btn btn-light" id="login_button">Login</button>
-    }
   }
 
   render() {
@@ -65,9 +52,6 @@ class Ribbon extends Component {
             </Nav>
 
             <Nav onSelect={this.switchLanguage}>
-              <Nav.Item>
-                {this.login()}
-              </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="language" active>
                   {locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_TOGGLE_LANGUAGE)}
