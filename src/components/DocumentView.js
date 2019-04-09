@@ -33,6 +33,11 @@ class DocumentView extends Component {
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
+
+    this.origin = window.location.origin;
+    if (process.env.NODE_ENV === 'development') {
+      this.origin = this.origin.replace(/:\d+$/, ':8080');
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -109,6 +114,8 @@ class DocumentView extends Component {
         const values = Object.values(form.elements).reduce(
           (obj, field) => {
             if (field.name) {
+              console.log(field.value);
+              console.log(field.value);
               obj[field.name] = field.value;
             }
             return obj;
@@ -1042,63 +1049,63 @@ class DocumentView extends Component {
     if(data) {
       switch (key) {
         case 'bio': {
-          let url = `${window.location.origin}/api/post/bio`;
+          let url = `${this.origin}/api/post/bio`;
           let postData = {value: data.value, visible: data.visible, footer: data.footer};
           this.post(url, postData);
           break;
         }
 
         case 'experience': {
-          let url = `${window.location.origin}/api/post/experience`;
+          let url = `${this.origin}/api/post/experience`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'education': {
-          let url = `${window.location.origin}/api/post/education`;
+          let url = `${this.origin}/api/post/education`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'projects': {
-          let url = `${window.location.origin}/api/post/projects`;
+          let url = `${this.origin}/api/post/projects`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'titles': {
-          let url = `${window.location.origin}/api/post/titles`;
+          let url = `${this.origin}/api/post/titles`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'misc': {
-          let url = `${window.location.origin}/api/post/misc`;
+          let url = `${this.origin}/api/post/misc`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'references': {
-          let url = `${window.location.origin}/api/post/references`;
+          let url = `${this.origin}/api/post/references`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
           this.post(url, postData);
           break;
         }
 
         case 'profile_image': {
-          let url = `${window.location.origin}/api/post/profile`;
+          let url = `${this.origin}/api/post/profile`;
           let postData = {source: data.source, visible: data.visible};
           this.post(url, postData);
           break;
         }
 
         case 'basic_info': {
-          let url = `${window.location.origin}/api/post/user`;
+          let url = `${this.origin}/api/post/user`;
           let postData = {
             firstname: data.firstname,
             lastname: data.lastname,
