@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 
 import {Container, Row, Col} from 'react-bootstrap';
 import {Button, InputGroup, Form, FormControl, ButtonGroup} from 'react-bootstrap';
-import {Alert, Modal, Table, Tabs, Tab} from 'react-bootstrap';
+import {Modal, Table, Tabs, Tab} from 'react-bootstrap';
+
+import {AlertList} from "react-bs-notifier";
 
 import * as actions from '../actions/DocumentActions';
 import locale from '../locales';
@@ -32,6 +34,10 @@ class DocumentView extends Component {
 
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
+
+    this.generate = this.generate.bind(this)
+    this.clear = this.clear.bind(this)
+
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
 
     this.origin = window.location.origin;
@@ -1157,7 +1163,8 @@ class DocumentView extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    });
+    }).then(() => this.generate("success", "Success", "Data saved to Google Sheets"))
+        .catch(() => this.generate("danger", "Failure", "Couldn't save data to Google Sheets"));
   }
 
 
@@ -1279,9 +1286,7 @@ class DocumentView extends Component {
         }
         default: {
           return (
-            <Alert key={key} variant="danger">
-              Localize: Unknown category
-            </Alert>
+            this.generate("danger", "Localize: Unknown category", "Error")
           );
         }
       }
@@ -1437,6 +1442,21 @@ class DocumentView extends Component {
     return data;
   }
 
+  generate(type, title, message) {
+    const newAlert = [{
+      id: (new Date()).getTime(),
+      type: type,
+      headline: title,
+      message: message
+    }];
+
+    this.props.dispatch(actions.createDialog(newAlert))
+  }
+
+  clear() {
+    setTimeout(() => this.props.dispatch(actions.createDialog([])), 2000)
+  }
+
   render() {
     const date = new Date();
     const data = this.prepareData(this.props['GLOBAL_DATA']);
@@ -1450,6 +1470,14 @@ class DocumentView extends Component {
 
     return (
       <>
+        <AlertList
+            position= "bottom-right"
+            alerts={this.props.ALERT}
+            timeout={1}
+            dismissTitle="Dismiss!"
+            onDismiss={this.clear}
+        />
+
         <Container fluid={true} id="editor">
           <Row>
             <Col xs={12}>

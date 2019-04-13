@@ -20,4 +20,11 @@ export function updateDialog(dialogType, tabName = '', index = null) {
   };
 }
 
+export function createDialog(alert) {
+  return {
+    type: 'ALERT',
+    payload: alert
+  }
+}
+
 export {global};
