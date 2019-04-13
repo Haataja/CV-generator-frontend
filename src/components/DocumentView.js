@@ -107,10 +107,12 @@ class DocumentView extends Component {
           }
         };
 
-        let data = this.temporaryData;
+        let data = DocumentView.deepCopy(this.temporaryData);
         if (DocumentView.isObject(data)) {
-          if (Array.isArray(data)) {
-            return mapData(data.data[this.getDialogItem()]);
+          const index = this.getDialogItem();
+
+          if (typeof index == 'number' && Array.isArray(data.data)) {
+            return mapData(data.data[index]);
           } else {
             return mapData(data);
           }
@@ -121,21 +123,26 @@ class DocumentView extends Component {
         event.preventDefault();
 
         const index = this.getDialogItem();
-
-        const form = document.getElementById(index ? 'update-data' : 'create-data');
+        const form = document.getElementById(typeof index == 'number' ? 'update-data' : 'create-data');
         const values = Object.values(form.elements).reduce(
           (obj, field) => {
             if (field.name) {
-              console.log(field.value);
-              console.log(field.value);
-              obj[field.name] = field.value;
+              let value = field.value;
+
+              if (field.type === 'number') {
+                value = Number(value);
+              } else if (field.name === 'visible') {
+                value = value.toLowerCase() === 'true';
+              }
+
+              obj[field.name] = value;
             }
             return obj;
           },
           {}
         );
 
-        if (Array.isArray(this.temporaryData.data) && typeof index === 'number') {
+        if (typeof index === 'number' && Array.isArray(this.temporaryData.data)) {
           this.temporaryData.data[index] = values;
         } else {
           if (!Array.isArray(this.temporaryData.data)) {
@@ -1143,7 +1150,6 @@ class DocumentView extends Component {
   }
 
   post(url, data) {
-    console.log(data)
     fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -1151,7 +1157,7 @@ class DocumentView extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(response => console.log("RESPONESE", response))
+    });
   }
 
 
