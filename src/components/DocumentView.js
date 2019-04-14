@@ -1443,7 +1443,7 @@ class DocumentView extends Component {
         <AlertList
             position= "bottom-right"
             alerts={this.props.EDITOR_ALERT}
-            timeout={1}
+            timeout={2000}
             dismissTitle="Dismiss!"
             onDismiss={this.clear}
         />
