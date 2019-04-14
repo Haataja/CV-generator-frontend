@@ -171,6 +171,9 @@ class DocumentView extends Component {
         }
       };
 
+      let index = this.getDialogItem()?this.getDialogItem():0;
+      let visibilityOption = this.temporaryData && this.temporaryData.data[index]?this.temporaryData.data[index].visible:true;
+
       switch (currentDialog) {
         case 'profile_image': {
           return (
@@ -256,7 +259,7 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
-                            <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                            <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                               {visibilityData}
                             </Form.Control>
                           </Form.Group>
@@ -419,7 +422,7 @@ class DocumentView extends Component {
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
-                            <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                            <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                               {visibilityData}
                             </Form.Control>
                           </Form.Group>
@@ -576,7 +579,7 @@ class DocumentView extends Component {
                     <Col xs={12}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
                       </Form.Group>
@@ -693,7 +696,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
                       </Form.Group>
@@ -804,7 +807,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
                       </Form.Group>
@@ -933,7 +936,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
                       </Form.Group>
@@ -973,7 +976,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
-                        <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
+                        <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
                       </Form.Group>
