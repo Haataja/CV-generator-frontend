@@ -1102,7 +1102,7 @@ class DocumentView extends Component {
         case 'education': {
           let url = `${this.origin}/api/post/education`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
