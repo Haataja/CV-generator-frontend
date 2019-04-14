@@ -172,7 +172,7 @@ class DocumentView extends Component {
       };
 
       let index = this.getDialogItem()?this.getDialogItem():0;
-      let visibilityOption = this.temporaryData && this.temporaryData.data[index]?this.temporaryData.data[index].visible:true;
+      let visibilityOption = this.temporaryData && this.temporaryData.data && this.temporaryData.data[index]?this.temporaryData.data[index].visible:true;
 
       switch (currentDialog) {
         case 'profile_image': {
