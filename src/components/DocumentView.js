@@ -1059,11 +1059,11 @@ class DocumentView extends Component {
     return () => this.props.dispatch(actions.updateDialog(type, createMode ? 'new' : ''));
   }
 
-  onSaveChanges() {
+  onSaveChanges(data) {
     const key = this.props['EDITOR_DIALOG'].type;
-    this.props['GLOBAL_DATA'][key] = {...this.props['GLOBAL_DATA'][key], ...this.temporaryData};
-    this.props.dispatch(actions.global.saveData(this.props['GLOBAL_DATA']));
-    this.postPartialData(key, this.props['GLOBAL_DATA'][key])
+    data[key] = {...data[key], ...this.temporaryData};
+    this.props.dispatch(actions.global.saveData(data));
+    this.postPartialData(key, data[key]);
     this.onDialogHide();
   }
 
@@ -1429,7 +1429,7 @@ class DocumentView extends Component {
 
   render() {
     const date = new Date();
-    const data = DocumentView.initializeData(this.props['GLOBAL_DATA'], true);
+    const data = DocumentView.initializeData(this.props['GLOBAL_DATA']);
 
     const mapFieldData = (data, property) => {
       return {
@@ -1441,7 +1441,7 @@ class DocumentView extends Component {
     return (
       <>
         <AlertList
-            position= "bottom-right"
+            position="bottom-right"
             alerts={this.props.EDITOR_ALERT}
             timeout={2000}
             dismissTitle="Dismiss!"
@@ -1550,7 +1550,7 @@ class DocumentView extends Component {
             <Button variant="secondary" onClick={this.onDialogHide}>
               {this.getLocalizedString(locale.GLOBAL_CLOSE)}
             </Button>
-            <Button variant="primary" onClick={this.onSaveChanges}>
+            <Button variant="primary" onClick={() => this.onSaveChanges(data)}>
               {this.getLocalizedString(locale.GLOBAL_SAVE_CHANGES)}
             </Button>
           </Modal.Footer>
@@ -1559,7 +1559,7 @@ class DocumentView extends Component {
     );
   }
 
-  static initializeData(data, prependDefaults = false) {
+  static initializeData(data) {
     const defaultData = {
       firstname: '',
       lastname: '',
@@ -1603,11 +1603,7 @@ class DocumentView extends Component {
       }
     };
 
-    if (DocumentView.isObject(data)) {
-      return prependDefaults ? {...defaultData, ...data} : data;
-    } else {
-      return defaultData;
-    }
+    return DocumentView.isObject(data) ? {...defaultData, ...data} : defaultData;
   }
 
   static getIconState(data, key) {
