@@ -24,13 +24,11 @@ class DocumentView extends Component {
     this.getDialogCallback = this.getDialogCallback.bind(this);
     this.onSaveChanges = this.onSaveChanges.bind(this);
 
-    this.prepareData = this.prepareData.bind(this);
     this.getContent = this.getContent.bind(this);
 
     this.getProfileData = this.getProfileData.bind(this);
     this.createRowData = this.createRowData.bind(this);
     this.postPartialData = this.postPartialData.bind(this);
-    this.post = this.post.bind(this);
 
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
@@ -79,7 +77,14 @@ class DocumentView extends Component {
         return date.toISOString().slice(0, 10);
       };
 
-      const mapProperty = (property, type) => {
+      const visibilityData = [
+        {value: true, title: 'Visible'},
+        {value: false, title: 'Hidden'}
+      ].map(
+        item => <option key={item.value} value={item.value}>{item.title}</option>
+      );
+
+      const mapProperty = (property, type = null, shouldSubmit = true) => {
         const mapData = data => {
           switch(type) {
             case 'number': {
@@ -113,7 +118,12 @@ class DocumentView extends Component {
           }
         };
 
-        let data = DocumentView.deepCopy(this.temporaryData);
+        let data = this.temporaryData;
+
+        if (shouldSubmit) {
+          data = DocumentView.deepCopy(data);
+        }
+
         if (DocumentView.isObject(data)) {
           const index = this.getDialogItem();
 
@@ -129,7 +139,7 @@ class DocumentView extends Component {
         event.preventDefault();
 
         const index = this.getDialogItem();
-        const form = document.getElementById(typeof index == 'number' ? 'update-data' : 'create-data');
+        const form = document.getElementById(typeof index == 'number' ? 'edit-item' : 'add-item');
         const values = Object.values(form.elements).reduce(
           (obj, field) => {
             if (field.name) {
@@ -170,7 +180,7 @@ class DocumentView extends Component {
                   Image URL:
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control type="url" {...mapProperty('source')} />
+              <Form.Control type="url" {...mapProperty('source', null, false)} />
             </InputGroup>
           );
         }
@@ -178,7 +188,7 @@ class DocumentView extends Component {
           return (
             <Form.Group controlId="bioGroup">
               <Form.Label>Write something about yourself</Form.Label>
-              <Form.Control as="textarea" rows="5" {...mapProperty('value')} />
+              <Form.Control as="textarea" rows="5" {...mapProperty('value', null, false)} />
             </Form.Group>
           );
         }
@@ -227,7 +237,7 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col>
                       <Form.Row>
@@ -247,8 +257,7 @@ class DocumentView extends Component {
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
                             <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                              <option value={true}>Visible</option>
-                              <option value={false}>Hidden</option>
+                              {visibilityData}
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -286,7 +295,7 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col>
                       <Form.Row>
@@ -306,8 +315,7 @@ class DocumentView extends Component {
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
                             <Form.Control name="visible" as="select">
-                              <option value={true}>Visible</option>
-                              <option value={false}>Hidden</option>
+                              {visibilityData}
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -392,7 +400,7 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col>
                       <Form.Row>
@@ -412,8 +420,7 @@ class DocumentView extends Component {
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
                             <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                              <option value={true}>Visible</option>
-                              <option value={false}>Hidden</option>
+                              {visibilityData}
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -457,7 +464,7 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col>
                       <Form.Row>
@@ -477,8 +484,7 @@ class DocumentView extends Component {
                           <Form.Group controlId="visibleGroup">
                             <Form.Label>Visible entry</Form.Label>
                             <Form.Control name="visible" as="select">
-                              <option value={true}>Visible</option>
-                              <option value={false}>Hidden</option>
+                              {visibilityData}
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -565,14 +571,13 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -600,14 +605,13 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -678,7 +682,7 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
@@ -690,8 +694,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -713,7 +716,7 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
@@ -725,8 +728,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -791,7 +793,7 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
@@ -803,8 +805,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -834,7 +835,7 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
@@ -846,8 +847,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" name="visible">
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -922,7 +922,7 @@ class DocumentView extends Component {
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
-                <Form id="update-data">
+                <Form id="edit-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
@@ -934,8 +934,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -963,7 +962,7 @@ class DocumentView extends Component {
                 </Form>
               </Tab>
               <Tab eventKey="new" title={<i className="fa fa-plus-circle"/>}>
-                <Form id="create-data">
+                <Form id="add-item">
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
@@ -975,8 +974,7 @@ class DocumentView extends Component {
                       <Form.Group controlId="visibleGroup">
                         <Form.Label>Visible entry</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
-                          <option value={true}>Visible</option>
-                          <option value={false}>Hidden</option>
+                          {visibilityData}
                         </Form.Control>
                       </Form.Group>
                     </Col>
@@ -1070,20 +1068,31 @@ class DocumentView extends Component {
   }
 
   postPartialData(key, data) {
-
     if(data) {
+      const post = (url, postData) => {
+        fetch(url, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(postData)
+        }).then(() => this.generate("success", "Success", "Data saved to Google Sheets"))
+          .catch(() => this.generate("danger", "Failure", "Couldn't save data to Google Sheets"));
+      };
+
       switch (key) {
         case 'bio': {
           let url = `${this.origin}/api/post/bio`;
           let postData = {value: data.value, visible: data.visible, footer: data.footer};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
         case 'experience': {
           let url = `${this.origin}/api/post/experience`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
@@ -1097,35 +1106,35 @@ class DocumentView extends Component {
         case 'projects': {
           let url = `${this.origin}/api/post/projects`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
         case 'titles': {
           let url = `${this.origin}/api/post/titles`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
         case 'misc': {
           let url = `${this.origin}/api/post/misc`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
         case 'references': {
           let url = `${this.origin}/api/post/references`;
           let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
         case 'profile_image': {
           let url = `${this.origin}/api/post/profile`;
           let postData = {source: data.source, visible: data.visible};
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
 
@@ -1134,7 +1143,7 @@ class DocumentView extends Component {
           let postData = {
             firstname: data.firstname,
             lastname: data.lastname,
-            birthdate: "",
+            birthdate: '',
             contact_info: {
               email: data.contact_info.email,
               phone: data.contact_info.phone,
@@ -1148,25 +1157,12 @@ class DocumentView extends Component {
               visible: data.address.visible
             }
           };
-          this.post(url, postData);
+          post(url, postData);
           break;
         }
       }
     }
   }
-
-  post(url, data) {
-    fetch(url, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(() => this.generate("success", "Success", "Data saved to Google Sheets"))
-        .catch(() => this.generate("danger", "Failure", "Couldn't save data to Google Sheets"));
-  }
-
 
   onDialogHide() {
     this.temporaryData = null;
@@ -1301,13 +1297,30 @@ class DocumentView extends Component {
     };
 
     const deleteAll = () => {
-      data[key] = null;
+      if (data[key].data) {
+        data[key] = {data: [], visible: true};
+      } else {
+        data[key] = {visible: true};
+      }
+
       this.props.dispatch(actions.global.saveData(data));
-      this.postPartialData(key, {visible: true});
+      this.postPartialData(key, data);
+    };
+
+    const objectIsEmpty = data => {
+      if (DocumentView.isObject(data)) {
+        for (let index in data) {
+          if (index !== 'visible' && data.hasOwnProperty(index)) {
+            return false;
+          }
+        }
+      }
+
+      return true;
     };
 
     const hasData = () => {
-      return DocumentView.isObject(data) && DocumentView.isObject(data[key]);
+      return DocumentView.isObject(data) && !objectIsEmpty(data[key]);
     };
 
     const hasItems = () => {
@@ -1399,49 +1412,6 @@ class DocumentView extends Component {
     }
   }
 
-  prepareData(data) {
-    if (!DocumentView.isObject(data)) {
-      data = {
-        firstname: '',
-        lastname: '',
-        address: {
-          street_address: '',
-          zipcode: '',
-          city: '',
-          visible: true
-        },
-        contact_info: {
-          email: '',
-          phone: '',
-          visible: ''
-        },
-        bio: {
-          visible: true
-        },
-        experience: {
-          visible: true
-        },
-        education: {
-          visible: true
-        },
-        references: {
-          visible: true
-        },
-        projects: {
-          visible: true
-        },
-        titles: {
-          visible: true
-        },
-        misc: {
-          visible: true
-        }
-      };
-    }
-
-    return data;
-  }
-
   generate(type, title, message) {
     const newAlert = [{
       id: (new Date()).getTime(),
@@ -1450,18 +1420,18 @@ class DocumentView extends Component {
       message: message
     }];
 
-    this.props.dispatch(actions.createDialog(newAlert))
+    this.props.dispatch(actions.updateAlert(newAlert))
   }
 
   clear() {
-    setTimeout(() => this.props.dispatch(actions.createDialog([])), 2000)
+    this.props.dispatch(actions.updateAlert([]));
   }
 
   render() {
     const date = new Date();
-    const data = this.prepareData(this.props['GLOBAL_DATA']);
+    const data = DocumentView.initializeData(this.props['GLOBAL_DATA'], true);
 
-    const mapData = (data, property) => {
+    const mapFieldData = (data, property) => {
       return {
         defaultValue: data[property],
         onChange: event => data[property] = event.target.value
@@ -1472,12 +1442,11 @@ class DocumentView extends Component {
       <>
         <AlertList
             position= "bottom-right"
-            alerts={this.props.ALERT}
+            alerts={this.props.EDITOR_ALERT}
             timeout={1}
             dismissTitle="Dismiss!"
             onDismiss={this.clear}
         />
-
         <Container fluid={true} id="editor">
           <Row>
             <Col xs={12}>
@@ -1488,10 +1457,10 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('first_name')}
-                                     {...mapData(data, 'firstname')}/>
+                                     {...mapFieldData(data, 'firstname')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('last_name')}
-                                     {...mapData(data, 'lastname')}/>
+                                     {...mapFieldData(data, 'lastname')}/>
                       </InputGroup>
                     </Col>
                     <Col sm={6} md={3} className="d-none d-sm-block title">
@@ -1506,7 +1475,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('address')}
-                                     {...mapData(data.address, 'street_address')}/>
+                                     {...mapFieldData(data.address, 'street_address')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -1515,10 +1484,10 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('zip_code')}
-                                     {...mapData(data.address, 'zipcode')}/>
+                                     {...mapFieldData(data.address, 'zipcode')}/>
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('city')}
-                                     {...mapData(data.address, 'city')}/>
+                                     {...mapFieldData(data.address, 'city')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -1527,7 +1496,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('email')}
-                                     {...mapData(data.contact_info, 'email')}/>
+                                     {...mapFieldData(data.contact_info, 'email')}/>
                       </InputGroup>
                     </Col>
                     <Col sm={6} className="d-none d-sm-block">
@@ -1539,7 +1508,7 @@ class DocumentView extends Component {
                       <InputGroup size="sm">
                         <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                                      placeholder={this.getLocalizedField('phone')}
-                                     {...mapData(data.contact_info, 'phone')}/>
+                                     {...mapFieldData(data.contact_info, 'phone')}/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -1550,13 +1519,19 @@ class DocumentView extends Component {
                   </Row>
                 </div>
                 <div id="content">
-                  {this.createRowData(data, 'bio')}
-                  {this.createRowData(data, 'experience')}
-                  {this.createRowData(data, 'education')}
-                  {this.createRowData(data, 'projects')}
-                  {this.createRowData(data, 'titles')}
-                  {this.createRowData(data, 'misc')}
-                  {this.createRowData(data, 'references')}
+                  {
+                    [
+                      'bio',
+                      'experience',
+                      'education',
+                      'projects',
+                      'titles',
+                      'misc',
+                      'references'
+                    ].map(
+                      key => this.createRowData(data, key)
+                    )
+                  }
                 </div>
               </Container>
             </Col>
@@ -1582,6 +1557,57 @@ class DocumentView extends Component {
         </Modal>
       </>
     );
+  }
+
+  static initializeData(data, prependDefaults = false) {
+    const defaultData = {
+      firstname: '',
+      lastname: '',
+      address: {
+        street_address: '',
+        zipcode: '',
+        city: '',
+        visible: true
+      },
+      contact_info: {
+        email: '',
+        phone: '',
+        visible: true
+      },
+      bio: {
+        visible: true
+      },
+      experience: {
+        data: [],
+        visible: true
+      },
+      education: {
+        data: [],
+        visible: true
+      },
+      references: {
+        data: [],
+        visible: true
+      },
+      projects: {
+        data: [],
+        visible: true
+      },
+      titles: {
+        data: [],
+        visible: true
+      },
+      misc: {
+        data: [],
+        visible: true
+      }
+    };
+
+    if (DocumentView.isObject(data)) {
+      return prependDefaults ? {...defaultData, ...data} : data;
+    } else {
+      return defaultData;
+    }
   }
 
   static getIconState(data, key) {

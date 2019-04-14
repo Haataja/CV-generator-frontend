@@ -1,6 +1,6 @@
 const DEFAULT_STATE = {
   EDITOR_SIDEBAR: null,
-  ALERT: []
+  EDITOR_ALERT: []
 };
 
 export default (state = DEFAULT_STATE, action) => {

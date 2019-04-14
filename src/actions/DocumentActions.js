@@ -1,6 +1,7 @@
 import * as global from './';
 
 export const EDITOR_DIALOG = 'EDITOR_DIALOG';
+export const EDITOR_ALERT = 'EDITOR_ALERT';
 
 export function updateDialog(dialogType, tabName = '', index = null) {
   if (dialogType) {
@@ -20,9 +21,9 @@ export function updateDialog(dialogType, tabName = '', index = null) {
   };
 }
 
-export function createDialog(alert) {
+export function updateAlert(alert) {
   return {
-    type: 'ALERT',
+    type: EDITOR_ALERT,
     payload: alert
   }
 }

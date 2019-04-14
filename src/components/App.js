@@ -51,7 +51,7 @@ export class App extends Component {
       }
 
       // No content or unauthorized
-      return {};
+      return DocumentView.initializeData(null);
     };
 
     this.props.dispatch((dispatch) => {
