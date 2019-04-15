@@ -94,17 +94,17 @@ class TimelineView extends Component {
     return [
       {
         id: 1,
-        content: 'Work',
+        content: this.getLocalizedString(locale.TIMELINE_WORK),
         visible: this.props.SHOW_WORK
       },
       {
         id: 2,
-        content: 'Education',
+        content: this.getLocalizedString(locale.TIMELINE_EDUCATION),
         visible: this.props.SHOW_EDUCATION
       },
       {
         id: 3,
-        content: 'Projects',
+        content: this.getLocalizedString(locale.TIMELINE_PROJECTS),
         visible: this.props.SHOW_PROJECTS
       }
     ];

@@ -37,6 +37,9 @@ const locale = {
   EDITOR_REFERENCES_EMAIL: "editor_references_email",
   EDITOR_REFERENCES_PHONE: "editor_references_phone",
 
+  TIMELINE_WORK: "timeline_setting_work",
+  TIMELINE_EDUCATION: "timeline_setting_education",
+  TIMELINE_PROJECTS: "timeline_setting_projects",
   TIMELINE_SHOW_WORK: "timeline_setting_show_work",
   TIMELINE_HIDE_WORK: "timeline_setting_hide_work",
   TIMELINE_SHOW_EDUCATION: "timeline_setting_show_education",

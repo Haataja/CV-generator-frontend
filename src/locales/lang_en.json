@@ -58,6 +58,9 @@
   "editor_references_email": "Email",
   "editor_references_phone": "Phone",
 
+  "timeline_setting_work": "Work",
+  "timeline_setting_education": "Education",
+  "timeline_setting_projects": "Projects",
   "timeline_setting_show_work": "Show work",
   "timeline_setting_hide_work": "Hide work",
   "timeline_setting_show_education": "Show education",

@@ -58,6 +58,10 @@
   "editor_references_email": "Sähköposti",
   "editor_references_phone": "Puhelinnumero",
 
+  "timeline_setting_work": "Työ",
+  "timeline_setting_education": "Koulutus",
+  "timeline_setting_projects": "Projektit",
+
   "timeline_setting_show_work": "Näytä työtiedot",
   "timeline_setting_hide_work": "Piilota työtiedot",
   "timeline_setting_show_education": "Näytä koulutukset",
