@@ -47,6 +47,7 @@
     max-width: 100ch;
     white-space: normal;
     background-color: aliceblue;
+    position: sticky;
 }
 
 #timeline {
