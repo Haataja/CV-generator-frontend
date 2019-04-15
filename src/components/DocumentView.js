@@ -292,7 +292,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="work"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -461,7 +461,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="education"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -602,7 +602,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="other"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -713,7 +713,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="title"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -832,7 +832,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="project"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
@@ -959,7 +959,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Control name="type" type="hidden" defaultValue="person"/>
-                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedField(currentDialog)}</Button>
+                      <Button variant="primary" block onClick={submitValues}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Form.Row>
                 </Form>
