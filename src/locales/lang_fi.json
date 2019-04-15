@@ -36,6 +36,28 @@
   "editor_generic_null_text": "Ei sisältöä",
   "editor_generic_resume_text": "Ansioluettelo",
 
+  "editor_image_url_help": "Kuvan URL-osoite:",
+
+  "editor_bio_help_text": "Kerro jotain itsestäsi",
+
+  "editor_experience_employer": "Työnantaja",
+  "editor_experience_title": "Titteli",
+  "editor_experience_description": "Lyhyt kuvaus",
+
+  "editor_education_school_name": "Koulun nimi",
+  "editor_education_school_type": "Koulun tyyppi",
+  "editor_education_field_name": "Koulutusala",
+
+  "editor_education_completion_date": "Suorituspäivä",
+  "editor_education_project_name": "Projektin nimi",
+  "editor_education_description": "Kuvaus",
+
+  "editor_titles_awarded": "Myönnetty",
+  "editor_titles_title":  "Tittelin nimi",
+
+  "editor_references_email": "Sähköposti",
+  "editor_references_phone": "Puhelinnumero",
+
   "timeline_setting_show_work": "Näytä työtiedot",
   "timeline_setting_hide_work": "Piilota työtiedot",
   "timeline_setting_show_education": "Näytä koulutukset",
@@ -45,5 +67,15 @@
 
   "global_action_toggle_language": "Suomeksi",
   "global_action_save_changes": "Tallenna muutokset",
-  "global_action_close": "Sulje"
+  "global_action_close": "Sulje",
+  "global_action_update_information": "Päivitä tiedot",
+  "global_action_start_date": "Aloituspäivä",
+  "global_action_end_date": "Lopetuspäivä",
+  "global_action_visibility_title": "Näkyvyys",
+  "global_action_visibility_visible": "Näkyvissä",
+  "global_action_visibility_hidden": "Näkymätön",
+  "global_action_name": "Nimi",
+  "global_action_grade": "Arvosana",
+  "global_action_value": "Arvo"
+
 }

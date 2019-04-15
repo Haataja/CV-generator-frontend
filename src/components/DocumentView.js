@@ -78,8 +78,8 @@ class DocumentView extends Component {
       };
 
       const visibilityData = [
-        {value: true, title: 'Visible'},
-        {value: false, title: 'Hidden'}
+        {value: true, title: this.getLocalizedString(locale.GLOBAL_VISIBILITY_VISIBLE)},
+        {value: false, title: this.getLocalizedString(locale.GLOBAL_VISIBILITY_HIDDEN)}
       ].map(
         item => <option key={item.value} value={item.value}>{item.title}</option>
       );
@@ -180,7 +180,7 @@ class DocumentView extends Component {
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>
-                  Image URL:
+                  {this.getLocalizedString(locale.EDITOR_PROFILE_IMAGE_URL)}
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control type="url" {...mapProperty('source', null, false)} />
@@ -190,7 +190,7 @@ class DocumentView extends Component {
         case 'bio': {
           return (
             <Form.Group controlId="bioGroup">
-              <Form.Label>Write something about yourself</Form.Label>
+              <Form.Label>{this.getLocalizedString(locale.EDITOR_BIO_HELP)}</Form.Label>
               <Form.Control as="textarea" rows="5" {...mapProperty('value', null, false)} />
             </Form.Group>
           );
@@ -201,10 +201,10 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Start date</th>
-                  <th>End date</th>
-                  <th>Name</th>
-                  <th>Title</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_NAME)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_TITLE)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -246,19 +246,19 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
-                            <Form.Label>Start date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</Form.Label>
                             <Form.Control type="date" {...mapProperty('startdate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
-                            <Form.Label>End date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</Form.Label>
                             <Form.Control type="date" {...mapProperty('enddate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
-                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                             <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                               {visibilityData}
                             </Form.Control>
@@ -268,13 +268,13 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="employerGroup">
-                            <Form.Label>Employer</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_EMPLOEYER)}</Form.Label>
                             <Form.Control {...mapProperty('name')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="titleGroup">
-                            <Form.Label>Title</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_TITLE)}</Form.Label>
                             <Form.Control {...mapProperty('title')}/>
                           </Form.Group>
                         </Col>
@@ -284,7 +284,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="descriptionGroup">
-                        <Form.Label>Short description</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_DESCRIPTION)}</Form.Label>
                         <Form.Control {...mapProperty('description')}/>
                       </Form.Group>
                     </Col>
@@ -304,19 +304,19 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
-                            <Form.Label>Start date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</Form.Label>
                             <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
-                            <Form.Label>End date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</Form.Label>
                             <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
-                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                             <Form.Control name="visible" as="select">
                               {visibilityData}
                             </Form.Control>
@@ -326,13 +326,13 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="employerGroup">
-                            <Form.Label>Employer</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_EMPLOEYER)}</Form.Label>
                             <Form.Control name="name"/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="titleGroup">
-                            <Form.Label>Title</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_TITLE)}</Form.Label>
                             <Form.Control name="title"/>
                           </Form.Group>
                         </Col>
@@ -342,7 +342,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="descriptionGroup">
-                        <Form.Label>Short description</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_EXPERIENCE_DESCRIPTION)}</Form.Label>
                         <Form.Control name="description"/>
                       </Form.Group>
                     </Col>
@@ -364,10 +364,10 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Start date</th>
-                  <th>End date</th>
-                  <th>School name</th>
-                  <th>Field name</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_EDUCATION_SCHOOL_NAME)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_EDUCATION_FIELD_NAME)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -409,19 +409,19 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
-                            <Form.Label>Start date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</Form.Label>
                             <Form.Control type="date" {...mapProperty('startdate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
-                            <Form.Label>End date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</Form.Label>
                             <Form.Control type="date" {...mapProperty('enddate', 'date')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
-                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                             <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                               {visibilityData}
                             </Form.Control>
@@ -431,13 +431,13 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="schoolGroup">
-                            <Form.Label>School name</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_SCHOOL_NAME)}</Form.Label>
                             <Form.Control {...mapProperty('school_name')}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="schoolTypeGroup">
-                            <Form.Label>School type</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_SCHOOL_TYPE)}</Form.Label>
                             <Form.Control {...mapProperty('school_type')}/>
                           </Form.Group>
                         </Col>
@@ -447,13 +447,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="gradeGroup">
-                        <Form.Label>Grade</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_GRADE)}</Form.Label>
                         <Form.Control type="number" {...mapProperty('grade', 'number')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="fieldGroup">
-                        <Form.Label>Field name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_FIELD_NAME)}</Form.Label>
                         <Form.Control {...mapProperty('field_name')}/>
                       </Form.Group>
                     </Col>
@@ -473,19 +473,19 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="startDateGroup">
-                            <Form.Label>Start date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_START_DATE)}</Form.Label>
                             <Form.Control name="startdate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="endDateGroup">
-                            <Form.Label>End date</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_END_DATE)}</Form.Label>
                             <Form.Control name="enddate" type="date" defaultValue={dateFormat()}/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={4}>
                           <Form.Group controlId="visibleGroup">
-                            <Form.Label>Visible entry</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                             <Form.Control name="visible" as="select">
                               {visibilityData}
                             </Form.Control>
@@ -495,13 +495,13 @@ class DocumentView extends Component {
                       <Form.Row>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="schoolGroup">
-                            <Form.Label>School name</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_SCHOOL_NAME)}</Form.Label>
                             <Form.Control name="school_name"/>
                           </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
                           <Form.Group controlId="schoolTypeGroup">
-                            <Form.Label>School type</Form.Label>
+                            <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_SCHOOL_TYPE)}</Form.Label>
                             <Form.Control name="school_type"/>
                           </Form.Group>
                         </Col>
@@ -511,13 +511,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="gradeGroup">
-                        <Form.Label>Grade</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_GRADE)}</Form.Label>
                         <Form.Control name="grade" type="number"/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="fieldGroup">
-                        <Form.Label>Field name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_EDUCATION_FIELD_NAME)}</Form.Label>
                         <Form.Control name="field_name"/>
                       </Form.Group>
                     </Col>
@@ -539,8 +539,8 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Value</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_NAME)}</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_VALUE)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -578,7 +578,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
@@ -588,13 +588,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_NAME)}</Form.Label>
                         <Form.Control {...mapProperty('name')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VALUE)}</Form.Label>
                         <Form.Control {...mapProperty('value')}/>
                       </Form.Group>
                     </Col>
@@ -612,7 +612,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
                           {visibilityData}
                         </Form.Control>
@@ -622,13 +622,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_NAME)}</Form.Label>
                         <Form.Control name="name"/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VALUE)}</Form.Label>
                         <Form.Control name="value"/>
                       </Form.Group>
                     </Col>
@@ -650,8 +650,8 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Awarded</th>
-                  <th>Title</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_TITLES_VALUE)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -689,13 +689,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
-                        <Form.Label>Awarded</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}</Form.Label>
                         <Form.Control type="date" {...mapProperty('awarded', 'date')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
@@ -705,7 +705,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="titleGroup">
-                        <Form.Label>Value</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_TITLES_VALUE)}</Form.Label>
                         <Form.Control {...mapProperty('title')}/>
                       </Form.Group>
                     </Col>
@@ -723,13 +723,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="awardedGroup">
-                        <Form.Label>Awarded</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}</Form.Label>
                         <Form.Control name="awarded" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')}>
                           {visibilityData}
                         </Form.Control>
@@ -739,7 +739,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="valueGroup">
-                        <Form.Label>Value</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_TITLES_VALUE)}</Form.Label>
                         <Form.Control name="title"/>
                       </Form.Group>
                     </Col>
@@ -761,8 +761,8 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Completion date</th>
-                  <th>Project name</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_PROJECT_PROJECT_NAME)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -800,13 +800,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
-                        <Form.Label>Completion date</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}</Form.Label>
                         <Form.Control type="date" {...mapProperty('completion_date', 'date')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
@@ -816,7 +816,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Project name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_PROJECT_NAME)}</Form.Label>
                         <Form.Control {...mapProperty('name')}/>
                       </Form.Group>
                     </Col>
@@ -824,7 +824,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="descriptionGroup">
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_DESCRIPTION)}</Form.Label>
                         <Form.Control as="textarea" rows="3" {...mapProperty('description')}/>
                       </Form.Group>
                     </Col>
@@ -842,13 +842,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="dateGroup">
-                        <Form.Label>Completion date</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}</Form.Label>
                         <Form.Control name="completion_date" type="date" defaultValue={dateFormat()}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" name="visible">
                           {visibilityData}
                         </Form.Control>
@@ -858,7 +858,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Project name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_PROJECT_NAME)}</Form.Label>
                         <Form.Control name="name"/>
                       </Form.Group>
                     </Col>
@@ -866,7 +866,7 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12}>
                       <Form.Group controlId="descriptionGroup">
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_PROJECT_DESCRIPTION)}</Form.Label>
                         <Form.Control as="textarea" rows="3" name="description"/>
                       </Form.Group>
                     </Col>
@@ -888,9 +888,9 @@ class DocumentView extends Component {
               <Table borderless="true" striped="true" responsive={true} size="sm">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
+                  <th>{this.getLocalizedString(locale.GLOBAL_NAME)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_REFERENCES_EMAIL)}</th>
+                  <th>{this.getLocalizedString(locale.EDITOR_REFERENCES_PHONE)}</th>
                   <th/>
                 </tr>
                 </thead>
@@ -929,13 +929,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_NAME)}</Form.Label>
                         <Form.Control {...mapProperty('name')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
@@ -945,13 +945,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="emailGroup">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_REFERENCES_EMAIL)}</Form.Label>
                         <Form.Control {...mapProperty('contact_email')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="phoneGroup">
-                        <Form.Label>Phone</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_REFERENCES_PHONE)}</Form.Label>
                         <Form.Control {...mapProperty('contact_email')}/>
                       </Form.Group>
                     </Col>
@@ -969,13 +969,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="nameGroup">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_NAME)}</Form.Label>
                         <Form.Control name="name"/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="visibleGroup">
-                        <Form.Label>Visible entry</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.GLOBAL_VISIBILITY_TITLE)}</Form.Label>
                         <Form.Control as="select" {...mapProperty('visible', 'boolean')} defaultValue={visibilityOption}>
                           {visibilityData}
                         </Form.Control>
@@ -985,13 +985,13 @@ class DocumentView extends Component {
                   <Form.Row>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="emailGroup">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_REFERENCES_EMAIL)}</Form.Label>
                         <Form.Control name="contact_email"/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="phoneGroup">
-                        <Form.Label>Phone</Form.Label>
+                        <Form.Label>{this.getLocalizedString(locale.EDITOR_REFERENCES_PHONE)}</Form.Label>
                         <Form.Control name="contact_phone"/>
                       </Form.Group>
                     </Col>
@@ -1186,9 +1186,9 @@ class DocumentView extends Component {
               <li key={i}>
                 <div><b>{type ? temp.field_name : temp.course_name}</b></div>
                 <div>{type ? temp.school_name : temp.provider_name}</div>
-                <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>{temp.grade ? type ? 'Average grade: ' + temp.grade : 'Grade: ' + temp.grade : ''}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{temp.grade ? type ? this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : 'Grade: ' + temp.grade : ''}</div>
               </li>
             );
           }
@@ -1204,8 +1204,8 @@ class DocumentView extends Component {
                 <div><b>{temp.name}</b></div>
                 <div>{temp.title}</div>
                 <div>{temp.description}</div>
-                <div>Start: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>End: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
 
               </li>
             );
@@ -1222,8 +1222,7 @@ class DocumentView extends Component {
               <li key={i}>
                 <div><b>{temp.name}</b></div>
                 <div>{temp.description}</div>
-                <div>Completion
-                  date: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
               </li>
             );
           }
@@ -1261,7 +1260,7 @@ class DocumentView extends Component {
             array.push(
               <li key={i}>
                 <div><b>{temp.title}</b></div>
-                <div>Awarded: {new Date(temp.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}: {new Date(temp.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
               </li>
             );
           }
@@ -1517,7 +1516,7 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={12} sm={6}>
-                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", data)}>Save information</Button>
+                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", data)}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Row>
                 </div>

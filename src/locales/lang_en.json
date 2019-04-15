@@ -36,6 +36,28 @@
   "editor_generic_null_text": "No content available",
   "editor_generic_resume_text": "Resume",
 
+  "editor_image_url_help": "Image URL:",
+
+  "editor_bio_help_text": "Write something about yourself",
+
+  "editor_experience_employer": "Employer",
+  "editor_experience_title": "Title",
+  "editor_experience_description": "Short desciption",
+
+  "editor_education_school_name": "School name",
+  "editor_education_school_type": "School type",
+  "editor_education_field_name": "Field name",
+
+  "editor_education_completion_date": "Completion date",
+  "editor_education_project_name":  "Project name",
+  "editor_education_description": "Description",
+
+  "editor_titles_awarded":  "Awarded",
+  "editor_titles_title": "Title name",
+
+  "editor_references_email": "Email",
+  "editor_references_phone": "Phone",
+
   "timeline_setting_show_work": "Show work",
   "timeline_setting_hide_work": "Hide work",
   "timeline_setting_show_education": "Show education",
@@ -45,5 +67,14 @@
 
   "global_action_toggle_language": "In English",
   "global_action_save_changes": "Save changes",
-  "global_action_close": "Close"
+  "global_action_close": "Close",
+  "global_action_update_information": "Update information",
+  "global_action_start_date": "Start date",
+  "global_action_end_date": "End date",
+  "global_action_visibility_title": "Visible entry",
+  "global_action_visibility_visible": "Visible",
+  "global_action_visibility_hidden": "Hidden",
+  "global_action_name": "Name",
+  "global_action_grade": "Grade",
+  "global_action_value": "Value"
 }
