@@ -1307,13 +1307,13 @@ class DocumentView extends Component {
       }
 
       this.props.dispatch(actions.global.saveData(data));
-      this.postPartialData(key, data);
+      this.postPartialData(key, data[key]);
     };
 
     const objectIsEmpty = data => {
       if (DocumentView.isObject(data)) {
         for (let index in data) {
-          if (index !== 'visible' && data.hasOwnProperty(index)) {
+          if (index !== 'visible' && index !== 'order' && data.hasOwnProperty(index)) {
             return false;
           }
         }
@@ -1350,7 +1350,7 @@ class DocumentView extends Component {
         );
       }
     } else if (key === 'bio') {
-      if (hasData()) {
+      if (hasData() && (data[key].footer !== '' || data[key].value !== '')) {
         return (
           <Row>
             <Col xs={12} sm={9} md={10}>
