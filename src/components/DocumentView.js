@@ -1080,8 +1080,8 @@ class DocumentView extends Component {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(postData)
-        }).then(() => this.generate("success", "Success", "Data saved to Google Sheets"))
-          .catch(() => this.generate("danger", "Failure", "Couldn't save data to Google Sheets"));
+        }).then(() => this.generate("Success", "Data saved to Google Sheets"))
+          .catch(() => this.generate("Failure", "Couldn't save data to Google Sheets"));
       };
 
       switch (key) {
@@ -1285,7 +1285,7 @@ class DocumentView extends Component {
         }
         default: {
           return (
-            this.generate("danger", "Localize: Unknown category", "Error")
+            this.generate("Localize: Unknown category", "Error")
           );
         }
       }
@@ -1415,10 +1415,10 @@ class DocumentView extends Component {
     }
   }
 
-  generate(type, title, message) {
+  generate(title, message) {
     const newAlert = [{
       id: (new Date()).getTime(),
-      type: type,
+      type: 'info',
       headline: title,
       message: message
     }];

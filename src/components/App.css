@@ -7,7 +7,7 @@
 }
 
 .btn-primary:hover, .btn-primary:focus {
-    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+    box-shadow: 0 0 0 .2rem rgba(78, 0, 142, .5);
 }
 
 .btn-info {
@@ -17,16 +17,43 @@
 }
 
 .btn-info:focus {
-    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+    box-shadow: 0 0 0 .2rem rgba(78, 0, 142, .5);
 }
 
 .form-control:focus {
     border-color: #4e008e !important;
-    box-shadow: 0 0 0 .2rem rgba(78,0,142,.5);
+    box-shadow: 0 0 0 .2rem rgba(78, 0, 142, .5);
+}
+
+a.nav-item.nav-link {
+    color: rgba(78, 0, 142, .5);
+}
+
+a.nav-item.nav-link:hover {
+    color: rgba(78, 0, 142, .75);
+}
+
+a.nav-item.nav-link.active, a.nav-item.nav-link.active:hover {
+    color: #4e008e;
+    background-color: rgba(78, 0, 142, .2);
+}
+
+.alert-info {
+    color: #fff;
+    background-color: rgba(78, 0, 142, .75);
+    border-color: #4e008e;
+}
+
+[class*="Alert-close"] {
+    color: #fff;
+}
+
+[class*="Alert-icon"] {
+    opacity: 0.5 !important;
 }
 
 /* Misc. overrides */
 
 body {
-    background-color: rgba(78,0,142,.02);
+    background-color: rgba(78, 0, 142, .02);
 }
