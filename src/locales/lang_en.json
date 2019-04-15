@@ -65,6 +65,12 @@
   "timeline_setting_show_projects": "Show projects",
   "timeline_setting_hide_projects": "Hide projects",
 
+  "alert_success": "Success",
+  "alert_failure": "Failure",
+  "alert_text_success": "Data saved to Google Sheets",
+  "alert_text_failure": "Couldn't save data to Google Sheets",
+  "alert_dismiss": "Close",
+
   "global_action_toggle_language": "In English",
   "global_action_save_changes": "Save changes",
   "global_action_close": "Close",

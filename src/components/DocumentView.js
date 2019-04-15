@@ -1080,8 +1080,8 @@ class DocumentView extends Component {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(postData)
-        }).then(() => this.generate("Success", "Data saved to Google Sheets"))
-          .catch(() => this.generate("Failure", "Couldn't save data to Google Sheets"));
+        }).then(() => this.generate(this.getLocalizedString(locale.ALERT_SUCCESS), this.getLocalizedString(locale.ALERT_TEXT_SUCCESS)))
+          .catch(() => this.generate(this.getLocalizedString(locale.ALERT_FAILURE), this.getLocalizedString(locale.ALERT_TEXT_FAILURE)));
       };
 
       switch (key) {
@@ -1446,7 +1446,7 @@ class DocumentView extends Component {
             position="bottom-right"
             alerts={this.props.EDITOR_ALERT}
             timeout={2000}
-            dismissTitle="Dismiss!"
+            dismissTitle={this.getLocalizedString(locale.ALERT_DISMISS)}
             onDismiss={this.clear}
         />
         <Container fluid={true} id="editor">

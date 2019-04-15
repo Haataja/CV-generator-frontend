@@ -65,6 +65,12 @@
   "timeline_setting_show_projects": "Näytä projektit",
   "timeline_setting_hide_projects": "Piilota projektit",
 
+  "alert_success": "Onnistui",
+  "alert_failure": "Epäonnistui",
+  "alert_text_success": "Tiedot lähetettiin Sheetsiin",
+  "alert_text_failure": "Tietoja ei voitu lähettää Sheetsiin",
+  "alert_dismiss": "Ohita",
+
   "global_action_toggle_language": "Suomeksi",
   "global_action_save_changes": "Tallenna muutokset",
   "global_action_close": "Sulje",

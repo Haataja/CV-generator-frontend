@@ -44,6 +44,12 @@ const locale = {
   TIMELINE_SHOW_PROJECTS: "timeline_setting_show_projects",
   TIMELINE_HIDE_PROJECTS: "timeline_setting_hide_projects",
 
+  ALERT_SUCCESS: "alert_success",
+  ALERT_FAILURE: "alert_failure",
+  ALERT_TEXT_FAILURE: "alert_text_failure",
+  ALERT_TEXT_SUCCESS: "alert_text_success",
+  ALERT_DISMISS: "alert_dismiss",
+
   GLOBAL_TOGGLE_LANGUAGE: "global_action_toggle_language",
   GLOBAL_SAVE_CHANGES: "global_action_save_changes",
   GLOBAL_CLOSE: "global_action_close",
