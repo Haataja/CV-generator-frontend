@@ -1,5 +1,4 @@
 const DEFAULT_STATE = {
-  EDITOR_SIDEBAR: null,
   EDITOR_ALERT: []
 };
 

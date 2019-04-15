@@ -1350,7 +1350,7 @@ class DocumentView extends Component {
         );
       }
     } else if (key === 'bio') {
-      if (hasData() && (data[key].footer !== '' || data[key].value !== '')) {
+      if (hasData() && data[key].value !== '') {
         return (
           <Row>
             <Col xs={12} sm={9} md={10}>
