@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 
-import {Container, Col, Row} from 'react-bootstrap';
+import {Container, Col, Row, Spinner} from 'react-bootstrap';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 
 import DocumentView from './DocumentView';
@@ -16,6 +16,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {loading: true};
     this.origin = window.location.origin;
     if (process.env.NODE_ENV === 'development') {
       this.origin = this.origin.replace(/:\d+$/, ':8080');
@@ -23,25 +24,33 @@ export class App extends Component {
   }
 
   render() {
-    return (
-      <HashRouter>
-        <Container fluid={true}>
-          <Row>
-            <Col xs={12}>
-              <Ribbon/>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <Switch>
-                <Route path="/timeline" component={TimelineView}/>
-                <Route path="/" component={DocumentView}/>
-              </Switch>
-            </Col>
-          </Row>
+    if (this.state.loading) {
+      return (
+        <Container id="spinner" className="text-center align-self-center">
+          <Spinner animation="border"/>
         </Container>
-      </HashRouter>
-    );
+      );
+    } else {
+      return (
+          <HashRouter>
+            <Container fluid={true}>
+              <Row>
+                <Col xs={12}>
+                  <Ribbon/>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                  <Switch>
+                    <Route path="/timeline" component={TimelineView}/>
+                    <Route path="/" component={DocumentView}/>
+                  </Switch>
+                </Col>
+              </Row>
+            </Container>
+          </HashRouter>
+        );
+    }
   }
 
   componentDidMount() {
@@ -57,7 +66,8 @@ export class App extends Component {
     this.props.dispatch((dispatch) => {
       fetch(`${this.origin}/api/get/user`, {credentials: 'include'})
         .then(response => processResponse(response))
-        .then((data) => dispatch(actions.saveData(data)));
+        .then(data => dispatch(actions.saveData(data)))
+        .finally(() => this.setState({loading: false}));
     });
   }
 }
