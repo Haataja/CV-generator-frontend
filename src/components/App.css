@@ -39,13 +39,13 @@ a.nav-item.nav-link.active, a.nav-item.nav-link.active:hover {
 }
 
 .alert-info {
-    color: #fff;
-    background-color: rgba(78, 0, 142, .75);
+    color: #4e008e;
+    background-color: #fff;
     border-color: #4e008e;
 }
 
 [class*="Alert-close"] {
-    color: #fff;
+    color: rgba(78, 0, 142, .75);
 }
 
 [class*="Alert-icon"] {
