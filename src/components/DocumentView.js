@@ -89,21 +89,21 @@ class DocumentView extends Component {
           switch(type) {
             case 'boolean': {
               return {
-                defaultValue: Boolean(data[property]),
+                value: Boolean(data[property]),
                 onChange: event => data[property] = Boolean(event.target.value),
                 name: property
               };
             }
             case 'date': {
               return {
-                defaultValue: dateFormat(data[property]),
+                value: dateFormat(data[property]),
                 onChange: event => data[property] = event.target.value,
                 name: property
               };
             }
             default: {
               return {
-                defaultValue: data[property],
+                value: data[property],
                 onChange: event => data[property] = event.target.value,
                 name: property
               };
@@ -1205,7 +1205,6 @@ class DocumentView extends Component {
           }
           return array;
         }
-
 
         case 'projects': {
           for (let i = 0; i < data[key].data.length; i++) {
