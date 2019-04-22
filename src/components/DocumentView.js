@@ -87,13 +87,6 @@ class DocumentView extends Component {
       const mapProperty = (property, type = null, shouldSubmit = true) => {
         const mapData = data => {
           switch(type) {
-            case 'number': {
-              return {
-                defaultValue: Number(data[property]),
-                onChange: event => data[property] = Number(event.target.value),
-                name: property
-              };
-            }
             case 'boolean': {
               return {
                 defaultValue: Boolean(data[property]),
@@ -448,7 +441,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="gradeGroup">
                         <Form.Label>{this.getLocalizedString(locale.GLOBAL_GRADE)}</Form.Label>
-                        <Form.Control type="number" {...mapProperty('grade', 'number')}/>
+                        <Form.Control type="number" {...mapProperty('grade')}/>
                       </Form.Group>
                     </Col>
                     <Col xs={12} sm={6}>
