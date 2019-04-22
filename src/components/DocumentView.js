@@ -945,7 +945,7 @@ class DocumentView extends Component {
                     <Col xs={12} sm={6}>
                       <Form.Group controlId="phoneGroup">
                         <Form.Label>{this.getLocalizedString(locale.EDITOR_REFERENCES_PHONE)}</Form.Label>
-                        <Form.Control {...mapProperty('phone')}/>
+                        <Form.Control {...mapProperty('contact_phone')}/>
                       </Form.Group>
                     </Col>
                   </Form.Row>
