@@ -1586,6 +1586,16 @@ class DocumentView extends Component {
    * Initializes user data.
    */
   static initializeData(data) {
+    /*
+      NOTICE: Test data can be injected here!
+
+      Remove existing defaultData value and replace it with provided test data.
+
+      const defaultData = {TEST DATA};
+      -- or --
+      const defaultData = JSON.parse(`{TEST_DATA}`);
+    */
+
     const defaultData = {
       firstname: '',
       lastname: '',
