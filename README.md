@@ -225,7 +225,8 @@ In this method, you can override *defaultData* constant to provide following tes
       }
     ]
   }
-}```
+}
+```
 
 # Creating production build
 
