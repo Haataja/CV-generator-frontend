@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 import {Container, Col, Row, Spinner} from 'react-bootstrap';
 import {HashRouter, Route, Switch} from 'react-router-dom';
@@ -12,6 +12,9 @@ import * as actions from '../actions';
 
 import './App.css';
 
+/*
+ * Main React component that launches the application.
+ */
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -32,24 +35,24 @@ export class App extends Component {
       );
     } else {
       return (
-          <HashRouter>
-            <Container fluid={true}>
-              <Row>
-                <Col xs={12}>
-                  <Ribbon/>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <Switch>
-                    <Route path="/timeline" component={TimelineView}/>
-                    <Route path="/" component={DocumentView}/>
-                  </Switch>
-                </Col>
-              </Row>
-            </Container>
-          </HashRouter>
-        );
+        <HashRouter>
+          <Container fluid={true}>
+            <Row>
+              <Col xs={12}>
+                <Ribbon/>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12}>
+                <Switch>
+                  <Route path="/timeline" component={TimelineView}/>
+                  <Route path="/" component={DocumentView}/>
+                </Switch>
+              </Col>
+            </Row>
+          </Container>
+        </HashRouter>
+      );
     }
   }
 

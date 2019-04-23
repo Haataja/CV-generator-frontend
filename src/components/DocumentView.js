@@ -5,14 +5,21 @@ import {Container, Row, Col} from 'react-bootstrap';
 import {Button, InputGroup, Form, FormControl, ButtonGroup} from 'react-bootstrap';
 import {Modal, Table, Tabs, Tab} from 'react-bootstrap';
 
-import {AlertList} from "react-bs-notifier";
+import {AlertList} from 'react-bs-notifier';
 
 import * as actions from '../actions/DocumentActions';
 import locale from '../locales';
 
 import './DocumentView.css';
 
+/*
+ * React component that displays document view.
+ */
 class DocumentView extends Component {
+
+  /*
+   * Overrides default constructor.
+   */
   constructor(props) {
     super(props);
 
@@ -33,8 +40,8 @@ class DocumentView extends Component {
     this.getLocalizedField = this.getLocalizedField.bind(this);
     this.getLocalizedTitle = this.getLocalizedTitle.bind(this);
 
-    this.generate = this.generate.bind(this)
-    this.clear = this.clear.bind(this)
+    this.generate = this.generate.bind(this);
+    this.clear = this.clear.bind(this);
 
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
 
@@ -44,20 +51,32 @@ class DocumentView extends Component {
     }
   }
 
+  /*
+   * Overrides React method.
+   */
   componentWillUpdate(nextProps, nextState) {
     if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
       this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
   }
 
+  /*
+   * Gets localized title.
+   */
   getLocalizedTitle(identifier) {
-    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, identifier))
+    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, identifier));
   }
 
+  /*
+   * Gets localized field value.
+   */
   getLocalizedField(identifier) {
-    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier))
+    return this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_FIELD_TEXT, identifier));
   }
 
+  /*
+   * Gets current dialog content.
+   */
   getContent(data) {
     const currentDialog = this.getDialogType();
 
@@ -86,7 +105,7 @@ class DocumentView extends Component {
 
       const mapProperty = (property, type = null, shouldSubmit = true) => {
         const mapData = data => {
-          switch(type) {
+          switch (type) {
             case 'boolean': {
               return {
                 value: Boolean(data[property]),
@@ -164,8 +183,8 @@ class DocumentView extends Component {
         }
       };
 
-      let index = this.getDialogItem()?this.getDialogItem():0;
-      let visibilityOption = this.temporaryData && this.temporaryData.data && this.temporaryData.data[index]?this.temporaryData.data[index].visible:true;
+      let index = this.getDialogItem() ? this.getDialogItem() : 0;
+      let visibilityOption = this.temporaryData && this.temporaryData.data && this.temporaryData.data[index] ? this.temporaryData.data[index].visible : true;
 
       switch (currentDialog) {
         case 'profile_image': {
@@ -229,7 +248,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -392,7 +412,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -563,7 +584,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -674,7 +696,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -785,7 +808,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -914,7 +938,8 @@ class DocumentView extends Component {
 
           return (
             <Tabs activeKey={currentTab} onSelect={this.getDialogCallback} transition={false} className="align-self-center">
-              <Tab eventKey="" title={<i className="fa fa-list"/>} disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
+              <Tab eventKey="" title={<i className="fa fa-list"/>}
+                   disabled={!(Array.isArray(this.temporaryData.data) && this.temporaryData.data.length > 0)}>
                 {Array.isArray(this.temporaryData.data) ? getItems(this.temporaryData.data) : ''}
               </Tab>
               <Tab eventKey="update" title={<i className="fa fa-edit"/>} disabled={currentTab !== 'update'}>
@@ -1009,18 +1034,30 @@ class DocumentView extends Component {
     return <p>{this.getLocalizedString(locale.getKeyFormat(locale.EDITOR_GENERIC_TEXT, null))}</p>;
   }
 
+  /*
+   * Gets current dialog tab.
+   */
   getDialogTab() {
     return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].tab : null;
   }
 
+  /*
+   * Gets current dialog type.
+   */
   getDialogType() {
     return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].type : null;
   }
 
+  /*
+   * Gets current dialog item index.
+   */
   getDialogItem() {
     return this.props['EDITOR_DIALOG'] ? this.props['EDITOR_DIALOG'].item : null;
   }
 
+  /*
+   * Gets dialog callback function.
+   */
   getDialogCallback(type, index = null) {
     switch (type) {
       case 'update': {
@@ -1051,10 +1088,16 @@ class DocumentView extends Component {
     }
   }
 
+  /*
+   * Shows dialog view.
+   */
   onDialogShow(type, createMode) {
     return () => this.props.dispatch(actions.updateDialog(type, createMode ? 'new' : ''));
   }
 
+  /*
+   * Saves data.
+   */
   onSaveChanges(data) {
     const key = this.props['EDITOR_DIALOG'].type;
     data[key] = {...data[key], ...this.temporaryData};
@@ -1063,14 +1106,17 @@ class DocumentView extends Component {
     this.onDialogHide();
   }
 
+  /*
+   * Sends partial data to backend.
+   */
   postPartialData(key, data) {
-    if(data) {
+    if (data) {
       const post = (url, postData) => {
         fetch(url, {
           method: 'POST',
           credentials: 'include',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(postData)
         }).then(() => this.generate(this.getLocalizedString(locale.ALERT_SUCCESS), this.getLocalizedString(locale.ALERT_TEXT_SUCCESS)))
@@ -1087,42 +1133,42 @@ class DocumentView extends Component {
 
         case 'experience': {
           let url = `${this.origin}/api/post/experience`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
 
         case 'education': {
           let url = `${this.origin}/api/post/education`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
 
         case 'projects': {
           let url = `${this.origin}/api/post/projects`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
 
         case 'titles': {
           let url = `${this.origin}/api/post/titles`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
 
         case 'misc': {
           let url = `${this.origin}/api/post/misc`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
 
         case 'references': {
           let url = `${this.origin}/api/post/references`;
-          let postData = {data: data.data, visible: data.visible, order: data.order?data.order:0};
+          let postData = {data: data.data, visible: data.visible, order: data.order ? data.order : 0};
           post(url, postData);
           break;
         }
@@ -1148,7 +1194,7 @@ class DocumentView extends Component {
             address: {
               street_address: data.address.street_address,
               zipcode: data.address.zipcode,
-              country: "",
+              country: '',
               city: data.address.city,
               visible: data.address.visible
             }
@@ -1160,11 +1206,17 @@ class DocumentView extends Component {
     }
   }
 
+  /*
+   * Hides dialog view.
+   */
   onDialogHide() {
     this.temporaryData = null;
     this.props.dispatch(actions.updateDialog(null));
   }
 
+  /*
+   * Gets user profile data.
+   */
   getProfileData(key, data) {
     if (DocumentView.isObject(data) && DocumentView.isObject(data[key])) {
       let array = [];
@@ -1181,7 +1233,7 @@ class DocumentView extends Component {
                 <div>{type ? temp.school_name : temp.provider_name}</div>
                 <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
                 <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>{temp.grade ? type ? this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : 'Grade: ' + temp.grade : ''}</div>
+                <div>{temp.grade ? type ? this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : ''}</div>
               </li>
             );
           }
@@ -1276,13 +1328,16 @@ class DocumentView extends Component {
         }
         default: {
           return (
-            this.generate("Localize: Unknown category", "Error")
+            this.generate('Localize: Unknown category', 'Error')
           );
         }
       }
     }
   }
 
+  /*
+   * Produces document rows.
+   */
   createRowData(data, key) {
     const updateScope = () => {
       data[key].visible = !data[key].visible;
@@ -1406,6 +1461,9 @@ class DocumentView extends Component {
     }
   }
 
+  /*
+   * Generates alerts.
+   */
   generate(title, message) {
     const newAlert = [{
       id: (new Date()).getTime(),
@@ -1414,13 +1472,19 @@ class DocumentView extends Component {
       message: message
     }];
 
-    this.props.dispatch(actions.updateAlert(newAlert))
+    this.props.dispatch(actions.updateAlert(newAlert));
   }
 
+  /*
+   * Clears alerts.
+   */
   clear() {
     this.props.dispatch(actions.updateAlert([]));
   }
 
+  /*
+   * Renders component.
+   */
   render() {
     const date = new Date();
     const data = DocumentView.initializeData(this.props['GLOBAL_DATA']);
@@ -1435,11 +1499,11 @@ class DocumentView extends Component {
     return (
       <>
         <AlertList
-            position="bottom-right"
-            alerts={this.props.EDITOR_ALERT}
-            timeout={2000}
-            dismissTitle={this.getLocalizedString(locale.ALERT_DISMISS)}
-            onDismiss={this.clear}
+          position="bottom-right"
+          alerts={this.props.EDITOR_ALERT}
+          timeout={2000}
+          dismissTitle={this.getLocalizedString(locale.ALERT_DISMISS)}
+          onDismiss={this.clear}
         />
         <Container fluid={true} id="editor">
           <Row>
@@ -1508,7 +1572,8 @@ class DocumentView extends Component {
                   </Row>
                   <Row>
                     <Col xs={12} sm={6}>
-                      <Button size="sm" block onClick={() => this.postPartialData("basic_info", data)}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
+                      <Button size="sm" block
+                              onClick={() => this.postPartialData('basic_info', data)}>{this.getLocalizedString(locale.GLOBAL_UPDATE_INFORMATION)}</Button>
                     </Col>
                   </Row>
                 </div>
@@ -1553,6 +1618,9 @@ class DocumentView extends Component {
     );
   }
 
+  /*
+   * Initializes user data.
+   */
   static initializeData(data) {
     const defaultData = {
       firstname: '',
@@ -1600,6 +1668,9 @@ class DocumentView extends Component {
     return DocumentView.isObject(data) ? {...defaultData, ...data} : defaultData;
   }
 
+  /*
+   * Gets visibility icon state.
+   */
   static getIconState(data, key) {
     let icon = 'fa-eye';
 
@@ -1610,6 +1681,9 @@ class DocumentView extends Component {
     return `fa ${icon}`;
   }
 
+  /*
+   * Deep-copies object structure.
+   */
   static deepCopy(object) {
     if (this.isObject(object)) {
       const result = Array.isArray(object) ? [...object] : {...object};
@@ -1626,6 +1700,9 @@ class DocumentView extends Component {
     return object;
   }
 
+  /*
+   * Checks if given parameter is object.
+   */
   static isObject(object) {
     return object instanceof Object && typeof object === 'object';
   }

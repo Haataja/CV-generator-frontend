@@ -4,6 +4,9 @@ export const SHOW_WORK = 'SHOW_WORK';
 export const SHOW_PROJECTS = 'SHOW_PROJECTS';
 export const SHOW_EDUCATION = 'SHOW_EDUCATION';
 
+/*
+ * Updates experience state.
+ */
 export function showWork(value) {
   return {
     type: SHOW_WORK,
@@ -11,6 +14,9 @@ export function showWork(value) {
   };
 }
 
+/*
+ * Updates project state.
+ */
 export function showProjects(value) {
   return {
     type: SHOW_PROJECTS,
@@ -18,6 +24,9 @@ export function showProjects(value) {
   };
 }
 
+/*
+ * Updates education state.
+ */
 export function showEducation(value) {
   return {
     type: SHOW_EDUCATION,

@@ -10,7 +10,14 @@ import locale from '../locales';
 
 import './TimelineView.css';
 
+/*
+ * React component that displays timeline view.
+ */
 class TimelineView extends Component {
+
+  /*
+   * Overrides default constructor.
+   */
   constructor(props) {
     super(props);
 
@@ -22,16 +29,25 @@ class TimelineView extends Component {
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
+  /*
+   * Overrides React method.
+   */
   componentWillUpdate(nextProps, nextState) {
     if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
       this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
   }
 
+  /*
+   * Updates component state.
+   */
   updateView(value) {
     return event => this.props.dispatch(actions[event.target.id](!value));
   }
 
+  /*
+   * Gets timeline items.
+   */
   getTimelineItems(data) {
     const GROUP_WORK = 1;
     const GROUP_EDUCATION = 2;
@@ -40,7 +56,7 @@ class TimelineView extends Component {
     let projects = [];
     let education = [];
 
-    if(data) {
+    if (data) {
       if (data.experience) {
         for (let prop of data.experience.data) {
           if (prop.visible) {
@@ -90,6 +106,9 @@ class TimelineView extends Component {
     return work.concat(projects, education);
   }
 
+  /*
+   * Gets timeline groups.
+   */
   getTimeLineGroups() {
     return [
       {
@@ -110,21 +129,27 @@ class TimelineView extends Component {
     ];
   }
 
+  /*
+   * Gets timeline options.
+   */
   getTimelineOptions() {
-      return {
-        width: '100%',
-        stack: true,
-        showMajorLabels: true,
-        showCurrentTime: true,
-        min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
-        max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
-        zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
-        zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
-        start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
-        end: new Date(Date.now())
-      };
+    return {
+      width: '100%',
+      stack: true,
+      showMajorLabels: true,
+      showCurrentTime: true,
+      min: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 100), // Current date - 100 years
+      max: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // Current date + one year
+      zoomMin: 1000 * 60 * 60 * 24 * 7, // One week
+      zoomMax: 1000 * 60 * 60 * 24 * 365 * 25, // 25 years
+      start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+      end: new Date(Date.now())
+    };
   }
 
+  /*
+   * Renders component.
+   */
   render() {
     const propertyWork = {
       text: this.getLocalizedString(this.props.SHOW_WORK ? locale.TIMELINE_HIDE_WORK : locale.TIMELINE_SHOW_WORK),
@@ -146,19 +171,19 @@ class TimelineView extends Component {
       experience: {
         data: [
           {
-            "enddate": new Date(Date.now()),
-            "achievements": [],
-            "visible": true,
-            "name": "placeholder",
-            "description": "placeholder",
-            "id": 1,
-            "type": "place",
-            "startdate": new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
-            "title": "placeholder"
+            'enddate': new Date(Date.now()),
+            'achievements': [],
+            'visible': true,
+            'name': 'placeholder',
+            'description': 'placeholder',
+            'id': 1,
+            'type': 'place',
+            'startdate': new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 20),
+            'title': 'placeholder'
           }
         ]
       }
-    }
+    };
 
     return (
       <Container id="page">
@@ -176,7 +201,7 @@ class TimelineView extends Component {
         </Row>
         <Row>
           <Col xs={12} id="timeline">
-            <Timeline items={this.getTimelineItems(data?data:initData)} options={this.getTimelineOptions()}
+            <Timeline items={this.getTimelineItems(data ? data : initData)} options={this.getTimelineOptions()}
                       groups={this.getTimeLineGroups()}/>
           </Col>
         </Row>

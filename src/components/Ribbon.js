@@ -8,7 +8,14 @@ import locale from '../locales';
 
 import './Ribbon.css';
 
+/*
+ * React component that displays ribbon bar.
+ */
 class Ribbon extends Component {
+
+  /*
+   * Overrides default constructor.
+   */
   constructor(props) {
     super(props);
 
@@ -16,18 +23,27 @@ class Ribbon extends Component {
     this.getLocalizedString = locale.getLocalizedString.bind(props.GLOBAL_LANGUAGE);
   }
 
+  /*
+   * Overrides React method.
+   */
   componentWillUpdate(nextProps, nextState) {
     if (this.props.GLOBAL_LANGUAGE !== nextProps.GLOBAL_LANGUAGE) {
       this.getLocalizedString = locale.getLocalizedString.bind(nextProps.GLOBAL_LANGUAGE);
     }
   }
 
+  /*
+   * Switches language value.
+   */
   switchLanguage() {
     const language = locale.getNeighbourLanguage(this.props.GLOBAL_LANGUAGE, locale.GLOBAL_ID);
 
     this.props.dispatch(actions.global.setLanguage(language));
   }
 
+  /*
+   * Renders component.
+   */
   render() {
     return (
       <div id="ribbon">
@@ -64,6 +80,9 @@ class Ribbon extends Component {
     );
   }
 
+  /*
+   * Handles item selections.
+   */
   static handleSelect(eventKey) {
     let origin = window.location.origin;
 
@@ -71,7 +90,7 @@ class Ribbon extends Component {
       origin = origin.replace(/:\d+$/, ':8080');
     }
 
-    if(eventKey === 'publish') {
+    if (eventKey === 'publish') {
       window.location.href = `${origin}/api/pdf`;
     } else {
       window.location.href = `${origin}/#/${eventKey}`;
