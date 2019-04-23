@@ -108,21 +108,21 @@ class DocumentView extends Component {
           switch (type) {
             case 'boolean': {
               return {
-                value: Boolean(data[property]),
+                defaultValue: Boolean(data[property]),
                 onChange: event => data[property] = Boolean(event.target.value),
                 name: property
               };
             }
             case 'date': {
               return {
-                value: dateFormat(data[property]),
+                defaultValue: dateFormat(data[property]),
                 onChange: event => data[property] = event.target.value,
                 name: property
               };
             }
             default: {
               return {
-                value: data[property],
+                defaultValue: data[property],
                 onChange: event => data[property] = event.target.value,
                 name: property
               };
