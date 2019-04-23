@@ -1219,60 +1219,7 @@ class DocumentView extends Component {
    */
   getProfileData(key, data) {
     if (DocumentView.isObject(data) && DocumentView.isObject(data[key])) {
-      let array = [];
-
       switch (key) {
-        case 'education': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
-            let type = temp.type === 'education';
-
-            array.push(
-              <li key={i}>
-                <div><b>{type ? temp.field_name : temp.course_name}</b></div>
-                <div>{type ? temp.school_name : temp.provider_name}</div>
-                <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>{temp.grade ? type ? this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + temp.grade : ''}</div>
-              </li>
-            );
-          }
-          return array;
-        }
-
-        case 'experience': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
-
-            array.push(
-              <li key={i}>
-                <div><b>{temp.name}</b></div>
-                <div>{temp.title}</div>
-                <div>{temp.description}</div>
-                <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(temp.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-                <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(temp.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-
-              </li>
-            );
-          }
-          return array;
-        }
-
-        case 'projects': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
-
-            array.push(
-              <li key={i}>
-                <div><b>{temp.name}</b></div>
-                <div>{temp.description}</div>
-                <div>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}: {new Date(temp.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-              </li>
-            );
-          }
-          return array;
-        }
-
         case 'profile_image': {
           return (
             <img alt="" src={data[key].source}/>
@@ -1283,48 +1230,65 @@ class DocumentView extends Component {
             <p>{data[key].value}</p>
           );
         }
-        case 'misc': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
+        case 'education': {
+          return data[key].data.map((item, i) => {
+            let type = item.type === 'education';
 
-            array.push(
+            return (
               <li key={i}>
-                <div><b>{temp.name}</b></div>
-                <div>{temp.value}</div>
+                <div><b>{type ? item.field_name : item.course_name}</b></div>
+                <div>{type ? item.school_name : item.provider_name}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(item.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(item.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+                <div>{item.grade ? type ? this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + item.grade : this.getLocalizedString(locale.GLOBAL_GRADE) + ': ' + item.grade : ''}</div>
               </li>
             );
-          }
-
-          return array;
+          });
+        }
+        case 'experience': {
+          return data[key].data.map((item, i) => (
+            <li key={i}>
+              <div><b>{item.name}</b></div>
+              <div>{item.title}</div>
+              <div>{item.description}</div>
+              <div>{this.getLocalizedString(locale.GLOBAL_START_DATE)}: {new Date(item.startdate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+              <div>{this.getLocalizedString(locale.GLOBAL_END_DATE)}: {new Date(item.enddate).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+            </li>
+          ));
+        }
+        case 'projects': {
+          return data[key].data.map((item, i) => (
+            <li key={i}>
+              <div><b>{item.name}</b></div>
+              <div>{item.description}</div>
+              <div>{this.getLocalizedString(locale.EDITOR_PROJECT_COMPLETION)}: {new Date(item.completion_date).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+            </li>
+          ));
+        }
+        case 'misc': {
+          return data[key].data.map((item, i) => (
+            <li key={i}>
+              <div><b>{item.name}</b></div>
+              <div>{item.value}</div>
+            </li>
+          ));
         }
         case 'titles': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
-
-            array.push(
-              <li key={i}>
-                <div><b>{temp.title}</b></div>
-                <div>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}: {new Date(temp.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
-              </li>
-            );
-          }
-
-          return array;
+          return data[key].data.map((item, i) => (
+            <li key={i}>
+              <div><b>{item.title}</b></div>
+              <div>{this.getLocalizedString(locale.EDITOR_TITLES_AWARDED)}: {new Date(item.awarded).toLocaleDateString(this.getLocalizedString(locale.GLOBAL_LANGUAGE_ISO))}</div>
+            </li>
+          ));
         }
         case 'references': {
-          for (let i = 0; i < data[key].data.length; i++) {
-            const temp = data[key].data[i];
-
-            array.push(
-              <li key={i}>
-                <div><b>{temp.name}</b></div>
-                <div>Email: {temp.contact_email}</div>
-                <div>Phone: {temp.contact_phone}</div>
-              </li>
-            );
-          }
-
-          return array;
+          return data[key].data.map((item, i) => (
+            <li key={i}>
+              <div><b>{item.name}</b></div>
+              <div>Email: {item.contact_email}</div>
+              <div>Phone: {item.contact_phone}</div>
+            </li>
+          ));
         }
         default: {
           return (
